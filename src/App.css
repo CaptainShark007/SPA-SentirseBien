@@ -1,8 +1,14 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .logo {
@@ -39,4 +45,22 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-links a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #007bff; /* Azul al pasar el mouse */
 }
