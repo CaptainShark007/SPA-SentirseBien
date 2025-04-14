@@ -1,21 +1,33 @@
-import axios, { InternalAxiosRequestConfig } from 'axios';
+import { store } from '@/app/store';
+import axios, { AxiosError } from 'axios';
 
-export const AxiosRequest = () => {
-  axios.interceptors.request.use((request) => {
-    // validateToken()
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-    return updateHeaders(request);
-  });
-};
+axiosInstance.interceptors.request.use(
+  (request) => {
+    const token = store.getState().auth.token;
 
-const updateHeaders = (request: InternalAxiosRequestConfig<any>) => {
-  // const user = getLocalStorage(UserKey)
+    request.headers.Authorization = token ? `Bearer ${token}` : '';
 
-  // const Authorization = user?.accessToken ? `Bearer ${user?.accessToken}` : ''
+    return request;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-  request.baseURL = 'http://localhost:8080/';
-  request.headers.Authorization = '';
-  request.headers['Content-Type'] = 'application/json';
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
 
-  return request;
-};
+export default axiosInstance;
