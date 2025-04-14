@@ -1,40 +1,13 @@
-import { useState } from 'react';
 import miLogo from './assets/logo.png';
 import './App.css';
 import NavBar from './components/navbar/NavBar';
-import { apiLogin, apiRegister } from './features/auth/auth.api';
-import {
-  LoginPayload,
-  LoginResponse,
-  RegisterPayload,
-  RegisterResponse,
-} from '@/features/auth/auth.types';
-import { AxiosRequest } from '@config/axios.config';
+import { LoginPayload } from '@/features/auth/auth.types';
+import { useDispatch } from 'react-redux';
+import { useApiLogin } from '@features/auth/auth.query';
 
 function App() {
-  AxiosRequest();
-  const login: Promise<LoginResponse> = (async () => {
-    const data = await apiLogin({
-      username: 'Hugazon',
-      password: 'Hugo123',
-    } as LoginPayload);
-    return data;
-  })();
-
-  console.log(login);
-
-  const register: Promise<RegisterResponse> = (async () => {
-    const data = await apiRegister({
-      username: 'Hugazon',
-      firstName: 'Hugo',
-      lastName: 'Hugo',
-      password: 'Hugo123',
-    } as RegisterPayload);
-    return data;
-  })();
-
-  console.log(register);
-
+  const dispatch = useDispatch();
+  const { mutate } = useApiLogin(dispatch);
   return (
     <>
       <NavBar>
@@ -53,6 +26,16 @@ function App() {
           <a href='#'>Spa y Gym</a>
         </div>
       </NavBar>
+      <button
+        onClick={() =>
+          mutate({
+            username: 'Hugazon',
+            password: 'Hugo123',
+          } as LoginPayload)
+        }
+      >
+        Click me
+      </button>
     </>
   );
 }
