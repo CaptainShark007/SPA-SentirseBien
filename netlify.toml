@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[env]
+  VITE_API_URL = "https://api.tusitio.com"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "vite"
+  targetPort = 5173
+  port = 8888
+  framework = "vite"
