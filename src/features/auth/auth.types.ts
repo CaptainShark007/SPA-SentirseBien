@@ -5,6 +5,7 @@ export interface RegisterPayload {
   lastName: string;
 }
 
+// iguales
 export interface RegisterResponse {
   status: string;
   message: string;
@@ -16,8 +17,15 @@ export interface LoginPayload {
   password: string;
 }
 
+// iguales
 export interface LoginResponse {
   status: string;
   message: string;
   token: string;
 }
+
+/* export interface AuthResponse {
+  status: string;
+  message: string;
+  token: string;
+} */

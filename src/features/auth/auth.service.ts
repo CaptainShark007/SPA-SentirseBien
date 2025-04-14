@@ -12,7 +12,12 @@ class AuthService {
   }
 
   login(data: LoginPayload): Promise<{ data: LoginResponse }> {
-    return axios.post(`/auth/login`, data);
+    return axios.post(`/auth/login`, data).then(response => {
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
+      return response;
+    });
   }
 }
 
