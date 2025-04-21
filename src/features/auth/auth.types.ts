@@ -1,23 +1,14 @@
-export interface RegisterPayload {
+import { ApiReponse } from '@/types/api';
+
+export interface UserLogin {
   username: string;
   password: string;
+}
+export interface UserRegister extends UserLogin {
   firstName: string;
   lastName: string;
 }
 
-export interface RegisterResponse {
-  status: string;
-  message: string;
-  token: string;
-}
-
-export interface LoginPayload {
-  username: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  status: string;
-  message: string;
+export interface ApiAuthResponse extends ApiReponse {
   token: string;
 }

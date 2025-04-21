@@ -1,4 +1,5 @@
 import { store } from '@/app/store';
+import { delay } from '@utils/delay';
 import axios, { AxiosError } from 'axios';
 
 const axiosInstance = axios.create({
@@ -22,10 +23,14 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => {
+  async (response) => {
+    await delay(1000);
+
     return response;
   },
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
+    await delay(1000);
+
     return Promise.reject(error);
   }
 );

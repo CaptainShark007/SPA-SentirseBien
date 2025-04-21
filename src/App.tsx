@@ -1,13 +1,19 @@
 import miLogo from './assets/logo.png';
 import './App.css';
-import NavBar from './components/navbar/NavBar';
-import { LoginPayload } from '@/features/auth/auth.types';
+import NavBar from '@components/navbar/NavBar';
 import { useDispatch } from 'react-redux';
 import { useApiLogin } from '@features/auth/auth.query';
+import { setToken } from './features/auth/auth.slice';
+import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
 
 function App() {
   const dispatch = useDispatch();
-  const { mutate } = useApiLogin(dispatch);
+  const { mutate: login } = useApiLogin();
+  const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
+  const { mutate: updateUser } = useApiUpdateUser();
+
+  if (response) console.log('Response', response);
+
   return (
     <>
       <NavBar>
@@ -28,13 +34,51 @@ function App() {
       </NavBar>
       <button
         onClick={() =>
-          mutate({
-            username: 'Hugazon',
-            password: 'Hugo123',
-          } as LoginPayload)
+          login(
+            {
+              username: 'Hugopro',
+              password: 'Hugo123',
+            },
+            {
+              onSuccess: (data) => {
+                dispatch(setToken(data.token));
+                console.log('Login successful', data);
+              },
+            }
+          )
         }
       >
-        Click me
+        Login
+      </button>
+      {(isRefetching || isLoading) && <p>Loading...</p>}
+      <button
+        onClick={() => {
+          refetch();
+        }}
+      >
+        Get user
+      </button>
+      <button
+        onClick={() =>
+          updateUser(
+            {
+              dataSend: {
+                firstName: 'Hugo',
+                lastName: 'Brocal',
+                username: 'Hugopro',
+                password: 'Hugo123',
+              },
+              id: 1,
+            },
+            {
+              onSuccess: (data) => {
+                console.log('Update successful', data);
+              },
+            }
+          )
+        }
+      >
+        Update user
       </button>
     </>
   );
