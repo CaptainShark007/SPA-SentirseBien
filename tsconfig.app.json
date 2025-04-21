@@ -30,7 +30,9 @@
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@config/*": ["./config/*"],
-      "@features/*": ["./features/*"]
+      "@features/*": ["./features/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "include": ["src"]

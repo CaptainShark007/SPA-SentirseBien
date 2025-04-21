@@ -1,18 +1,13 @@
-import {
-  LoginPayload,
-  LoginResponse,
-  RegisterPayload,
-  RegisterResponse,
-} from '@/features/auth/auth.types';
+import { ApiAuthResponse, UserLogin, UserRegister } from './auth.types';
 import axiosInstance from '@/config/axios.config';
 
 class AuthService {
-  register(data: RegisterPayload): Promise<{ data: RegisterResponse }> {
-    return axiosInstance.post(`/auth/register`, data);
+  register(data: UserRegister): Promise<ApiAuthResponse> {
+    return axiosInstance.post(`/auth/register`, data).then((res) => res.data);
   }
 
-  login(data: LoginPayload): Promise<{ data: LoginResponse }> {
-    return axiosInstance.post(`/auth/login`, data);
+  login(data: UserLogin): Promise<ApiAuthResponse> {
+    return axiosInstance.post(`/auth/login`, data).then((res) => res.data);
   }
 }
 
