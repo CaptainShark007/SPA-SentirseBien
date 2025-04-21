@@ -2,13 +2,14 @@ import miLogo from './assets/logo.png';
 import './App.css';
 import NavBar from '@components/navbar/NavBar';
 import { useDispatch } from 'react-redux';
-import { useApiLogin } from '@features/auth/auth.query';
+import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
 import { setToken } from './features/auth/auth.slice';
 import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
 
 function App() {
   const dispatch = useDispatch();
   const { mutate: login } = useApiLogin();
+  const { mutate: register } = useApiRegister();
   const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
   const { mutate: updateUser } = useApiUpdateUser();
 
@@ -49,6 +50,25 @@ function App() {
         }
       >
         Login
+      </button>
+      <button
+        onClick={() =>
+          register(
+            {
+              username: 'Hugopro',
+              password: 'Hugo123',
+              firstName: 'Huguito',
+              lastName: 'Brocal',
+            },
+            {
+              onSuccess: (data) => {
+                console.log('Register successful', data);
+              },
+            }
+          )
+        }
+      >
+        Register
       </button>
       {(isRefetching || isLoading) && <p>Loading...</p>}
       <button
