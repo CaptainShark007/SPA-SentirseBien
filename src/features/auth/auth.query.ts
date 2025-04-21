@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { apiLogin } from '@features/auth/auth.api';
+import { apiLogin, apiRegister } from '@features/auth/auth.api';
 
 export const useApiRegister = () =>
   useMutation({
-    mutationFn: apiLogin,
+    mutationFn: apiRegister,
   });
 
 export const useApiLogin = () =>
