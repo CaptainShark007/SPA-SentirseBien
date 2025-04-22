@@ -1,35 +1,107 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import miLogo from './assets/logo.png';
+import './App.css';
+import NavBar from '@components/navbar/NavBar';
+import { useDispatch } from 'react-redux';
+import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
+import { setToken } from './features/auth/auth.slice';
+import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const { mutate: login } = useApiLogin();
+  const { mutate: register } = useApiRegister();
+  const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
+  const { mutate: updateUser } = useApiUpdateUser();
+
+  if (response) console.log('Response', response);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar>
+        <div className='navbar-logo' style={{ minWidth: '50px' }}>
+          <img
+            src={miLogo}
+            style={{ height: '60px', width: '80px' }}
+            alt='Mi logo'
+          />
+        </div>
+        <div className='navbar-links'>
+          <a href='#'>Hotel y Servicio</a>
+          <a href='#'>Habitaciones</a>
+          <a href='#'>Promociones</a>
+          <a href='#'>Restaurantes</a>
+          <a href='#'>Spa y Gym</a>
+        </div>
+      </NavBar>
+      <button
+        onClick={() =>
+          login(
+            {
+              username: 'Hugopro',
+              password: 'Hugo123',
+            },
+            {
+              onSuccess: (data) => {
+                dispatch(setToken(data.token));
+                console.log('Login successful', data);
+              },
+            }
+          )
+        }
+      >
+        Login
+      </button>
+      <button
+        onClick={() =>
+          register(
+            {
+              username: 'Hugopro',
+              password: 'Hugo123',
+              firstName: 'Huguito',
+              lastName: 'Brocal',
+            },
+            {
+              onSuccess: (data) => {
+                console.log('Register successful', data);
+              },
+            }
+          )
+        }
+      >
+        Register
+      </button>
+      {(isRefetching || isLoading) && <p>Loading...</p>}
+      <button
+        onClick={() => {
+          refetch();
+        }}
+      >
+        Get user
+      </button>
+      <button
+        onClick={() =>
+          updateUser(
+            {
+              dataSend: {
+                firstName: 'Hugo',
+                lastName: 'Brocal',
+                username: 'Hugopro',
+                password: 'Hugo123',
+              },
+              id: 1,
+            },
+            {
+              onSuccess: (data) => {
+                console.log('Update successful', data);
+              },
+            }
+          )
+        }
+      >
+        Update user
+      </button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
