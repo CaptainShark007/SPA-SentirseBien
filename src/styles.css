@@ -1,0 +1,131 @@
+:root {
+    --primary-color: #d4b5a1;
+    --secondary-color: #f0ede9;
+    --text-color: #3e3e3e;
+    --accent-color: #a67c6b;
+    --light: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+
+  header {
+    background-image: url("assets/images/presentation.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+
+  header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  header h1 {
+    font-size: 4em;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+  }
+
+  nav {
+    background-color: var(--light);
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+
+  nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  nav a:hover {
+    color: var(--accent-color);
+  }
+
+  section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: var(--accent-color);
+  }
+
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .service {
+    background: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .service:hover {
+    transform: translateY(-5px);
+  }
+
+  .service h3 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+  }
+
+  .service p {
+    line-height: 1.6;
+  }
+
+  #nosotros p, #contacto p {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    font-size: 1.1em;
+    line-height: 1.8;
+  }
+
+  footer {
+    background: var(--accent-color);
+    color: white;
+    text-align: center;
+    padding: 30px;
+    font-size: 0.9em;
+  }
