@@ -144,6 +144,7 @@ section h2 {
     box-shadow 0.3s ease;
   color: white;
   overflow: hidden;
+  cursor: pointer; /* Efecto del cursor manito */  
 }
 
 .service .overlay {
@@ -188,3 +189,422 @@ footer {
   padding: 30px;
   font-size: 0.9em;
 }
+
+/* ESTILOS CALENDARIO SPA */
+/* ESTILOS CALENDARIO SPA */
+.calendario-spa {
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: var(--light);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.calendario-header {
+  background-color: var(--accent-color);
+  color: var(--light);
+  padding: 15px;
+  text-align: center;
+}
+
+.calendario-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: var(--primary-color);
+  color: var(--light);
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.calendario-dia {
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin: 2px;
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendario-dia:hover:not(.otro-mes) {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendario-dia.otro-mes {
+  color: #aaa;
+  opacity: 0.6;
+  cursor: default;
+}
+
+.calendario-dia.hoy {
+  background-color: var(--accent-color);
+  color: var(--light);
+  font-weight: bold;
+}
+
+.calendario-dia.hoy::after {
+  content: 'Hoy';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  background-color: var(--light);
+  color: var(--accent-color);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Efecto para días seleccionables */
+.calendario-dia:not(.otro-mes)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.calendario-dia:not(.otro-mes):hover::before {
+  background-color: rgba(212, 181, 161, 0.2); /* --primary-color con opacidad */
+}
+
+/* ESTILOS PARA DÍAS PASADOS */
+.calendario-dia.pasado {
+  color: #cccccc; /* Gris más claro que el original */
+  opacity: 0.7;
+  cursor: default; /* Cursor normal (no pointer) */
+  pointer-events: none; /* Deshabilita cualquier interacción */
+}
+
+/* Asegurar que los días pasados no tengan efectos hover */
+.calendario-dia.pasado:hover {
+  background-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Mantener el estilo del día actual */
+.calendario-dia.hoy {
+  background-color: var(--accent-color);
+  color: var(--light);
+  font-weight: bold;
+}
+
+/* Los demás estilos del calendario se mantienen igual */
+.calendario-vacio {
+  padding: 10px 0;
+  min-height: 40px;
+  visibility: hidden;
+}
+
+/* ESTILOS CALENDARIO */
+
+/* ESTILOS LISTA DE SERVICIOS */
+
+/* ESTILOS PARA LISTA DE SERVICIOS */
+#servicios-lista {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.categoria-servicio {
+  margin-bottom: 40px;
+}
+
+.categoria-servicio h3 {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.servicio-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.servicio-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.servicio-info {
+  text-align: left;
+}
+
+.servicio-info h4 {
+  margin: 0 0 5px 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.mas-info {
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  margin: 0;
+  cursor: pointer;
+  text-align: left !important;
+}
+
+.servicio-accion {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.descuento {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.btn-reservar {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-reservar:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .servicio-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .servicio-accion {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* ESTILOS LISTA DE SERVICIOS */
+
+/* ESTILOS PRINCIPALES DEL NAVEGADOR */
+/* .main-nav {
+  background-color: var(--light);
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 100%;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8em 2em;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-color);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .nav-logo {
+    margin-bottom: 1rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+} */
+
+/* HEADER COMPACTO */
+.compact-nav {
+  background-color: var(--light);
+  position: sticky;
+  top: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 100%;
+  height: 60px; /* Altura fija más compacta */
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px; /* Ancho máximo reducido */
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Padding lateral reducido */
+  height: 100%;
+}
+
+.compact-logo {
+  height: 40px; /* Logo más pequeño */
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.compact-logo:hover {
+  transform: scale(1.03);
+}
+
+.nav-menu-links {
+  display: flex;
+  gap: 1.5rem; /* Espacio entre links reducido */
+}
+
+.nav-menu-item {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600; /* Peso de fuente ajustado */
+  font-size: 0.95rem; /* Tamaño de fuente ligeramente reducido */
+  position: relative;
+  padding: 0.3rem 0;
+  transition: color 0.2s ease;
+}
+
+.nav-menu-item:hover {
+  color: var(--accent-color);
+}
+
+.nav-menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px; /* Línea más delgada */
+  background-color: var(--accent-color);
+  transition: width 0.2s ease;
+}
+
+.nav-menu-item:hover::after {
+  width: 100%;
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 768px) {
+  .nav-wrapper {
+    padding: 0 1rem;
+  }
+  
+  .compact-logo {
+    height: 35px;
+  }
+  
+  .nav-menu-links {
+    gap: 1rem;
+  }
+  
+  .nav-menu-item {
+    font-size: 0.85rem;
+  }
+}
+
