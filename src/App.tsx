@@ -6,12 +6,13 @@ import { useDispatch } from 'react-redux';
 import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
 import { setToken } from './features/auth/auth.slice';
 import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
-import './App.css';
 import masajeIMG from './assets/images/Masajes.jpg';
 import bellezaIMG from './assets/images/belleza.jpg';
 import facialIMG from './assets/images/tratamientos-faciales.jpg';
 import corporalIMG from './assets/images/tratamiento-corporal.jpg';
 import grupalIMG from './assets/images/grupal.jpg';
+import React, { useState } from 'react';
+import Snackbar from './components/SnackBar/SnackBar';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,15 +21,31 @@ const App = () => {
   const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
   const { mutate: updateUser } = useApiUpdateUser();
 
+  const [openModal, setOpenModal] = useState(false);
+
   if (response) console.log('Response', response);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    console.log(e);
+    console.log(e?.target[0]?.value);
+    console.log(e?.target[1]?.value);
+
+    login(
+      {
+        username: e?.target[0]?.value,
+        password: e?.target[1]?.value,
+      },
+      { onSuccess: () => console.log('Logeo exitoso') }
+    );
+  };
 
   return (
     <div>
+      <Snackbar />
       <header>
-        
         {/* <h1>BIENVENIDO</h1> */}
         <div className='logo-container'>
-          <img className='logo' src={miLogo2} alt="Logo Sentirse Bien" />
+          <img className='logo' src={miLogo2} alt='Logo Sentirse Bien' />
         </div>
 
         {/* FLECHITA */}
@@ -43,19 +60,53 @@ const App = () => {
         <a href='#contacto'>Contacto</a>
       </nav> */}
 
-      <nav className="compact-nav">
-        <div className="nav-wrapper">
-          <a href="#" className="nav-logo-link">
-            <img 
+      {openModal && (
+        <div className='modal-overlay' onClick={() => setOpenModal(false)}>
+          <div className='modal-container' onClick={(e) => e.stopPropagation()}>
+            <button className='modal-close' onClick={() => setOpenModal(false)}>
+              ×
+            </button>
+            <h2>Iniciar Sesión</h2>
+            <form className='modal-form' onSubmit={handleSubmit}>
+              <div className='input-group'>
+                <input type='text' id='email' required />
+                <label htmlFor='email'>Email</label>
+              </div>
+
+              <div className='input-group'>
+                <input type='password' id='password' required />
+                <label htmlFor='password'>Contraseña</label>
+              </div>
+
+              <button type='submit'>Ingresar</button>
+            </form>
+          </div>
+        </div>
+      )}
+      {}
+
+      <nav className='compact-nav'>
+        <div className='nav-wrapper'>
+          <a href='#' className='nav-logo-link'>
+            <img
               src={miLogo}
-              alt="Logo Sentirse Bien"
-              className="compact-logo"
+              alt='Logo Sentirse Bien'
+              className='compact-logo'
             />
           </a>
-          <div className="nav-menu-links">
-            <a href="#servicios" className="nav-menu-item">Servicios</a>
-            <a href="#nosotros" className="nav-menu-item">Nosotros</a>
-            <a href="#contacto" className="nav-menu-item">Contacto</a>
+          <div className='nav-menu-links'>
+            <a href='#servicios' className='nav-menu-item'>
+              Servicios
+            </a>
+            <a href='#nosotros' className='nav-menu-item'>
+              Nosotros
+            </a>
+            <a href='#contacto' className='nav-menu-item'>
+              Contacto
+            </a>
+            <a className='nav-menu-item' onClick={() => setOpenModal(true)}>
+              Iniciar Sesión
+            </a>
           </div>
         </div>
       </nav>
@@ -124,216 +175,204 @@ const App = () => {
 
       {/* HACER LA SECCION DE LAS LISTAS*/}
 
-      <section id="servicios-lista">
-
+      <section id='servicios-lista'>
         <h2>Nuestros Tratamientos</h2>
-        
-        {/* Categoria MASAJES */}
-        <div className="categoria-servicio">
 
+        {/* Categoria MASAJES */}
+        <div className='categoria-servicio'>
           <h3>MASAJES</h3>
 
           {/* Tratamientos */}
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Anti-Stress</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
           <div className='servicio-item'>
-            <div className="servicio-info">
+            <div className='servicio-info'>
               <h4>Descontracturante</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
           <div className='servicio-item'>
-            <div className="servicio-info">
+            <div className='servicio-info'>
               <h4>Masajes con piedras calientes</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
           <div className='servicio-item'>
-            <div className="servicio-info">
+            <div className='servicio-info'>
               <h4>Circulatorios</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
-
-        </div>
-
-        <div className="categoria-servicio">
-
-          <h3>BELLEZA</h3>
-
-          <div className="servicio-item">
-            <div className="servicio-info">
-              <h4>Lifting de pestañas</h4>
-              <a className='mas-info'>Más información</a>
-            </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
-            </div>
-          </div>
-          
-          <div className="servicio-item">
-            <div className="servicio-info">
-              <h4>Depilación facial</h4>
-              <a className='mas-info'>Más información</a>
-            </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
-            </div>
-          </div>
-          
-          <div className="servicio-item">
-            <div className="servicio-info">
-              <h4>Belleza de manos y pies</h4>
-              <a className='mas-info'>Más información</a>
-            </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
-            </div>
-          </div>
-          
         </div>
 
         <div className='categoria-servicio'>
+          <h3>BELLEZA</h3>
 
+          <div className='servicio-item'>
+            <div className='servicio-info'>
+              <h4>Lifting de pestañas</h4>
+              <a className='mas-info'>Más información</a>
+            </div>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
+            </div>
+          </div>
+
+          <div className='servicio-item'>
+            <div className='servicio-info'>
+              <h4>Depilación facial</h4>
+              <a className='mas-info'>Más información</a>
+            </div>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
+            </div>
+          </div>
+
+          <div className='servicio-item'>
+            <div className='servicio-info'>
+              <h4>Belleza de manos y pies</h4>
+              <a className='mas-info'>Más información</a>
+            </div>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
+            </div>
+          </div>
+        </div>
+
+        <div className='categoria-servicio'>
           <h3>TRATAMIENTOS FACIALES</h3>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Punta de diamante: microexfoliación</h4>
               {/* <p className='requiere-sena'>Más información</p> */}
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Limpieza profunda + Hidratación</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Crio frecuencia facial</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
-
         </div>
 
         <div className='categoria-servicio'>
-
           <h3>TRATAMIENTOS CORPORALES</h3>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>VelaSlim</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>DermoHealth</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Criofrecuencia</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
 
-          <div className="servicio-item">
-            <div className="servicio-info">
+          <div className='servicio-item'>
+            <div className='servicio-info'>
               <h4>Ultracavitación</h4>
               <a className='mas-info'>Más información</a>
             </div>
-            <div className="servicio-accion">
-              <button className="btn-reservar">Reservar</button>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
             </div>
           </div>
-
         </div>
 
         <div className='categoria-servicio'>
-      
-            <h3>SERVICIOS GRUPALES</h3>
-  
-            <div className="servicio-item">
-              <div className="servicio-info">
-                <h4>Hidromasajes</h4>
-                <a className='mas-info'>Más información</a>
-              </div>
-              <div className="servicio-accion">
-                <button className="btn-reservar">Reservar</button>
-              </div>
-            </div>
-  
-            <div className="servicio-item">
-              <div className="servicio-info">
-                <h4>Yoga</h4>
-                <a className='mas-info'>Más información</a>
-              </div>
-              <div className="servicio-accion">
-                <button className="btn-reservar">Reservar</button>
-              </div>
-            </div>
+          <h3>SERVICIOS GRUPALES</h3>
 
+          <div className='servicio-item'>
+            <div className='servicio-info'>
+              <h4>Hidromasajes</h4>
+              <a className='mas-info'>Más información</a>
+            </div>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
+            </div>
+          </div>
+
+          <div className='servicio-item'>
+            <div className='servicio-info'>
+              <h4>Yoga</h4>
+              <a className='mas-info'>Más información</a>
+            </div>
+            <div className='servicio-accion'>
+              <button className='btn-reservar'>Reservar</button>
+            </div>
+          </div>
         </div>
-
       </section>
 
       {/* HACER LA SECCION DE LAS LISTAS*/}
 
       {/* HACER LA SECCION DE LAS RESERVAS */}
-      <section id="reservas" className="reserva-container">
+      <section id='reservas' className='reserva-container'>
         <h2>Reserva tu cita en nuestro SPA</h2>
-        
-        <div className="reserva-grid">
+
+        <div className='reserva-grid'>
           {/* Sección del Calendario */}
-          <div className="reserva-seccion">
-            <div className="calendario-spa">
-              <div className="calendario-header">
+          <div className='reserva-seccion'>
+            <div className='calendario-spa'>
+              <div className='calendario-header'>
                 <h3>Abril 2025</h3>
               </div>
-              <div className="calendario-dias-semana">
+              <div className='calendario-dias-semana'>
                 <span>Do</span>
                 <span>Lu</span>
                 <span>Ma</span>
@@ -342,81 +381,81 @@ const App = () => {
                 <span>Vi</span>
                 <span>Sá</span>
               </div>
-              <div className="calendario-grid">
+              <div className='calendario-grid'>
                 {/* Días del calendario (mantén tu estructura actual) */}
-                <span className="calendario-vacio"></span>
-                <span className="calendario-vacio"></span>
-                <span className="calendario-vacio"></span>
-                <span className="calendario-dia pasado">1</span>
-                <span className="calendario-dia pasado">2</span>
-                <span className="calendario-dia pasado">3</span>
-                <span className="calendario-dia pasado">4</span>
-                <span className="calendario-dia pasado">5</span>
-                <span className="calendario-dia pasado">6</span>
-                <span className="calendario-dia pasado">7</span>
-                <span className="calendario-dia pasado">8</span>
-                <span className="calendario-dia pasado">9</span>
-                <span className="calendario-dia pasado">10</span>
-                <span className="calendario-dia pasado">11</span>
-                <span className="calendario-dia pasado">12</span>
-                <span className="calendario-dia pasado">13</span>
-                <span className="calendario-dia pasado">14</span>
-                <span className="calendario-dia pasado">15</span>
-                <span className="calendario-dia pasado">16</span>
-                <span className="calendario-dia pasado">17</span>
-                <span className="calendario-dia pasado">18</span>
-                <span className="calendario-dia pasado">19</span>
-                <span className="calendario-dia pasado">20</span>
-                <span className="calendario-dia pasado">21</span>
-                <span className="calendario-dia pasado">22</span>
-                <span className="calendario-dia hoy">23</span>
-                <span className="calendario-dia">24</span>
-                <span className="calendario-dia">25</span>
-                <span className="calendario-dia">26</span>
-                <span className="calendario-dia">27</span>
-                <span className="calendario-dia">28</span>
-                <span className="calendario-dia">29</span>
-                <span className="calendario-dia">30</span>
+                <span className='calendario-vacio'></span>
+                <span className='calendario-vacio'></span>
+                <span className='calendario-vacio'></span>
+                <span className='calendario-dia pasado'>1</span>
+                <span className='calendario-dia pasado'>2</span>
+                <span className='calendario-dia pasado'>3</span>
+                <span className='calendario-dia pasado'>4</span>
+                <span className='calendario-dia pasado'>5</span>
+                <span className='calendario-dia pasado'>6</span>
+                <span className='calendario-dia pasado'>7</span>
+                <span className='calendario-dia pasado'>8</span>
+                <span className='calendario-dia pasado'>9</span>
+                <span className='calendario-dia pasado'>10</span>
+                <span className='calendario-dia pasado'>11</span>
+                <span className='calendario-dia pasado'>12</span>
+                <span className='calendario-dia pasado'>13</span>
+                <span className='calendario-dia pasado'>14</span>
+                <span className='calendario-dia pasado'>15</span>
+                <span className='calendario-dia pasado'>16</span>
+                <span className='calendario-dia pasado'>17</span>
+                <span className='calendario-dia pasado'>18</span>
+                <span className='calendario-dia pasado'>19</span>
+                <span className='calendario-dia pasado'>20</span>
+                <span className='calendario-dia pasado'>21</span>
+                <span className='calendario-dia pasado'>22</span>
+                <span className='calendario-dia hoy'>23</span>
+                <span className='calendario-dia'>24</span>
+                <span className='calendario-dia'>25</span>
+                <span className='calendario-dia'>26</span>
+                <span className='calendario-dia'>27</span>
+                <span className='calendario-dia'>28</span>
+                <span className='calendario-dia'>29</span>
+                <span className='calendario-dia'>30</span>
                 {/* ... resto de los días ... */}
               </div>
             </div>
           </div>
 
           {/* Sección de Horarios */}
-          <div className="reserva-seccion">
-            <div className="horarios-container">
+          <div className='reserva-seccion'>
+            <div className='horarios-container'>
               <h3>Horarios disponibles</h3>
-              <div className="zona-horaria">
+              <div className='zona-horaria'>
                 <span>Zona horaria: Hora estándar central (GMT-6)</span>
               </div>
-              <div className="horarios-grid">
-                <button className="hora-btn no-disponible">08:00 a.m.</button>
-                <button className="hora-btn">10:00 a.m.</button>
-                <button className="hora-btn">12:00 a.m.</button>
-                <button className="hora-btn no-disponible">14:00 a.m.</button>
-                <button className="hora-btn">16:00 p.m.</button>
-                <button className="hora-btn">18:30 p.m.</button>
-                <button className="hora-btn">20:00 p.m.</button>
-                <button className="hora-btn no-disponible">22:00 p.m.</button>
+              <div className='horarios-grid'>
+                <button className='hora-btn no-disponible'>08:00 a.m.</button>
+                <button className='hora-btn'>10:00 a.m.</button>
+                <button className='hora-btn'>12:00 a.m.</button>
+                <button className='hora-btn no-disponible'>14:00 a.m.</button>
+                <button className='hora-btn'>16:00 p.m.</button>
+                <button className='hora-btn'>18:30 p.m.</button>
+                <button className='hora-btn'>20:00 p.m.</button>
+                <button className='hora-btn no-disponible'>22:00 p.m.</button>
               </div>
             </div>
           </div>
 
           {/* Sección de Datos de Reserva */}
-          <div className="reserva-seccion">
-            <div className="datos-reserva">
+          <div className='reserva-seccion'>
+            <div className='datos-reserva'>
               <h3>Detalles de la reserva</h3>
-              <div className="reserva-info">
-                <div className="info-item">
-                  <span className="info-label">Servicio:</span>
+              <div className='reserva-info'>
+                <div className='info-item'>
+                  <span className='info-label'>Servicio:</span>
                   <span>Masaje (Anti-Stress)</span>
                 </div>
-                <div className="info-item">
-                  <span className="info-label">Duración:</span>
+                <div className='info-item'>
+                  <span className='info-label'>Duración:</span>
                   <span>1 h 00 min</span>
                 </div>
-                <div className="info-item">
-                  <span className="info-label">Ubicación:</span>
+                <div className='info-item'>
+                  <span className='info-label'>Ubicación:</span>
                   <span>C. French 414</span>
                 </div>
                 {/* <div className="info-item">
@@ -424,7 +463,7 @@ const App = () => {
                   <span>$10</span>
                 </div> */}
               </div>
-              <button className="btn-confirmar">Confirmar Reserva</button>
+              <button className='btn-confirmar'>Confirmar Reserva</button>
             </div>
           </div>
         </div>

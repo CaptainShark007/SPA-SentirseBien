@@ -82,7 +82,7 @@ header h1 {
     transform: translateX(-50%) translateY(0);
   }
   50% {
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%) translateY(20px);
   }
 }
 /* ESTILOS FLECHITA */
@@ -144,7 +144,7 @@ section h2 {
     box-shadow 0.3s ease;
   color: white;
   overflow: hidden;
-  cursor: pointer; /* Efecto del cursor manito */  
+  cursor: pointer; /* Efecto del cursor manito */
 }
 
 .service .overlay {
@@ -153,7 +153,7 @@ section h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   transition: background 0.3s ease;
   z-index: 1;
@@ -171,7 +171,7 @@ section h2 {
 }
 
 .service:hover .overlay {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
 }
 #nosotros p,
 #contacto p {
@@ -425,7 +425,7 @@ footer {
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .servicio-accion {
     width: 100%;
     justify-content: flex-end;
@@ -594,15 +594,15 @@ footer {
   .nav-wrapper {
     padding: 0 1rem;
   }
-  
+
   .compact-logo {
     height: 35px;
   }
-  
+
   .nav-menu-links {
     gap: 1rem;
   }
-  
+
   .nav-menu-item {
     font-size: 0.85rem;
   }
@@ -629,11 +629,13 @@ footer {
   overflow: hidden;
 }
 
-.horarios-container, .datos-reserva {
+.horarios-container,
+.datos-reserva {
   padding: 20px;
 }
 
-.horarios-container h3, .datos-reserva h3 {
+.horarios-container h3,
+.datos-reserva h3 {
   color: var(--accent-color);
   margin-bottom: 15px;
   font-size: 1.3rem;
@@ -653,7 +655,7 @@ footer {
 }
 
 .hora-btn {
-  background-color: var(--accent-color);/* var(--secondary-color); */
+  background-color: var(--accent-color); /* var(--secondary-color); */
   border: none;
   padding: 10px;
   border-radius: 6px;
@@ -743,3 +745,110 @@ footer {
   }
 }
 /* ESTILOS PARA SECCIÓN DE RESERVAS */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.modal-form input {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-form button {
+  background-color: var(--accent-color, #a67c6b);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-form button:hover {
+  background-color: #8c6558;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1rem 0.75rem 0.5rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: #777;
+  background: white;
+  padding: 0 0.25rem;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:valid + label {
+  top: 0.4rem;
+  left: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--accent-color, #a67c6b);
+}
+
+/* White background and white placeholder */
+.input-group input::placeholder {
+  color: transparent;
+}
