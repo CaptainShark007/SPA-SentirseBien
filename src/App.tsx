@@ -38,14 +38,6 @@ const App = () => {
       </header>
 
       {/* <nav>
-        <a href="#">
-          <img 
-            src={miLogo}
-            alt="Logo"
-            className='logo'
-            style={{ width: '100px', height: 'auto' }}
-            />
-        </a>
         <a href='#servicios'>Servicios</a>
         <a href='#nosotros'>Nosotros</a>
         <a href='#contacto'>Contacto</a>
@@ -330,61 +322,110 @@ const App = () => {
 
       {/* HACER LA SECCION DE LAS LISTAS*/}
 
-      {/* HACER LA SECCION DEL CALENDARIO */}
-      <section id='calendario'>
-        <h2>Calendario</h2>
-        <p>Reserva tu cita en nuestro spa</p>
+      {/* HACER LA SECCION DE LAS RESERVAS */}
+      <section id="reservas" className="reserva-container">
+        <h2>Reserva tu cita en nuestro SPA</h2>
         
-        <div className="calendario-spa">
-          <div className="calendario-header">
-            <h3>Abril 2025</h3>
+        <div className="reserva-grid">
+          {/* Sección del Calendario */}
+          <div className="reserva-seccion">
+            <div className="calendario-spa">
+              <div className="calendario-header">
+                <h3>Abril 2025</h3>
+              </div>
+              <div className="calendario-dias-semana">
+                <span>Do</span>
+                <span>Lu</span>
+                <span>Ma</span>
+                <span>Mi</span>
+                <span>Ju</span>
+                <span>Vi</span>
+                <span>Sá</span>
+              </div>
+              <div className="calendario-grid">
+                {/* Días del calendario (mantén tu estructura actual) */}
+                <span className="calendario-vacio"></span>
+                <span className="calendario-vacio"></span>
+                <span className="calendario-vacio"></span>
+                <span className="calendario-dia pasado">1</span>
+                <span className="calendario-dia pasado">2</span>
+                <span className="calendario-dia pasado">3</span>
+                <span className="calendario-dia pasado">4</span>
+                <span className="calendario-dia pasado">5</span>
+                <span className="calendario-dia pasado">6</span>
+                <span className="calendario-dia pasado">7</span>
+                <span className="calendario-dia pasado">8</span>
+                <span className="calendario-dia pasado">9</span>
+                <span className="calendario-dia pasado">10</span>
+                <span className="calendario-dia pasado">11</span>
+                <span className="calendario-dia pasado">12</span>
+                <span className="calendario-dia pasado">13</span>
+                <span className="calendario-dia pasado">14</span>
+                <span className="calendario-dia pasado">15</span>
+                <span className="calendario-dia pasado">16</span>
+                <span className="calendario-dia pasado">17</span>
+                <span className="calendario-dia pasado">18</span>
+                <span className="calendario-dia pasado">19</span>
+                <span className="calendario-dia pasado">20</span>
+                <span className="calendario-dia pasado">21</span>
+                <span className="calendario-dia pasado">22</span>
+                <span className="calendario-dia hoy">23</span>
+                <span className="calendario-dia">24</span>
+                <span className="calendario-dia">25</span>
+                <span className="calendario-dia">26</span>
+                <span className="calendario-dia">27</span>
+                <span className="calendario-dia">28</span>
+                <span className="calendario-dia">29</span>
+                <span className="calendario-dia">30</span>
+                {/* ... resto de los días ... */}
+              </div>
+            </div>
           </div>
-          <div className="calendario-dias-semana">
-            <span>Do</span>
-            <span>Lu</span>
-            <span>Ma</span>
-            <span>Mi</span>
-            <span>Ju</span>
-            <span>Vi</span>
-            <span>Sá</span>
+
+          {/* Sección de Horarios */}
+          <div className="reserva-seccion">
+            <div className="horarios-container">
+              <h3>Horarios disponibles</h3>
+              <div className="zona-horaria">
+                <span>Zona horaria: Hora estándar central (GMT-6)</span>
+              </div>
+              <div className="horarios-grid">
+                <button className="hora-btn no-disponible">08:00 a.m.</button>
+                <button className="hora-btn">10:00 a.m.</button>
+                <button className="hora-btn">12:00 a.m.</button>
+                <button className="hora-btn no-disponible">14:00 a.m.</button>
+                <button className="hora-btn">16:00 p.m.</button>
+                <button className="hora-btn">18:30 p.m.</button>
+                <button className="hora-btn">20:00 p.m.</button>
+                <button className="hora-btn no-disponible">22:00 p.m.</button>
+              </div>
+            </div>
           </div>
-          <div className="calendario-grid">
-            {/* Espacios vacíos para alinear el primer día (miércoles) */}
-            <span className="calendario-vacio"></span>
-            <span className="calendario-vacio"></span>
-            <span className="calendario-vacio"></span>
-            
-            {/* Días de abril (1-22 en gris, 23 en adelante normales) */}
-            <span className="calendario-dia pasado">1</span>
-            <span className="calendario-dia pasado">2</span>
-            <span className="calendario-dia pasado">3</span>
-            <span className="calendario-dia pasado">4</span>
-            <span className="calendario-dia pasado">5</span>
-            <span className="calendario-dia pasado">6</span>
-            <span className="calendario-dia pasado">7</span>
-            <span className="calendario-dia pasado">8</span>
-            <span className="calendario-dia pasado">9</span>
-            <span className="calendario-dia pasado">10</span>
-            <span className="calendario-dia pasado">11</span>
-            <span className="calendario-dia pasado">12</span>
-            <span className="calendario-dia pasado">13</span>
-            <span className="calendario-dia pasado">14</span>
-            <span className="calendario-dia pasado">15</span>
-            <span className="calendario-dia pasado">16</span>
-            <span className="calendario-dia pasado">17</span>
-            <span className="calendario-dia pasado">18</span>
-            <span className="calendario-dia pasado">19</span>
-            <span className="calendario-dia pasado">20</span>
-            <span className="calendario-dia pasado">21</span>
-            <span className="calendario-dia pasado">22</span>
-            <span className="calendario-dia hoy">23</span>
-            <span className="calendario-dia">24</span>
-            <span className="calendario-dia">25</span>
-            <span className="calendario-dia">26</span>
-            <span className="calendario-dia">27</span>
-            <span className="calendario-dia">28</span>
-            <span className="calendario-dia">29</span>
-            <span className="calendario-dia">30</span>
+
+          {/* Sección de Datos de Reserva */}
+          <div className="reserva-seccion">
+            <div className="datos-reserva">
+              <h3>Detalles de la reserva</h3>
+              <div className="reserva-info">
+                <div className="info-item">
+                  <span className="info-label">Servicio:</span>
+                  <span>Masaje (Anti-Stress)</span>
+                </div>
+                <div className="info-item">
+                  <span className="info-label">Duración:</span>
+                  <span>1 h 00 min</span>
+                </div>
+                <div className="info-item">
+                  <span className="info-label">Ubicación:</span>
+                  <span>C. French 414</span>
+                </div>
+                {/* <div className="info-item">
+                  <span className="info-label">Precio:</span>
+                  <span>$10</span>
+                </div> */}
+              </div>
+              <button className="btn-confirmar">Confirmar Reserva</button>
+            </div>
           </div>
         </div>
       </section>
