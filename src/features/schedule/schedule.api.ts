@@ -31,3 +31,11 @@ export const apiGetReserveInfo = async (id: number) => {
 export const apiDeleteSchedule = async (id: number) => {
   return await scheduleService.deleteSchedule(id);
 };
+
+export const apiGetScheduleFilter = async (
+  id: number | undefined,
+  date: string,
+  days: number
+) => {
+  return await scheduleService.getScheduleFilter(id, date, days);
+};

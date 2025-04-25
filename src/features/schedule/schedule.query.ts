@@ -3,6 +3,7 @@ import {
   apiDeleteSchedule,
   apiGetReserveInfo,
   apiGetSchedule,
+  apiGetScheduleFilter,
   apiGetScheduleInfo,
   apiGetScheduleService,
   apiListSchedule,
@@ -35,6 +36,8 @@ export const useApiListScheduleService = () =>
   useQuery({
     queryKey: ['listScheduleService'],
     queryFn: apiListSchedule,
+    enabled: false,
+    retry: false,
   });
 
 export const useApiGetScheduleInfo = (id: number) =>
@@ -63,4 +66,16 @@ export const useApiDeleteSchedule = () =>
   useMutation({
     mutationKey: ['deleteSchedule'],
     mutationFn: apiDeleteSchedule,
+  });
+
+export const useApiGetScheduleFilter = (
+  id: number | undefined,
+  date: string,
+  days: number
+) =>
+  useQuery({
+    queryKey: ['scheduleFilter'],
+    queryFn: () => apiGetScheduleFilter(id, date, days),
+    enabled: false,
+    retry: false,
   });

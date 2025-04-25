@@ -8,6 +8,6 @@ export interface SpaData {
 }
 
 export interface SpaInfoData extends Omit<SpaData, 'isGroupService'> {
-  id: number;
+  id?: number;
   type: string;
 }

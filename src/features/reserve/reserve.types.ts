@@ -5,7 +5,7 @@ export interface ReserveStatus {
 }
 
 export interface ReserveData {
-  id: number;
+  id?: number;
   dateReserve: string;
   userFullName: string;
   serviceName: string;

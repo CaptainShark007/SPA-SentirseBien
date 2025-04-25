@@ -40,6 +40,16 @@ class ScheduleService {
       .delete(`api/schedule/delete/${id}`)
       .then((res) => res.data);
   }
+
+  getScheduleFilter(
+    id: number | undefined,
+    date: string,
+    days: number
+  ): Promise<ScheduleServiceData[]> {
+    return axiosInstance
+      .get(`/api/availability?serviceId=${id}&date=${date}&days=${days}`)
+      .then((res) => res.data);
+  }
 }
 
 export default new ScheduleService();

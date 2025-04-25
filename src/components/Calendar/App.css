@@ -32,7 +32,6 @@ body {
 
 header {
   background-image: url('assets/images/presentation.jpg');
-  background-attachment: fixed;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -117,10 +116,6 @@ section {
   margin: auto;
 }
 
-.servicios-container {
-  min-height: 85vh;
-}
-
 section h2 {
   text-align: center;
   font-size: 2.5em;
@@ -191,29 +186,8 @@ footer {
   background: var(--accent-color);
   color: white;
   text-align: center;
-  padding: 0 30px;
+  padding: 30px;
   font-size: 0.9em;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-}
-
-footer p {
-  align-content: center;
-}
-
-footer section {
-  display: flex;
-  align-content: center;
-  padding: 0;
-  margin: 0;
-  gap: 10px;
-}
-
-footer h2 {
-  align-content: center;
-  color: white;
-  margin: 0;
 }
 
 /* ESTILOS CALENDARIO SPA */
@@ -233,8 +207,6 @@ footer h2 {
   color: var(--light);
   padding: 15px;
   text-align: center;
-  display: flex;
-  justify-content: space-between;
 }
 
 .calendario-header h3 {
@@ -243,22 +215,6 @@ footer h2 {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-.calendario-header button {
-  background-color: var(--primary-color);
-}
-
-.calendario-header button:hover:not(:disabled) {
-  transform: scale(1.1);
-  color: var(--accent-color); /* o el color que estés usando */
-}
-
-.calendario-header button:disabled {
-  cursor: default;
-  border-color: var(--accent-color);
-  opacity: 0.4;
-  transform: none;
 }
 
 .calendario-dias-semana {
@@ -306,7 +262,7 @@ footer h2 {
   cursor: default;
 }
 
-/* .calendario-dia.hoy {
+.calendario-dia.hoy {
   background-color: var(--accent-color);
   color: var(--light);
   font-weight: bold;
@@ -314,26 +270,6 @@ footer h2 {
 
 .calendario-dia.hoy::after {
   content: 'Hoy';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.6rem;
-  background-color: var(--light);
-  color: var(--accent-color);
-  padding: 1px 4px;
-  border-radius: 4px;
-  font-weight: bold;
-} */
-
-.calendario-dia.seleccionado {
-  background-color: var(--accent-color);
-  color: var(--light);
-  font-weight: bold;
-}
-
-.calendario-dia.seleccionado::after {
-  /* content: 'Hoy'; */
   position: absolute;
   bottom: -2px;
   left: 50%;
@@ -396,6 +332,330 @@ footer h2 {
 
 /* ESTILOS CALENDARIO */
 
+/* ESTILOS DE CALENDARIO MEJORADO */
+/* Estilos para el calendario */
+.calendario-nav-btn {
+  background: none;
+  border: none;
+  color: var(--light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 10px;
+  transition: transform 0.2s;
+}
+
+.calendario-nav-btn:hover {
+  transform: scale(1.2);
+}
+
+.calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--accent-color);
+  color: var(--light);
+  padding: 15px;
+  text-align: center;
+}
+
+.calendario-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendario-dias-config {
+  padding: 10px;
+  text-align: center;
+  background-color: var(--secondary-color);
+  border-top: 1px solid #ddd;
+}
+
+.calendario-dias-config label {
+  margin-right: 10px;
+  font-size: 0.9rem;
+}
+
+.calendario-dias-config select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.disponibilidad-indicador {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+}
+
+.calendario-dia.sin-disponibilidad {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendario-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: var(--accent-color);
+}
+
+/* Estilos para los horarios */
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hora-btn:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.selecciona-servicio {
+  text-align: center;
+  padding: 40px;
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+.btn-confirmar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Estilos para el contenedor de meses */
+.calendario-meses-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+}
+
+.calendario-mes {
+  flex: 1;
+  min-width: 300px;
+}
+
+.calendario-mes h4 {
+  text-align: center;
+  color: var(--accent-color);
+  margin-bottom: 10px;
+}
+
+/* Ocultar la configuración de días */
+.calendario-dias-config {
+  display: none;
+}
+
+/* Estilos para días de otro mes pero disponibles */
+.calendario-dia.otro-mes {
+  color: #999;
+  opacity: 0.8;
+}
+
+.calendario-dia.otro-mes.disponible {
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.calendario-dia.otro-mes.disponible:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Estilos para botones deshabilitados */
+.calendario-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Estilos para días de otro mes pero disponibles */
+.calendario-dia.otro-mes {
+  color: #999;
+  opacity: 0.8;
+}
+
+.calendario-dia.otro-mes.disponible {
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.calendario-dia.otro-mes.disponible:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Estilos para botones deshabilitados */
+.calendario-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Mejora visual para días sin disponibilidad */
+.calendario-dia.sin-disponibilidad {
+  position: relative;
+}
+
+.calendario-dia.sin-disponibilidad::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+/* Estilos para el calendario */
+.calendario-spa {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #a67c6b;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.calendario-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendario-nav-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 10px;
+  transition: transform 0.2s;
+}
+
+.calendario-nav-btn:hover:not(:disabled) {
+  transform: scale(1.2);
+}
+
+.calendario-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #d4b5a1;
+  color: white;
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.calendario-dia {
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin: 2px;
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendario-dia:hover:not(.pasado):not(.sin-disponibilidad) {
+  background-color: #f0ede9;
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendario-dia.pasado {
+  color: #cccccc;
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendario-dia.hoy {
+  background-color: #a67c6b;
+  color: white;
+  font-weight: bold;
+}
+
+.calendario-dia.sin-disponibilidad {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendario-vacio {
+  padding: 10px 0;
+  min-height: 40px;
+  visibility: hidden;
+}
+
+.disponibilidad-indicador {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #a67c6b;
+  border-radius: 50%;
+}
+
+.calendario-loading {
+  text-align: center;
+  padding: 20px;
+  color: #a67c6b;
+}
+
+/* ESTILOS DE CALENDARIO MEJORADO */
+
 /* ESTILOS LISTA DE SERVICIOS */
 
 /* ESTILOS PARA LISTA DE SERVICIOS */
@@ -412,15 +672,8 @@ footer h2 {
 .categoria-servicio h3 {
   color: var(--accent-color);
   font-size: 1.5rem;
-  margin: 0;
-}
-
-.categoria-servicio .header {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  padding: 10px 20px;
-  margin: 10px 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 2px solid var(--primary-color);
 }
 
@@ -489,26 +742,6 @@ footer h2 {
   transform: scale(1.05);
 }
 
-.btn-cancelar {
-  background-color: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-  /* padding: 10px 20px; */
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.btn-cancelar:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  transform: scale(1.05);
-}
-
 /* Responsive */
 @media (max-width: 600px) {
   .servicio-item {
@@ -523,11 +756,102 @@ footer h2 {
   }
 }
 
+/* ESTILOS LISTA DE SERVICIOS */
+
+/* ESTILOS PRINCIPALES DEL NAVEGADOR */
+/* .main-nav {
+    background-color: var(--light);
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8em 2em;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-logo {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--accent-color);
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .nav-content {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .nav-logo {
+      margin-bottom: 1rem;
+    }
+    
+    .nav-links {
+      width: 100%;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+    
+    .nav-link {
+      font-size: 0.9rem;
+    }
+  } */
+
 /* HEADER COMPACTO */
 .compact-nav {
   background-color: var(--light);
   position: sticky;
-  display: flex;
   top: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -539,16 +863,20 @@ footer h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Ancho máximo reducido */
-  margin: 0 auto; /* Padding lateral reducido */
+  max-width: 1100px; /* Ancho máximo reducido */
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Padding lateral reducido */
   height: 100%;
 }
 
 .compact-logo {
-  height: 60px; /* Logo más pequeño */
+  height: 40px; /* Logo más pequeño */
   width: auto;
-  margin-left: 1rem; /* Espacio lateral reducido */
   transition: transform 0.2s ease;
+}
+
+.compact-logo:hover {
+  transform: scale(1.03);
 }
 
 .nav-menu-links {
@@ -568,7 +896,6 @@ footer h2 {
 
 .nav-menu-item:hover {
   color: var(--accent-color);
-  cursor: pointer;
 }
 
 .nav-menu-item::after {
@@ -607,7 +934,6 @@ footer h2 {
 
 /* ESTILOS PARA SECCIÓN DE RESERVAS */
 .reserva-container {
-  min-height: 85vh;
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -663,11 +989,6 @@ footer h2 {
 }
 
 .hora-btn:hover {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.hora-btn.seleccionado {
   background-color: var(--primary-color);
   color: white;
 }
@@ -782,10 +1103,6 @@ footer h2 {
   cursor: pointer;
 }
 
-.a-auth:hover {
-  cursor: pointer;
-}
-
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -858,14 +1175,4 @@ footer h2 {
 /* White background and white placeholder */
 .input-group input::placeholder {
   color: transparent;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 9999s ease-in-out 0s;
-  -webkit-text-fill-color: #111827 !important;
-  caret-color: #111827;
-  box-shadow: 0 0 0px 1000px transparent inset !important;
 }
