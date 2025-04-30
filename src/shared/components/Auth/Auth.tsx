@@ -1,0 +1,168 @@
+import { showSnackbar } from '@components/SnackBar/snackBar.slice';
+import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
+import { setToken } from '@features/auth/auth.slice';
+import { useAppDispatch } from '@hooks/useRedux';
+import React, { useState } from 'react';
+
+interface AuthProps {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Auth = ({ setOpenModal }: AuthProps) => {
+  const [formLogin, setFormLogin] = useState(true);
+  const dispatch = useAppDispatch();
+  const { mutate: login } = useApiLogin();
+  const { mutate: register } = useApiRegister();
+
+  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get('user') as string;
+    const password = formData.get('password') as string;
+
+    console.log('formdata', { username, password });
+
+    login(
+      {
+        username,
+        password,
+      },
+      {
+        onSuccess: (data) => {
+          dispatch(setToken(data?.token));
+
+          dispatch(
+            showSnackbar({
+              type: 'success',
+              duration: 3000,
+              message: 'Inicio de sesión exitoso',
+            })
+          );
+
+          setOpenModal(false);
+        },
+        onError: () => {
+          dispatch(
+            showSnackbar({
+              type: 'error',
+              duration: 3000,
+              message: 'Error al iniciar sesión, revise los datos ingresados',
+            })
+          );
+        },
+      }
+    );
+  };
+
+  const handleSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const firstName = formData.get('first-name') as string;
+    const lastName = formData.get('last-name') as string;
+    const username = formData.get('user') as string;
+    const password = formData.get('password') as string;
+
+    console.log('formdata', { username, password, firstName, lastName });
+
+    register(
+      {
+        firstName,
+        lastName,
+        username,
+        password,
+      },
+      {
+        onSuccess: () => {
+          dispatch(
+            showSnackbar({
+              type: 'success',
+              duration: 3000,
+              message: 'Registro exitoso',
+            })
+          );
+          setFormLogin(true);
+          setOpenModal(false);
+        },
+        onError: () => {
+          dispatch(
+            showSnackbar({
+              type: 'error',
+              duration: 3000,
+              message: 'Error al registrarse, revise los datos ingresados',
+            })
+          );
+        },
+      }
+    );
+  };
+
+  return (
+    <div className='modal-overlay' onClick={() => setOpenModal(false)}>
+      <div className='modal-container' onClick={(e) => e.stopPropagation()}>
+        {formLogin ? (
+          <>
+            <h2>Iniciar Sesión</h2>
+            <form className='modal-form' onSubmit={handleSubmitLogin}>
+              <div className='input-group'>
+                <input type='text' id='user' name='user' required />
+                <label htmlFor='user'>Usuario</label>
+              </div>
+
+              <div className='input-group'>
+                <input type='password' id='password' name='password' required />
+                <label htmlFor='password'>Contraseña</label>
+              </div>
+
+              <button type='submit'>Ingresar</button>
+
+              <div className='register-link'>
+                <span style={{ padding: '0 0.5rem' }}>¿No tienes cuenta?</span>
+                <a className='a-auth' onClick={() => setFormLogin(false)}>
+                  Regístrate
+                </a>
+              </div>
+            </form>
+          </>
+        ) : (
+          <>
+            <h2>Registrarse</h2>
+            <form className='modal-form' onSubmit={handleSubmitRegister}>
+              <div className='input-group'>
+                <input type='text' id='first-name' name='first-name' required />
+                <label htmlFor='first-name'>Nombre/s</label>
+              </div>
+              <div className='input-group'>
+                <input type='text' id='last-name' name='last-name' required />
+                <label htmlFor='last-name'>Apellido/s</label>
+              </div>
+              <div className='input-group'>
+                <input type='text' id='user' name='user' required />
+                <label htmlFor='user'>Usuario</label>
+              </div>
+
+              <div className='input-group'>
+                <input type='password' id='password' name='password' required />
+                <label htmlFor='password'>Contraseña</label>
+              </div>
+
+              <button type='submit'>Registrar</button>
+
+              <div className='register-link'>
+                <span style={{ padding: '0 0.5rem' }}>
+                  ¿Ya tienes una cuenta?
+                </span>
+                <a className='a-auth' onClick={() => setFormLogin(true)}>
+                  Inicia Sesión
+                </a>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Auth;

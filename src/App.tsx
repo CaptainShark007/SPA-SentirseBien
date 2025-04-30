@@ -1,42 +1,31 @@
-import miLogo from './assets/images/icon.png';
-import miLogo2 from './assets/logo2-png.png';
 import './App.css';
-import NavBar from '@components/navbar/NavBar';
-import { useDispatch } from 'react-redux';
-import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
-import { setToken } from './features/auth/auth.slice';
 import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
-import masajeIMG from './assets/images/Masajes.jpg';
-import bellezaIMG from './assets/images/belleza.jpg';
-import facialIMG from './assets/images/tratamientos-faciales.jpg';
-import corporalIMG from './assets/images/tratamiento-corporal.jpg';
-import grupalIMG from './assets/images/grupal.jpg';
-import React, { useEffect, useState } from 'react';
-import Snackbar from './components/SnackBar/SnackBar';
+import { useEffect, useState } from 'react';
+import Snackbar from '@components/SnackBar/SnackBar';
 import {
   useApiGetScheduleFilter,
   useApiListScheduleService,
 } from './features/schedule/schedule.query';
 import { useApiListSpa } from './features/spa/spa.query';
-import { useAppDispatch, useAppSelector } from './app/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import { SpaInfoData } from './features/spa/spa.types';
-import Calendar from './components/Calendar/Calendar';
-import { showSnackbar } from './components/SnackBar/snackBar.slice';
-import { CalendarioReserva } from './components/Calendar/Calendario';
-import { HorariosDisponibles } from './components/Calendar/Horarios';
+import { showSnackbar } from '@components/SnackBar/snackBar.slice';
+import { CalendarioReserva } from '@components/Calendar/Calendario';
+import { HorariosDisponibles } from '@components/Calendar/Horarios';
 import { useApiCreateReserve } from './features/reserve/reserve.query';
+import imagePath from '@constants/imagePath';
+import Header from '@layout/public/Header/Header';
+import Footer from '@layout/public/Footer/Footer';
+import Auth from '@components/Auth/Auth';
 
 const App = () => {
   const hoy = new Date();
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
-  const { mutate: login } = useApiLogin();
-  const { mutate: register } = useApiRegister();
+
   const { mutate: reserve } = useApiCreateReserve();
   const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
   const { mutate: updateUser } = useApiUpdateUser();
-
-  const [formLogin, setFormLogin] = useState(true);
 
   const { data: listScheduleService, refetch: refetchListScheduleService } =
     useApiListScheduleService();
@@ -147,182 +136,12 @@ const App = () => {
     });
   };
 
-  const handleSubmitLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(e);
-    console.log(e?.target[0]?.value);
-    console.log(e?.target[1]?.value);
-
-    login(
-      {
-        username: e?.target[0]?.value,
-        password: e?.target[1]?.value,
-      },
-      {
-        onSuccess: (data) => {
-          dispatch(setToken(data?.token));
-
-          dispatch(
-            showSnackbar({
-              type: 'success',
-              duration: 3000,
-              message: 'Inicio de sesión exitoso',
-            })
-          );
-
-          setOpenModal(false);
-        },
-        onError: () => {
-          dispatch(
-            showSnackbar({
-              type: 'error',
-              duration: 3000,
-              message: 'Error al iniciar sesión, revise los datos ingresados',
-            })
-          );
-        },
-      }
-    );
-  };
-
-  const handleSubmitRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(e);
-    console.log(e?.target[0]?.value);
-    console.log(e?.target[1]?.value);
-
-    register(
-      {
-        firstName: e?.target[0]?.value,
-        lastName: e?.target[1]?.value,
-        username: e?.target[2]?.value,
-        password: e?.target[3]?.value,
-      },
-      {
-        onSuccess: () => {
-          dispatch(
-            showSnackbar({
-              type: 'success',
-              duration: 3000,
-              message: 'Registro exitoso',
-            })
-          );
-          setFormLogin(true);
-          setOpenModal(false);
-        },
-        onError: () => {
-          dispatch(
-            showSnackbar({
-              type: 'error',
-              duration: 3000,
-              message: 'Error al registrarse, revise los datos ingresados',
-            })
-          );
-        },
-      }
-    );
-  };
-
   return (
     <div>
       <Snackbar />
-      <header>
-        <div className='logo-container'>
-          <img className='logo' src={miLogo2} alt='Logo Sentirse Bien' />
-        </div>
+      {openModal && <Auth setOpenModal={setOpenModal} />}
 
-        <div className='scroll-indicator'>
-          <span className='arrow'>&#x25BC;</span>
-        </div>
-      </header>
-
-      {openModal && (
-        <div className='modal-overlay' onClick={() => setOpenModal(false)}>
-          <div className='modal-container' onClick={(e) => e.stopPropagation()}>
-            {formLogin ? (
-              <>
-                <h2>Iniciar Sesión</h2>
-                <form className='modal-form' onSubmit={handleSubmitLogin}>
-                  <div className='input-group'>
-                    <input type='text' id='user' required />
-                    <label htmlFor='user'>Usuario</label>
-                  </div>
-
-                  <div className='input-group'>
-                    <input type='password' id='password' required />
-                    <label htmlFor='password'>Contraseña</label>
-                  </div>
-
-                  <button type='submit'>Ingresar</button>
-
-                  <div className='register-link'>
-                    <span style={{ padding: '0 0.5rem' }}>
-                      ¿No tienes cuenta?
-                    </span>
-                    <a className='a-auth' onClick={() => setFormLogin(false)}>
-                      Regístrate
-                    </a>
-                  </div>
-                </form>
-              </>
-            ) : (
-              <>
-                <h2>Registrarse</h2>
-                <form className='modal-form' onSubmit={handleSubmitRegister}>
-                  <div className='input-group'>
-                    <input type='text' id='first-name' required />
-                    <label htmlFor='first-name'>Nombre/s</label>
-                  </div>
-                  <div className='input-group'>
-                    <input type='text' id='last-name' required />
-                    <label htmlFor='last-name'>Apellido/s</label>
-                  </div>
-                  <div className='input-group'>
-                    <input type='text' id='user' required />
-                    <label htmlFor='user'>Usuario</label>
-                  </div>
-
-                  <div className='input-group'>
-                    <input type='password' id='password' required />
-                    <label htmlFor='password'>Contraseña</label>
-                  </div>
-
-                  <button type='submit'>Registrar</button>
-
-                  <div className='register-link'>
-                    <span style={{ padding: '0 0.5rem' }}>
-                      ¿Ya tienes una cuenta?
-                    </span>
-                    <a className='a-auth' onClick={() => setFormLogin(true)}>
-                      Inicia Sesión
-                    </a>
-                  </div>
-                </form>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-      <nav className='compact-nav'>
-        <div className='nav-wrapper'>
-          <img src={miLogo} alt='Logo Sentirse Bien' className='compact-logo' />
-          <div className='nav-menu-links'>
-            {/* <a href='#servicios' className='nav-menu-item'>
-              Servicios
-            </a>
-            <a href='#nosotros' className='nav-menu-item'>
-              Nosotros
-            </a>
-            <a href='#contacto' className='nav-menu-item'>
-              Contacto
-            </a> */}
-            <a className='nav-menu-item' onClick={() => setOpenModal(true)}>
-              Iniciar Sesión
-            </a>
-          </div>
-        </div>
-      </nav>
+      <Header setOpenModal={setOpenModal} />
 
       {openCategory && (
         <section id='servicios' className='servicios-container'>
@@ -330,7 +149,7 @@ const App = () => {
           <div className='services'>
             <div
               className='service'
-              style={{ backgroundImage: `url(${masajeIMG})` }}
+              style={{ backgroundImage: `url(${imagePath.masaje})` }}
               onClick={() => categoriaSeleccionada('MASAJES')}
             >
               <div className='overlay'></div>
@@ -343,7 +162,7 @@ const App = () => {
 
             <div
               className='service'
-              style={{ backgroundImage: `url(${bellezaIMG})` }}
+              style={{ backgroundImage: `url(${imagePath.belleza})` }}
               onClick={() => categoriaSeleccionada('BELLEZA')}
             >
               <div className='overlay'></div>
@@ -356,7 +175,7 @@ const App = () => {
 
             <div
               className='service'
-              style={{ backgroundImage: `url(${facialIMG})` }}
+              style={{ backgroundImage: `url(${imagePath.facial})` }}
               onClick={() => categoriaSeleccionada('TRATAMIENTOS FACIALES')}
             >
               <div className='overlay'></div>
@@ -369,7 +188,7 @@ const App = () => {
 
             <div
               className='service'
-              style={{ backgroundImage: `url(${corporalIMG})` }}
+              style={{ backgroundImage: `url(${imagePath.corporal})` }}
               onClick={() => categoriaSeleccionada('TRATAMIENTOS CORPORALES')}
             >
               <div className='overlay'></div>
@@ -382,7 +201,7 @@ const App = () => {
 
             <div
               className='service'
-              style={{ backgroundImage: `url(${grupalIMG})` }}
+              style={{ backgroundImage: `url(${imagePath.grupal})` }}
               onClick={() => categoriaSeleccionada('SERVICIOS GRUPALES')}
             >
               <div className='overlay'></div>
@@ -876,20 +695,7 @@ const App = () => {
         </section>
       )}
 
-      <footer>
-        <p>&copy; 2025 Sentirse Bien Spa. Todos los derechos reservados.</p>
-
-        <section>
-          <h2>Contacto</h2>
-          <p>
-            📍 Calle French 414, Ciudad de Resistencia
-            <br />
-            📞 +54 9 362-4123456
-            <br />
-            ✉️ contacto@sentirsebienspa.com
-          </p>
-        </section>
-      </footer>
+      <Footer />
     </div>
   );
 };

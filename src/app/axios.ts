@@ -1,5 +1,5 @@
 import { store } from '@/app/store';
-import { delay } from '@utils/delay';
+import { delay } from '@/shared/utils/delay';
 import axios from 'axios';
 
 const axiosInstance = axios.create({

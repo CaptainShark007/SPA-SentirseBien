@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import { hideSnackbar } from './snackBar.slice';
 import './SnackBar.css';
 

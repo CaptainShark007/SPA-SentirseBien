@@ -1,4 +1,4 @@
-import axiosInstance from '@/config/axios.config';
+import axiosInstance from '@/app/axios';
 import { ScheduleData, ScheduleServiceData } from './schedule.types';
 import { ReserveData } from '../reserve/reserve.types';
 

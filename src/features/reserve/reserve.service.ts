@@ -1,6 +1,6 @@
-import axiosInstance from '@/config/axios.config';
+import axiosInstance from '@/app/axios';
 import { ReserveData, ReserveStatus } from './reserve.types';
-import { ApiDataResponse } from '@/types/api';
+import { ApiDataResponse } from '@/shared/types/api';
 
 class ReserveService {
   updateReserve(
