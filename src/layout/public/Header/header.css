@@ -1,0 +1,160 @@
+header {
+  background-image: url('../../../assets/images/presentation.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+header h1 {
+  font-size: 4em;
+  margin: 0;
+  z-index: 2;
+  position: relative;
+}
+/* ESTILOS FLECHITA */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.arrow {
+  font-size: 2em;
+  color: white;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+nav {
+  background-color: var(--light);
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+nav a {
+  margin: 0 20px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+.compact-nav {
+  background-color: var(--light);
+  position: sticky;
+  display: flex;
+  top: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 100%;
+  height: 60px; /* Altura fija más compacta */
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ancho máximo reducido */
+  margin: 0 auto; /* Padding lateral reducido */
+  height: 100%;
+}
+
+.compact-logo {
+  height: 60px; /* Logo más pequeño */
+  width: auto;
+  margin-left: 1rem; /* Espacio lateral reducido */
+  transition: transform 0.2s ease;
+}
+
+.nav-menu-links {
+  display: flex;
+  gap: 1.5rem; /* Espacio entre links reducido */
+}
+
+.nav-menu-item {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600; /* Peso de fuente ajustado */
+  font-size: 0.95rem; /* Tamaño de fuente ligeramente reducido */
+  position: relative;
+  padding: 0.3rem 0;
+  transition: color 0.2s ease;
+}
+
+.nav-menu-item:hover {
+  color: var(--accent-color);
+  cursor: pointer;
+}
+
+.nav-menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px; /* Línea más delgada */
+  background-color: var(--accent-color);
+  transition: width 0.2s ease;
+}
+
+.nav-menu-item:hover::after {
+  width: 100%;
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 768px) {
+  .nav-wrapper {
+    padding: 0 1rem;
+  }
+
+  .compact-logo {
+    height: 35px;
+  }
+
+  .nav-menu-links {
+    gap: 1rem;
+  }
+
+  .nav-menu-item {
+    font-size: 0.85rem;
+  }
+}

@@ -1,6 +1,6 @@
 import { UserRegister } from '@features/auth/auth.types';
 import userService from './user.service';
-import { ApiParameters } from '@/types/api';
+import { ApiParameters } from '@/shared/types/api';
 
 export const apiUpdateUser = async ({
   id,

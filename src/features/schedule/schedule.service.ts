@@ -1,4 +1,4 @@
-import axiosInstance from '@/config/axios.config';
+import axiosInstance from '@/app/axios';
 import { ScheduleData, ScheduleServiceData } from './schedule.types';
 import { ReserveData } from '../reserve/reserve.types';
 
@@ -38,6 +38,16 @@ class ScheduleService {
   deleteSchedule(id: number): Promise<ScheduleData> {
     return axiosInstance
       .delete(`api/schedule/delete/${id}`)
+      .then((res) => res.data);
+  }
+
+  getScheduleFilter(
+    id: number | undefined,
+    date: string,
+    days: number
+  ): Promise<ScheduleServiceData[]> {
+    return axiosInstance
+      .get(`/api/availability?serviceId=${id}&date=${date}&days=${days}`)
       .then((res) => res.data);
   }
 }
