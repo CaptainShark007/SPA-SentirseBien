@@ -1,6 +1,6 @@
-import axiosInstance from '@/config/axios.config';
+import axiosInstance from '@/app/axios';
 import { SpaData, SpaInfoData } from './spa.types';
-import { ApiDataResponse } from '@/types/api';
+import { ApiDataResponse } from '@/shared/types/api';
 
 class SpaService {
   updateSpa(id: number, data: SpaData): Promise<ApiDataResponse<SpaInfoData>> {

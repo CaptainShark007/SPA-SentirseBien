@@ -7,7 +7,7 @@ import {
 } from './user.api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { UserData } from './user.types';
-import { ApiDataResponse } from '@/types/api';
+import { ApiDataResponse } from '@/shared/types/api';
 
 export const useApiUpdateUser = () =>
   useMutation({

@@ -1,6 +1,6 @@
 import { store } from '@/app/store';
-import { delay } from '@utils/delay';
-import axios, { AxiosError } from 'axios';
+import { delay } from '@/shared/utils/delay';
+import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
 
     return response;
   },
-  async (error: AxiosError) => {
+  async (error) => {
     await delay(1000);
 
     return Promise.reject(error);

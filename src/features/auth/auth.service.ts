@@ -1,5 +1,5 @@
 import { ApiAuthResponse, UserLogin, UserRegister } from './auth.types';
-import axiosInstance from '@/config/axios.config';
+import axiosInstance from '@/app/axios';
 
 class AuthService {
   register(data: UserRegister): Promise<ApiAuthResponse> {

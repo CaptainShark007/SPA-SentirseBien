@@ -1,4 +1,4 @@
-import { ApiReponse } from '@/types/api';
+import { ApiReponse } from '@/shared/types/api';
 
 export interface UserLogin {
   username: string;

@@ -1,4 +1,4 @@
-import { ApiParameters } from '@/types/api';
+import { ApiParameters } from '@/shared/types/api';
 import reserveService from './reserve.service';
 import { ReserveStatus } from './reserve.types';
 

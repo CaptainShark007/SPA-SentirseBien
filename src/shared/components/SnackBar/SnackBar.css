@@ -1,0 +1,29 @@
+/* src/components/ui/Snackbar.css */
+.snackbar {
+  position: fixed;
+  bottom: 2rem;
+  right: -100%;
+  padding: 1rem 1.5rem;
+  background-color: #323232;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  transition: right 0.8s ease-in-out;
+  z-index: 9999;
+}
+
+.snackbar.show {
+  right: 2rem;
+}
+
+.snackbar.success {
+  background-color: #4caf50;
+}
+
+.snackbar.error {
+  background-color: #f44336;
+}
+
+.snackbar.info {
+  background-color: #2196f3;
+}

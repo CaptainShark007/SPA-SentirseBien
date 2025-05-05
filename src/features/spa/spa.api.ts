@@ -1,4 +1,4 @@
-import { ApiParameters } from '@/types/api';
+import { ApiParameters } from '@/shared/types/api';
 import { SpaData } from './spa.types';
 import SpaService from './spa.service';
 
