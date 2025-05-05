@@ -1,35 +1,16 @@
 import { ScheduleServiceData } from '@/features/schedule/schedule.types';
-import { useState } from 'react';
-
-interface Slot {
-  startTime: string;
-  endTime: string;
-  availableSpots: number;
-}
-
-interface Schedule {
-  date: string;
-  serviceName: string;
-  availableSlots: Slot[];
-}
-
 interface Props {
-  selectedDate: string; // debe estar en formato 'YYYY-MM-DD'
+  selectedDate: string;
   schedules: ScheduleServiceData[];
 }
 
 export const HorariosDisponibles = ({
   selectedDate,
   schedules,
-  selectedHour,
-  setSelectedHour,
+  horaSeleccionada,
+  setHoraSeleccionada,
 }: Props) => {
-  console.log('schedule', schedules);
-  console.log('selectedDate', selectedDate);
   const horarioDelDia = schedules?.find((s) => s.date === selectedDate);
-
-  console.log('horarioDelDia', horarioDelDia);
-  console.log('selectedHour', selectedHour);
 
   return (
     <div className='reserva-seccion'>
@@ -41,7 +22,7 @@ export const HorariosDisponibles = ({
         <div className='horarios-grid'>
           {horarioDelDia?.availableSlots?.map((slot) => {
             const formattedHour = slot.startTime.slice(0, 5);
-            const isSelected = selectedHour === slot.startTime;
+            const isSelected = horaSeleccionada === slot.startTime;
 
             return (
               <button
@@ -49,7 +30,7 @@ export const HorariosDisponibles = ({
                 className={`hora-btn ${
                   slot.availableSpots === 0 ? 'no-disponible' : ''
                 } ${isSelected ? 'seleccionado' : ''}`}
-                onClick={() => setSelectedHour(slot.startTime)}
+                onClick={() => setHoraSeleccionada(slot.startTime)}
                 disabled={slot.availableSpots === 0}
               >
                 {formattedHour} hrs

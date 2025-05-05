@@ -1,12 +1,11 @@
+import { useAppDispatch } from '@hooks/useRedux';
 import './header.css';
 import imagePath from '@/constants/imagePath';
-import React from 'react';
+import { openModal } from '@components/ModalRenderer/modal.slice';
 
-interface HeaderProps {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const Header = () => {
+  const dispatch = useAppDispatch();
 
-const Header = ({ setOpenModal }: HeaderProps) => {
   return (
     <header style={{ alignItems: 'flex-start' }}>
       <nav className='compact-nav'>
@@ -17,16 +16,15 @@ const Header = ({ setOpenModal }: HeaderProps) => {
             className='compact-logo'
           />
           <div className='nav-menu-links'>
-            <a className='nav-menu-item' onClick={() => setOpenModal(true)}>
+            <a
+              className='nav-menu-item'
+              onClick={() => dispatch(openModal({ type: 'AUTH' }))}
+            >
               Iniciar Sesión
             </a>
           </div>
         </div>
       </nav>
-      {/* <div className='logo-container'>
-          <img className='logo' src={imagePath.logo} alt='Logo Sentirse Bien' />
-        </div> */}
-
       <div className='scroll-indicator'>
         <span className='arrow'>&#x25BC;</span>
       </div>

@@ -1,14 +1,11 @@
+import { closeModal } from '@components/ModalRenderer/modal.slice';
 import { showSnackbar } from '@components/SnackBar/snackBar.slice';
 import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
 import { setToken } from '@features/auth/auth.slice';
 import { useAppDispatch } from '@hooks/useRedux';
 import React, { useState } from 'react';
 
-interface AuthProps {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Auth = ({ setOpenModal }: AuthProps) => {
+const AuthModal = () => {
   const [formLogin, setFormLogin] = useState(true);
   const dispatch = useAppDispatch();
   const { mutate: login } = useApiLogin();
@@ -20,8 +17,6 @@ const Auth = ({ setOpenModal }: AuthProps) => {
     const formData = new FormData(e.currentTarget);
     const username = formData.get('user') as string;
     const password = formData.get('password') as string;
-
-    console.log('formdata', { username, password });
 
     login(
       {
@@ -40,7 +35,7 @@ const Auth = ({ setOpenModal }: AuthProps) => {
             })
           );
 
-          setOpenModal(false);
+          dispatch(closeModal());
         },
         onError: () => {
           dispatch(
@@ -83,7 +78,7 @@ const Auth = ({ setOpenModal }: AuthProps) => {
             })
           );
           setFormLogin(true);
-          setOpenModal(false);
+          dispatch(closeModal());
         },
         onError: () => {
           dispatch(
@@ -99,7 +94,7 @@ const Auth = ({ setOpenModal }: AuthProps) => {
   };
 
   return (
-    <div className='modal-overlay' onClick={() => setOpenModal(false)}>
+    <div className='modal-overlay' onClick={() => dispatch(closeModal())}>
       <div className='modal-container' onClick={(e) => e.stopPropagation()}>
         {formLogin ? (
           <>
@@ -165,4 +160,4 @@ const Auth = ({ setOpenModal }: AuthProps) => {
   );
 };
 
-export default Auth;
+export default AuthModal;

@@ -6,13 +6,19 @@ import { Provider } from 'react-redux';
 import { store } from '@/app/store.ts';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@app/queryClient.ts';
+import { BrowserRouter } from 'react-router-dom';
+import ModalRenderer from '@components/ModalRenderer/ModalRenderer.tsx';
+import Snackbar from '@components/SnackBar/SnackBar.tsx';
 
 createRoot(document.getElementById('root')!).render(
-  // Colocar depspues manejo de errores con error boundaries y con snakebar
   <StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <BrowserRouter>
+          <App />
+          <ModalRenderer />
+          <Snackbar />
+        </BrowserRouter>
       </QueryClientProvider>
     </Provider>
   </StrictMode>

@@ -34,6 +34,7 @@
       "@constants/*": ["./constants/*"],
       "@features/*": ["./features/*"],
       "@layout/*": ["./layout/*"],
+      "@screens/*": ["./screens/*"],
       "@/*": ["./*"]
     }
   },
