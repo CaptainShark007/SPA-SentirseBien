@@ -1,3 +1,5 @@
+import Button from '@components/Button/Button';
+import './authModal.css';
 import { closeModal } from '@components/ModalRenderer/modal.slice';
 import { showSnackbar } from '@components/SnackBar/snackBar.slice';
 import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
@@ -6,13 +8,19 @@ import { useAppDispatch } from '@hooks/useRedux';
 import React, { useState } from 'react';
 
 const AuthModal = () => {
+  // states
   const [formLogin, setFormLogin] = useState(true);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+
+  // apis
   const { mutate: login } = useApiLogin();
   const { mutate: register } = useApiRegister();
 
+  // handles
   const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const username = formData.get('user') as string;
@@ -25,7 +33,15 @@ const AuthModal = () => {
       },
       {
         onSuccess: (data) => {
-          dispatch(setToken(data?.token));
+          dispatch(
+            setToken({
+              token: data?.token,
+              username: data?.username,
+              idUser: data?.idUser,
+            })
+          );
+
+          setLoading(false);
 
           dispatch(
             showSnackbar({
@@ -38,6 +54,8 @@ const AuthModal = () => {
           dispatch(closeModal());
         },
         onError: () => {
+          setLoading(false);
+
           dispatch(
             showSnackbar({
               type: 'error',
@@ -58,8 +76,6 @@ const AuthModal = () => {
     const lastName = formData.get('last-name') as string;
     const username = formData.get('user') as string;
     const password = formData.get('password') as string;
-
-    console.log('formdata', { username, password, firstName, lastName });
 
     register(
       {
@@ -110,10 +126,16 @@ const AuthModal = () => {
                 <label htmlFor='password'>Contraseña</label>
               </div>
 
-              <button type='submit'>Ingresar</button>
-
+              <Button
+                variant='contained'
+                type='submit'
+                loading={loading}
+                disabled={loading}
+              >
+                Ingresar
+              </Button>
               <div className='register-link'>
-                <span style={{ padding: '0 0.5rem' }}>¿No tienes cuenta?</span>
+                <span>¿No tienes cuenta?</span>
                 <a className='a-auth' onClick={() => setFormLogin(false)}>
                   Regístrate
                 </a>
@@ -145,9 +167,7 @@ const AuthModal = () => {
               <button type='submit'>Registrar</button>
 
               <div className='register-link'>
-                <span style={{ padding: '0 0.5rem' }}>
-                  ¿Ya tienes una cuenta?
-                </span>
+                <span>¿Ya tienes una cuenta?</span>
                 <a className='a-auth' onClick={() => setFormLogin(true)}>
                   Inicia Sesión
                 </a>

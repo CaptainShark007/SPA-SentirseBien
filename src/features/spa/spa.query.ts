@@ -29,6 +29,10 @@ export const useApiListSpa = () =>
   useQuery({
     queryKey: ['listSpa'],
     queryFn: apiListSpa,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
   });
 
 export const useApiDeleteSpa = () =>

@@ -11,4 +11,6 @@ export interface UserRegister extends UserLogin {
 
 export interface ApiAuthResponse extends ApiReponse {
   token: string;
+  username: string;
+  idUser: number;
 }

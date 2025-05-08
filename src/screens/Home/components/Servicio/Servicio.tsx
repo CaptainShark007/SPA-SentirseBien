@@ -1,3 +1,4 @@
+import Button from '@components/Button/Button';
 import './servicio.css';
 
 interface ServicioProps {
@@ -6,21 +7,22 @@ interface ServicioProps {
 }
 
 const Servicio = ({ servicio, servicioSeleccionado }: ServicioProps) => {
-  const { key, title } = servicio;
+  const { name } = servicio;
 
+  console.log('servicio', servicio);
   return (
     <div className='servicio-item'>
       <div className='servicio-info'>
-        <h4>{title}</h4>
+        <h4>{name}</h4>
         <a className='mas-info'>Más información</a>
       </div>
       <div className='servicio-accion'>
-        <button
-          className='btn-reservar'
-          onClick={() => servicioSeleccionado(key)}
+        <Button
+          variant='contained'
+          onClick={() => servicioSeleccionado(servicio)}
         >
           Reservar
-        </button>
+        </Button>
       </div>
     </div>
   );

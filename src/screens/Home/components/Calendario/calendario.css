@@ -1,6 +1,116 @@
-/* ESTILOS CALENDARIO SPA */
-/* ESTILOS CALENDARIO SPA */
 .calendario-spa {
+  max-width: 400px;
+  /* margin: 0 auto; */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.calendario-header {
+  background-color: var(--accent-color);
+  color: var(--light);
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendario-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendario-header button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 0.55em 1.2em;
+}
+
+.calendario-header button:disabled {
+  cursor: default;
+  border-color: var(--accent-color);
+  opacity: 0.4;
+  transform: none;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.calendario-vacio {
+  padding: 10px 0;
+  min-height: 40px;
+  visibility: hidden;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: var(--primary-color);
+  color: var(--light);
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.calendario-dia {
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin: 2px;
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendario-dia:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendario-dia.pasado {
+  color: #cccccc;
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendario-dia.pasado:hover {
+  background-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.calendario-dia.seleccionado {
+  background-color: var(--accent-color);
+  color: var(--light);
+  font-weight: bold;
+}
+
+/* .calendario-spa {
   max-width: 450px;
   margin: 0 auto;
   background-color: var(--light);
@@ -90,7 +200,6 @@
   font-weight: bold;
 }
 
-/* Efecto para días seleccionables */
 .calendario-dia:not(.otro-mes)::before {
   content: '';
   position: absolute;
@@ -106,42 +215,34 @@
 }
 
 .calendario-dia:not(.otro-mes):hover::before {
-  background-color: rgba(212, 181, 161, 0.2); /* --primary-color con opacidad */
+  background-color: rgba(212, 181, 161, 0.2);
 }
 
-/* ESTILOS PARA DÍAS PASADOS */
 .calendario-dia.pasado {
-  color: #cccccc; /* Gris más claro que el original */
+  color: #cccccc;
   opacity: 0.7;
-  cursor: default; /* Cursor normal (no pointer) */
-  pointer-events: none; /* Deshabilita cualquier interacción */
+  cursor: default;
+  pointer-events: none;
 }
 
-/* Asegurar que los días pasados no tengan efectos hover */
 .calendario-dia.pasado:hover {
   background-color: transparent !important;
   transform: none !important;
   box-shadow: none !important;
 }
 
-/* Mantener el estilo del día actual */
 .calendario-dia.hoy {
   background-color: var(--accent-color);
   color: var(--light);
   font-weight: bold;
 }
 
-/* Los demás estilos del calendario se mantienen igual */
 .calendario-vacio {
   padding: 10px 0;
   min-height: 40px;
   visibility: hidden;
 }
 
-/* ESTILOS CALENDARIO */
-
-/* ESTILOS DE CALENDARIO MEJORADO */
-/* Estilos para el calendario */
 .calendario-nav-btn {
   background: none;
   border: none;
@@ -215,7 +316,6 @@
   color: var(--accent-color);
 }
 
-/* Estilos para los horarios */
 .tooltip {
   position: absolute;
   bottom: 100%;
@@ -250,7 +350,6 @@
   transform: none;
 }
 
-/* Estilos para el contenedor de meses */
 .calendario-meses-container {
   display: flex;
   flex-wrap: wrap;
@@ -269,12 +368,10 @@
   margin-bottom: 10px;
 }
 
-/* Ocultar la configuración de días */
 .calendario-dias-config {
   display: none;
 }
 
-/* Estilos para días de otro mes pero disponibles */
 .calendario-dia.otro-mes {
   color: #999;
   opacity: 0.8;
@@ -289,14 +386,12 @@
   background-color: var(--secondary-color);
 }
 
-/* Estilos para botones deshabilitados */
 .calendario-nav-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
 }
 
-/* Estilos para días de otro mes pero disponibles */
 .calendario-dia.otro-mes {
   color: #999;
   opacity: 0.8;
@@ -311,14 +406,12 @@
   background-color: var(--secondary-color);
 }
 
-/* Estilos para botones deshabilitados */
 .calendario-nav-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
 }
 
-/* Mejora visual para días sin disponibilidad */
 .calendario-dia.sin-disponibilidad {
   position: relative;
 }
@@ -334,7 +427,6 @@
   background-color: #ccc;
 }
 
-/* Estilos para el calendario */
 .calendario-spa {
   max-width: 400px;
   margin: 0 auto;
@@ -460,4 +552,4 @@
   text-align: center;
   padding: 20px;
   color: #a67c6b;
-}
+} */

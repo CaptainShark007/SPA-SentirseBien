@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import { hideSnackbar } from './snackBar.slice';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import './SnackBar.css';
 
 const Snackbar = () => {
@@ -20,7 +23,17 @@ const Snackbar = () => {
   }, [open, duration, dispatch]);
 
   return (
-    <div className={`snackbar ${open ? 'show' : ''} ${type}`}>{message}</div>
+    <div className={`snackbar ${open ? 'show' : ''} ${type}`}>
+      {type === 'success' ? (
+        <CheckCircleOutlinedIcon />
+      ) : type === 'error' ? (
+        <ReportOutlinedIcon />
+      ) : (
+        <InfoOutlinedIcon />
+      )}
+
+      {message}
+    </div>
   );
 };
 

@@ -1,4 +1,118 @@
-* {
+section.container {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 2rem;
+
+  h2 {
+    font-size: 4rem;
+    font-family: 'Cormorant', serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    color: var(--accent-color);
+  }
+}
+
+.categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.servicios {
+  justify-content: center;
+  margin: 0 auto;
+  min-width: 70%;
+
+  h3 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+  }
+}
+
+.servicios .header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.reserva-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.datos-reserva {
+  background-color: var(--light);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+}
+
+.datos-reserva h3 {
+  color: var(--accent-color);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.reserva-info {
+  margin-bottom: 25px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.info-label {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.container-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  p {
+    font-size: x-large;
+    color: var(--accent-color);
+  }
+}
+
+.spinner {
+  height: 8rem;
+  width: 8rem;
+  border: 0.5rem solid var(--accent-color);
+  border-top: 0.5rem solid transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* * {
   box-sizing: border-box;
 }
 
@@ -8,8 +122,6 @@ body {
   background-color: var(--secondary-color);
   color: var(--text-color);
 }
-
-/* ESTILOS FLECHITA */
 
 section {
   padding: 80px 20px;
@@ -44,8 +156,6 @@ section h2 {
   line-height: 1.8;
 }
 
-/* ESTILOS CALENDARIO SPA */
-/* ESTILOS CALENDARIO SPA */
 .calendario-spa {
   max-width: 450px;
   margin: 0 auto;
@@ -79,7 +189,7 @@ section h2 {
 
 .calendario-header button:hover:not(:disabled) {
   transform: scale(1.1);
-  color: var(--accent-color); /* o el color que estés usando */
+  color: var(--accent-color);
 }
 
 .calendario-header button:disabled {
@@ -134,26 +244,6 @@ section h2 {
   cursor: default;
 }
 
-/* .calendario-dia.hoy {
-  background-color: var(--accent-color);
-  color: var(--light);
-  font-weight: bold;
-}
-
-.calendario-dia.hoy::after {
-  content: 'Hoy';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.6rem;
-  background-color: var(--light);
-  color: var(--accent-color);
-  padding: 1px 4px;
-  border-radius: 4px;
-  font-weight: bold;
-} */
-
 .calendario-dia.seleccionado {
   background-color: var(--accent-color);
   color: var(--light);
@@ -161,7 +251,6 @@ section h2 {
 }
 
 .calendario-dia.seleccionado::after {
-  /* content: 'Hoy'; */
   position: absolute;
   bottom: -2px;
   left: 50%;
@@ -174,7 +263,6 @@ section h2 {
   font-weight: bold;
 }
 
-/* Efecto para días seleccionables */
 .calendario-dia:not(.otro-mes)::before {
   content: '';
   position: absolute;
@@ -190,43 +278,34 @@ section h2 {
 }
 
 .calendario-dia:not(.otro-mes):hover::before {
-  background-color: rgba(212, 181, 161, 0.2); /* --primary-color con opacidad */
+  background-color: rgba(212, 181, 161, 0.2);
 }
 
-/* ESTILOS PARA DÍAS PASADOS */
 .calendario-dia.pasado {
-  color: #cccccc; /* Gris más claro que el original */
+  color: #cccccc;
   opacity: 0.7;
-  cursor: default; /* Cursor normal (no pointer) */
-  pointer-events: none; /* Deshabilita cualquier interacción */
+  cursor: default;
+  pointer-events: none;
 }
 
-/* Asegurar que los días pasados no tengan efectos hover */
 .calendario-dia.pasado:hover {
   background-color: transparent !important;
   transform: none !important;
   box-shadow: none !important;
 }
 
-/* Mantener el estilo del día actual */
 .calendario-dia.hoy {
   background-color: var(--accent-color);
   color: var(--light);
   font-weight: bold;
 }
 
-/* Los demás estilos del calendario se mantienen igual */
 .calendario-vacio {
   padding: 10px 0;
   min-height: 40px;
   visibility: hidden;
 }
 
-/* ESTILOS CALENDARIO */
-
-/* ESTILOS LISTA DE SERVICIOS */
-
-/* ESTILOS PARA LISTA DE SERVICIOS */
 #servicios-lista {
   max-width: 800px;
   margin: 0 auto;
@@ -321,7 +400,6 @@ section h2 {
   background-color: transparent;
   color: var(--accent-color);
   border: 2px solid var(--accent-color);
-  /* padding: 10px 20px; */
   border-radius: 6px;
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
@@ -343,10 +421,9 @@ section h2 {
 
 .btn-cancelar#volver:hover {
   background-color: var(--primary-color);
-  transform: translateY(-2px);
+  transform: none;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .servicio-item {
     flex-direction: column;
@@ -360,9 +437,6 @@ section h2 {
   }
 }
 
-/* HEADER COMPACTO */
-
-/* ESTILOS PARA SECCIÓN DE RESERVAS */
 .reserva-container {
   min-height: 85vh;
   max-width: 1200px;
@@ -410,7 +484,7 @@ section h2 {
 }
 
 .hora-btn {
-  background-color: var(--accent-color); /* var(--secondary-color); */
+  background-color: var(--accent-color);
   border: none;
   padding: 10px;
   border-radius: 6px;
@@ -429,7 +503,6 @@ section h2 {
   color: white;
 }
 
-/* ESTILOS PARA HORARIOS NO DISPONIBLES */
 .hora-btn.no-disponible {
   position: relative;
   background-color: #f8f8f8;
@@ -438,30 +511,6 @@ section h2 {
   pointer-events: none;
   overflow: hidden;
 }
-
-/* .hora-btn.no-disponible::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--accent-color);
-  transform: rotate(-15deg);
-  opacity: 0.7;
-}
-
-.hora-btn.no-disponible::after {
-  content: 'No disponible';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 0 5px;
-  font-size: 0.7rem;
-  color: var(--accent-color);
-} */
 
 .reserva-info {
   margin-bottom: 25px;
@@ -542,131 +591,10 @@ section h2 {
   }
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .reserva-grid {
     grid-template-columns: 1fr;
   }
 }
-/* ESTILOS PARA SECCIÓN DE RESERVAS */
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-container {
-  background-color: #fff;
-  padding: 2rem;
-  width: 90%;
-  max-width: 400px;
-  border-radius: 12px;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.a-auth:hover {
-  cursor: pointer;
-}
-
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.modal-form label {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.modal-form input {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.modal-form button {
-  background-color: var(--accent-color, #a67c6b);
-  color: white;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.modal-form button:hover {
-  background-color: #8c6558;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 1rem 0.75rem 0.5rem;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  font-size: 1rem;
-  color: #333;
-}
-
-.input-group label {
-  position: absolute;
-  top: 50%;
-  left: 0.75rem;
-  transform: translateY(-50%);
-  color: #777;
-  background: white;
-  padding: 0 0.25rem;
-  transition: all 0.2s ease-in-out;
-  pointer-events: none;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label,
-.input-group input:valid + label {
-  top: 0.4rem;
-  left: 0.6rem;
-  font-size: 0.75rem;
-  color: var(--accent-color, #a67c6b);
-}
-
-/* White background and white placeholder */
-.input-group input::placeholder {
-  color: transparent;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 9999s ease-in-out 0s;
-  -webkit-text-fill-color: #111827 !important;
-  caret-color: #111827;
-  box-shadow: 0 0 0px 1000px transparent inset !important;
-}
+ */

@@ -1,10 +1,6 @@
 import './Home.css';
-import { useApiGetUser, useApiUpdateUser } from '@features/user/user.query';
-import { useEffect, useState } from 'react';
-import {
-  useApiGetScheduleFilter,
-  useApiListScheduleService,
-} from '@features/schedule/schedule.query';
+import { useState } from 'react';
+import { useApiGetScheduleFilter } from '@features/schedule/schedule.query';
 import { useApiListSpa } from '@features/spa/spa.query';
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import { SpaInfoData } from '@features/spa/spa.types';
@@ -16,11 +12,12 @@ import imagePath from '@constants/imagePath';
 import Categoria from '@screens/Home/components/Categoria/Categoria';
 import Servicio from '@screens/Home/components/Servicio/Servicio';
 import { openModal } from '@components/ModalRenderer/modal.slice';
+import Button from '@components/Button/Button';
 
 const Home = () => {
   // hooks
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, idUser } = useAppSelector((state) => state.auth);
 
   // consts
   const hoy = new Date();
@@ -40,17 +37,17 @@ const Home = () => {
 
   // apis
   const { mutate: reserve, isPending } = useApiCreateReserve();
-  const { data: response, refetch, isRefetching, isLoading } = useApiGetUser(1);
-  const { mutate: updateUser } = useApiUpdateUser();
-  const { data: listScheduleService, refetch: refetchListScheduleService } =
-    useApiListScheduleService();
-  const { data: listSpa, refetch: refetchListSpa } = useApiListSpa();
+  const { data: listSpa } = useApiListSpa();
+
   const {
+    mutate: refetchListScheduleFilter,
     data: listSchedulFilter,
-    refetch: refetchListScheduleFilter,
-    isLoading: loadingList,
-    isRefetching: isRefetchingList,
-  } = useApiGetScheduleFilter(servicio?.id, fechaSeleccionada, 60);
+    isPending: isPendingListScheduleFilter,
+    reset: resetListScheduleFilter,
+  } = useApiGetScheduleFilter();
+
+  const mostrarSpinner =
+    openSchedule && (isPendingListScheduleFilter || !listSchedulFilter?.data);
 
   // arrow functions
   const formatearFecha = (fecha: string) => {
@@ -65,12 +62,16 @@ const Home = () => {
     setOpenCategory(false);
     setOpenServices(true);
   };
-  const servicioSeleccionado = (servicio: string) => {
-    const data = listSpa?.data.find((item) => item.name == servicio);
-
-    setServicio(data);
+  const servicioSeleccionado = (servicio) => {
+    setServicio(servicio);
     setOpenServices(false);
     setOpenSchedule(true);
+
+    refetchListScheduleFilter({
+      id: servicio?.id,
+      date: fechaSeleccionada,
+      days: 60,
+    });
   };
 
   // handles
@@ -78,7 +79,7 @@ const Home = () => {
     if (!token) return dispatch(openModal({ type: 'AUTH' }));
 
     const data = {
-      userId: 3,
+      userId: idUser,
       serviceId: servicio?.id,
       selectedTime: `${fechaSeleccionada}T${horaSeleccionada}`,
     };
@@ -111,17 +112,28 @@ const Home = () => {
     });
   };
 
-  useEffect(() => {
-    servicio && refetchListScheduleFilter();
-  }, [refetchListScheduleFilter, servicio]);
+  const handleCloseReserve = () => {
+    resetListScheduleFilter();
+    setServicio(undefined);
+    setOpenServices(true);
+    setOpenSchedule(false);
+    setFechaSeleccionada(fechaMinima.toISOString().split('T')[0]);
+    setHoraSeleccionada(null);
+  };
 
   return (
     <>
-      {openCategory && (
-        <section className='servicios-container'>
-          <h2>Servicios</h2>
+      <section className='container'>
+        <h2>
+          {openCategory
+            ? 'Servicios'
+            : openServices
+              ? 'Nuestros Tratamientos'
+              : !mostrarSpinner && 'Reserva tu cita en nuestro SPA'}
+        </h2>
 
-          <div className='services'>
+        {openCategory && (
+          <div className='categorias'>
             {categorias.map((categoria) => (
               <Categoria
                 key={categoria.key}
@@ -130,62 +142,57 @@ const Home = () => {
               />
             ))}
           </div>
-        </section>
-      )}
+        )}
 
-      {openServices && (
-        <section id='servicios-lista' className='servicios-container'>
-          <h2>Nuestros Tratamientos</h2>
-
-          <div className='categoria-servicio'>
+        {openServices && (
+          <div className='servicios'>
             <div className='header'>
               <div />
               <h3>{categoria}</h3>
-              <div style={{ alignItems: 'center', alignContent: 'center' }}>
-                <button
-                  className='btn-cancelar'
-                  onClick={() => {
-                    setOpenCategory(true);
-                    setOpenServices(false);
-                  }}
-                >
-                  Volver
-                </button>
-              </div>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  setOpenCategory(true);
+                  setOpenServices(false);
+                }}
+              >
+                Volver
+              </Button>
             </div>
 
-            {categorias
-              .find((c) => c.key === categoria)
-              ?.servicios.map((s) => (
+            {listSpa?.data
+              .filter((c) => c.category === categoria)
+              ?.map((s, index: number) => (
                 <Servicio
-                  key={s.key}
+                  key={index}
                   servicio={s}
                   servicioSeleccionado={servicioSeleccionado}
                 />
               ))}
           </div>
-        </section>
-      )}
+        )}
 
-      {openSchedule && !loadingList && !isRefetchingList && (
-        <section id='reservas' className='reserva-container'>
-          <h2>Reserva tu cita en nuestro SPA</h2>
+        {mostrarSpinner ? (
+          <div className='container-spinner'>
+            <span className='spinner' />
+            <p>Cargando información...</p>
+          </div>
+        ) : (
+          openSchedule && (
+            <div className='reserva-grid'>
+              <Calendario
+                fechaSeleccionada={fechaSeleccionada}
+                setFechaSeleccionada={setFechaSeleccionada}
+                setHoraSeleccionada={setHoraSeleccionada}
+              />
 
-          <div className='reserva-grid'>
-            <Calendario
-              fechaSeleccionada={fechaSeleccionada}
-              setFechaSeleccionada={setFechaSeleccionada}
-              setHoraSeleccionada={setHoraSeleccionada}
-            />
+              <HorariosDisponibles
+                selectedDate={fechaSeleccionada}
+                schedules={listSchedulFilter?.data}
+                horaSeleccionada={horaSeleccionada}
+                setHoraSeleccionada={setHoraSeleccionada}
+              />
 
-            <HorariosDisponibles
-              selectedDate={fechaSeleccionada}
-              schedules={listSchedulFilter?.data}
-              horaSeleccionada={horaSeleccionada}
-              setHoraSeleccionada={setHoraSeleccionada}
-            />
-
-            <div className='reserva-seccion'>
               <div className='datos-reserva'>
                 <h3>Detalles de la reserva</h3>
                 <div className='reserva-info'>
@@ -221,37 +228,23 @@ const Home = () => {
                     gap: '0.5rem',
                   }}
                 >
-                  <button
-                    className='btn-reservarr'
-                    disabled={isPending}
+                  <Button
+                    variant='contained'
+                    loading={isPending}
+                    disabled={isPending || !horaSeleccionada}
                     onClick={handleSubmitReserve}
                   >
-                    {isPending ? (
-                      <span className='spinner'></span>
-                    ) : (
-                      'Confirmar Reserva'
-                    )}
-                  </button>
-                  <button
-                    id='volver'
-                    className='btn-cancelar'
-                    onClick={() => {
-                      setOpenServices(true);
-                      setOpenSchedule(false);
-                      setFechaSeleccionada(
-                        fechaMinima.toISOString().split('T')[0]
-                      );
-                      setHoraSeleccionada(null);
-                    }}
-                  >
+                    Confirmar Reserva
+                  </Button>
+                  <Button variant='outlined' onClick={handleCloseReserve}>
                     Volver
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          )
+        )}
+      </section>
     </>
   );
 };
@@ -260,7 +253,7 @@ export default Home;
 
 const categorias = [
   {
-    key: 'MASAJES',
+    key: 'MASAJE',
     title: 'Masajes',
     description:
       ' Relajá cuerpo y mente con masajes que alivian tensiones y renuevan tu energía.',
@@ -319,7 +312,7 @@ const categorias = [
     ],
   },
   {
-    key: 'SERVICIOS GRUPALES',
+    key: 'GRUPALES',
     title: 'Servicios Grupales',
     description:
       'Compartí momentos únicos de bienestar con quienes más querés.',
