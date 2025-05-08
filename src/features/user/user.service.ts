@@ -25,6 +25,21 @@ class UserService {
     return axiosInstance.get(`/api/user/list`).then((res) => res.data);
   }
 
+  listUserReserve(id: number): Promise<ApiDataResponse<UserData>> {
+    return axiosInstance
+      .get(`/api/user/customer/reservation-history/${id}`)
+      .then((res) => res.data);
+  }
+
+  deleteUserReserve(
+    userId: number,
+    reserveId: number
+  ): Promise<ApiDataResponse<string>> {
+    return axiosInstance
+      .put(`/api/user/customer/${userId}/cancel-reservation/${reserveId}`)
+      .then((res) => res.data);
+  }
+
   deleteUser(id: number): Promise<ApiDataResponse<string>> {
     return axiosInstance
       .delete(`/api/user/delete/${id}`)

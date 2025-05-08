@@ -120,24 +120,22 @@ const Calendario = ({
   });
 
   return (
-    <div className='reserva-seccion'>
-      <div className='calendario-spa'>
-        <div className='calendario-header'>
-          <button onClick={retrocederMes} disabled={mesEsMinimo()}>
-            ◀
-          </button>
-          <h3>{nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)}</h3>
-          <button onClick={avanzarMes} disabled={mesEsMaximo()}>
-            ▶
-          </button>
-        </div>
-        <div className='calendario-dias-semana'>
-          {diasSemana.map((dia) => (
-            <span key={dia}>{dia}</span>
-          ))}
-        </div>
-        <div className='calendario-grid'>{obtenerDiasDelMes()}</div>
+    <div className='calendario-spa'>
+      <div className='calendario-header'>
+        <button onClick={retrocederMes} disabled={mesEsMinimo()}>
+          ◀
+        </button>
+        <h3>{nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)}</h3>
+        <button onClick={avanzarMes} disabled={mesEsMaximo()}>
+          ▶
+        </button>
       </div>
+      <div className='calendario-dias-semana'>
+        {diasSemana.map((dia) => (
+          <span key={dia}>{dia}</span>
+        ))}
+      </div>
+      <div className='calendario-grid'>{obtenerDiasDelMes()}</div>
     </div>
   );
 };

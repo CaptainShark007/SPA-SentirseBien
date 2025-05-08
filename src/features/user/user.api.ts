@@ -21,6 +21,17 @@ export const apiListUser = async () => {
   return await userService.listUser();
 };
 
+export const apiListUserReserve = async (id: number) => {
+  return await userService.listUserReserve(id);
+};
+
+export const apiDeleteUserReserve = async (
+  userId: number,
+  reserveId: number
+) => {
+  return await userService.deleteUserReserve(userId, reserveId);
+};
+
 export const apiDeleteUser = async (id: number) => {
   return await userService.deleteUser(id);
 };

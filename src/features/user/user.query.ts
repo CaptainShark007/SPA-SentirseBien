@@ -1,8 +1,10 @@
 import {
   apiCreateUser,
   apiDeleteUser,
+  apiDeleteUserReserve,
   apiGetUser,
   apiListUser,
+  apiListUserReserve,
   apiUpdateUser,
 } from './user.api';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -31,6 +33,23 @@ export const useApiListUser = () =>
   useQuery<ApiDataResponse<UserData[]>>({
     queryKey: ['listUser'],
     queryFn: apiListUser,
+  });
+
+export const useApiListUserReserve = (id: number) =>
+  useQuery({
+    queryKey: ['listUserReserve'],
+    queryFn: () => apiListUserReserve(id),
+  });
+
+export const useApiDeleteUserReserve = () =>
+  useMutation({
+    mutationFn: ({
+      userId,
+      reserveId,
+    }: {
+      userId: number;
+      reserveId: number;
+    }) => apiDeleteUserReserve(userId, reserveId),
   });
 
 export const useApiDeleteUser = () =>

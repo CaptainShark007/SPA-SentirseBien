@@ -68,14 +68,16 @@ export const useApiDeleteSchedule = () =>
     mutationFn: apiDeleteSchedule,
   });
 
-export const useApiGetScheduleFilter = (
-  id: number | undefined,
-  date: string,
-  days: number
-) =>
-  useQuery({
-    queryKey: ['scheduleFilter'],
-    queryFn: () => apiGetScheduleFilter(id, date, days),
-    enabled: false,
-    retry: false,
+export const useApiGetScheduleFilter = () =>
+  useMutation({
+    mutationKey: ['deleteSchedule'],
+    mutationFn: ({
+      id,
+      date,
+      days,
+    }: {
+      id: number | undefined;
+      date: string;
+      days: number;
+    }) => apiGetScheduleFilter(id, date, days),
   });
