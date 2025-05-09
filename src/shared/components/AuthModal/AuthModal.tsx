@@ -1,113 +1,19 @@
 import Button from '@components/Button/Button';
 import './authModal.css';
-import { closeModal } from '@components/ModalRenderer/modal.slice';
-import { showSnackbar } from '@components/SnackBar/snackBar.slice';
-import { useApiLogin, useApiRegister } from '@features/auth/auth.query';
-import { setToken } from '@features/auth/auth.slice';
+import { closeModal } from '@/shared/slice/modal.slice';
 import { useAppDispatch } from '@hooks/useRedux';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useApiRegister } from '@features/hooks/useApiRegister';
+import { useApiLogin } from '@features/hooks/useApiLogin';
 
 const AuthModal = () => {
   // states
   const [formLogin, setFormLogin] = useState(true);
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
 
   // apis
-  const { mutate: login } = useApiLogin();
-  const { mutate: register } = useApiRegister();
-
-  // handles
-  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
-    const username = formData.get('user') as string;
-    const password = formData.get('password') as string;
-
-    login(
-      {
-        username,
-        password,
-      },
-      {
-        onSuccess: (data) => {
-          dispatch(
-            setToken({
-              token: data?.token,
-              username: data?.username,
-              idUser: data?.idUser,
-            })
-          );
-
-          setLoading(false);
-
-          dispatch(
-            showSnackbar({
-              type: 'success',
-              duration: 3000,
-              message: 'Inicio de sesión exitoso',
-            })
-          );
-
-          dispatch(closeModal());
-        },
-        onError: () => {
-          setLoading(false);
-
-          dispatch(
-            showSnackbar({
-              type: 'error',
-              duration: 3000,
-              message: 'Error al iniciar sesión, revise los datos ingresados',
-            })
-          );
-        },
-      }
-    );
-  };
-
-  const handleSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const firstName = formData.get('first-name') as string;
-    const lastName = formData.get('last-name') as string;
-    const username = formData.get('user') as string;
-    const password = formData.get('password') as string;
-
-    register(
-      {
-        firstName,
-        lastName,
-        username,
-        password,
-      },
-      {
-        onSuccess: () => {
-          dispatch(
-            showSnackbar({
-              type: 'success',
-              duration: 3000,
-              message: 'Registro exitoso',
-            })
-          );
-          setFormLogin(true);
-          dispatch(closeModal());
-        },
-        onError: () => {
-          dispatch(
-            showSnackbar({
-              type: 'error',
-              duration: 3000,
-              message: 'Error al registrarse, revise los datos ingresados',
-            })
-          );
-        },
-      }
-    );
-  };
+  const { login, isPending: loadingLogin } = useApiLogin();
+  const { register, isPending: loadingRegister } = useApiRegister();
 
   return (
     <div className='modal-overlay' onClick={() => dispatch(closeModal())}>
@@ -115,7 +21,7 @@ const AuthModal = () => {
         {formLogin ? (
           <>
             <h2>Iniciar Sesión</h2>
-            <form className='modal-form' onSubmit={handleSubmitLogin}>
+            <form className='modal-form' onSubmit={login}>
               <div className='input-group'>
                 <input type='text' id='user' name='user' required />
                 <label htmlFor='user'>Usuario</label>
@@ -129,8 +35,8 @@ const AuthModal = () => {
               <Button
                 variant='contained'
                 type='submit'
-                loading={loading}
-                disabled={loading}
+                loading={loadingLogin}
+                disabled={loadingLogin}
               >
                 Ingresar
               </Button>
@@ -145,7 +51,7 @@ const AuthModal = () => {
         ) : (
           <>
             <h2>Registrarse</h2>
-            <form className='modal-form' onSubmit={handleSubmitRegister}>
+            <form className='modal-form' onSubmit={register}>
               <div className='input-group'>
                 <input type='text' id='first-name' name='first-name' required />
                 <label htmlFor='first-name'>Nombre/s</label>
@@ -153,6 +59,10 @@ const AuthModal = () => {
               <div className='input-group'>
                 <input type='text' id='last-name' name='last-name' required />
                 <label htmlFor='last-name'>Apellido/s</label>
+              </div>
+              <div className='input-group'>
+                <input type='email' id='email' name='email' required />
+                <label htmlFor='email'>Email</label>
               </div>
               <div className='input-group'>
                 <input type='text' id='user' name='user' required />
@@ -164,7 +74,14 @@ const AuthModal = () => {
                 <label htmlFor='password'>Contraseña</label>
               </div>
 
-              <button type='submit'>Registrar</button>
+              <Button
+                variant='contained'
+                type='submit'
+                loading={loadingRegister}
+                disabled={loadingRegister}
+              >
+                Registrar
+              </Button>
 
               <div className='register-link'>
                 <span>¿Ya tienes una cuenta?</span>

@@ -1,5 +1,11 @@
 import './calendario.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+interface ICalendario {
+  fechaSeleccionada: string;
+  setFechaSeleccionada: React.Dispatch<React.SetStateAction<string>>;
+  setHoraSeleccionada: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
 
 const diasSemana = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
 
@@ -7,7 +13,7 @@ const Calendario = ({
   fechaSeleccionada,
   setFechaSeleccionada,
   setHoraSeleccionada,
-}) => {
+}: ICalendario) => {
   const hoy = new Date();
   const fechaMinima = new Date(hoy);
   fechaMinima.setDate(hoy.getDate() + 4);
@@ -101,8 +107,7 @@ const Calendario = ({
           onClick={() => {
             if (estaDentroDeRango) {
               setFechaSeleccionada(fechaStr);
-              setHoraSeleccionada(null);
-              console.log('Fecha seleccionada:', fechaStr);
+              setHoraSeleccionada(undefined);
             }
           }}
         >

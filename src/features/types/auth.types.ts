@@ -7,6 +7,7 @@ export interface UserLogin {
 export interface UserRegister extends UserLogin {
   firstName: string;
   lastName: string;
+  email: string;
 }
 
 export interface ApiAuthResponse extends ApiReponse {

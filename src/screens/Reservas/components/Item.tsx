@@ -1,51 +1,14 @@
 import Button from '@components/Button/Button';
-import { showSnackbar } from '@components/SnackBar/snackBar.slice';
-import { useApiDeleteUserReserve } from '@features/user/user.query';
-import { useAppDispatch } from '@hooks/useRedux';
-import { useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { useApiDeleteUserReserve } from '@features/hooks/useApiDeleteUserReserve';
+import { Reservation } from '@features/types/user.types';
+import { formatearFecha, formatearHora } from '@utils/format';
+interface ItemProps {
+  reserve: Reservation;
+}
 
-const Item = ({ reserve }) => {
-  const { mutate, isPending } = useApiDeleteUserReserve();
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
-  const params = useParams<{ idUser: string }>();
+const Item = ({ reserve }: ItemProps) => {
+  const { deleteUserReserve, isPending } = useApiDeleteUserReserve();
   const isCancelled = reserve.reserveStatusName === 'CANCELLED';
-
-  const formatearFecha = (fecha: string) => {
-    const [anio, mes, dia] = fecha.split('-');
-    return `${dia}/${mes}/${anio}`;
-  };
-  const formatearHora = (hora: string) => {
-    return hora.slice(0, 5);
-  };
-
-  const handleCancelar = () => {
-    const data = {
-      userId: Number(params.idUser),
-      reserveId: reserve.reserveId,
-    };
-    mutate(data, {
-      onSuccess: () => {
-        queryClient.refetchQueries({ queryKey: ['listUserReserve'] });
-        dispatch(
-          showSnackbar({
-            type: 'success',
-            duration: 3000,
-            message: 'Cancelación de reserva exitosa',
-          })
-        );
-      },
-      onError: () =>
-        dispatch(
-          showSnackbar({
-            type: 'error',
-            duration: 3000,
-            message: 'Error al cancelar la reserva',
-          })
-        ),
-    });
-  };
 
   return (
     <div className='servicio-item'>
@@ -66,7 +29,7 @@ const Item = ({ reserve }) => {
             variant='outlined'
             loading={isPending}
             disabled={isPending || isCancelled}
-            onClick={handleCancelar}
+            onClick={() => deleteUserReserve(reserve.reserveId)}
           >
             Cancelar reserva
           </Button>

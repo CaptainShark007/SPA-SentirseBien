@@ -1,15 +1,15 @@
 import Button from '@components/Button/Button';
 import './servicio.css';
+import { SpaInfoData } from '@features/types/serviceSpa.types';
 
 interface ServicioProps {
-  servicio: { key: string; title: string };
-  servicioSeleccionado: (_servicio: string) => void;
+  servicio: SpaInfoData;
+  servicioSeleccionado: (servicio: SpaInfoData) => void;
 }
 
 const Servicio = ({ servicio, servicioSeleccionado }: ServicioProps) => {
   const { name } = servicio;
 
-  console.log('servicio', servicio);
   return (
     <div className='servicio-item'>
       <div className='servicio-info'>
