@@ -1,28 +1,46 @@
 footer {
   background: var(--accent-color);
-  color: white;
+  color: var(--secondary-color);
   text-align: center;
-  padding: 0 30px;
-  font-size: 0.9em;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
-  align-content: center;
-}
+  align-items: flex-end;
 
-footer p {
-  align-content: center;
-}
+  section {
+    display: flex;
+    gap: 2rem;
 
-footer section {
-  display: flex;
-  align-content: center;
-  padding: 0;
-  margin: 0;
-  gap: 10px;
-}
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      padding: 0;
+      margin: 0;
+      font-size: smaller;
 
-footer h2 {
-  align-content: center;
-  color: white;
-  margin: 0;
+      p {
+        display: flex;
+        text-align: start;
+        align-items: center;
+        gap: 5px;
+      }
+
+      a {
+        display: flex;
+        text-align: start;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+      }
+
+      a:-webkit-any-link {
+        color: var(--secondary-color) !important;
+      }
+
+      a:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
 }

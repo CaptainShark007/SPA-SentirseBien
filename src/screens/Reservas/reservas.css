@@ -1,0 +1,47 @@
+section.container-reservas {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  padding: 2rem;
+
+  h2 {
+    font-size: 4rem;
+    font-family: 'Cormorant', serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    color: var(--accent-color);
+  }
+}
+
+.reservas {
+  justify-content: center;
+  margin: 0 auto;
+  min-width: 70%;
+
+  h3 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+  }
+}
+
+.reservas .header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.detail {
+  color: var(--accent-color);
+}
+
+.detail-status {
+  color: var(--accent-color);
+  font-weight: bold;
+}

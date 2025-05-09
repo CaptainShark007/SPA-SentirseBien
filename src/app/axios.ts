@@ -1,5 +1,6 @@
 import { store } from '@/app/store';
 import { delay } from '@/shared/utils/delay';
+import { HttpClient } from '@/shared/types/httpClient';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -35,4 +36,11 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+const AxiosClient: HttpClient = {
+  get: (url) => axiosInstance.get(url).then((res) => res.data),
+  post: (url, data) => axiosInstance.post(url, data).then((res) => res.data),
+  put: (url, data) => axiosInstance.put(url, data).then((res) => res.data),
+  delete: (url) => axiosInstance.delete(url).then((res) => res.data),
+};
+
+export default AxiosClient;

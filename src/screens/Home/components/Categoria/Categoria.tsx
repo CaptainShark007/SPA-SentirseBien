@@ -7,7 +7,7 @@ interface CategoriaProps {
     description: string;
     imagePath: string;
   };
-  categoriaSeleccionada: (_key: string) => void;
+  categoriaSeleccionada: (key: string) => void;
 }
 
 const Categoria = ({ categoria, categoriaSeleccionada }: CategoriaProps) => {

@@ -1,5 +1,11 @@
 import './calendario.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+interface ICalendario {
+  fechaSeleccionada: string;
+  setFechaSeleccionada: React.Dispatch<React.SetStateAction<string>>;
+  setHoraSeleccionada: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
 
 const diasSemana = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
 
@@ -7,7 +13,7 @@ const Calendario = ({
   fechaSeleccionada,
   setFechaSeleccionada,
   setHoraSeleccionada,
-}) => {
+}: ICalendario) => {
   const hoy = new Date();
   const fechaMinima = new Date(hoy);
   fechaMinima.setDate(hoy.getDate() + 4);
@@ -101,8 +107,7 @@ const Calendario = ({
           onClick={() => {
             if (estaDentroDeRango) {
               setFechaSeleccionada(fechaStr);
-              setHoraSeleccionada(null);
-              console.log('Fecha seleccionada:', fechaStr);
+              setHoraSeleccionada(undefined);
             }
           }}
         >
@@ -120,24 +125,22 @@ const Calendario = ({
   });
 
   return (
-    <div className='reserva-seccion'>
-      <div className='calendario-spa'>
-        <div className='calendario-header'>
-          <button onClick={retrocederMes} disabled={mesEsMinimo()}>
-            ◀
-          </button>
-          <h3>{nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)}</h3>
-          <button onClick={avanzarMes} disabled={mesEsMaximo()}>
-            ▶
-          </button>
-        </div>
-        <div className='calendario-dias-semana'>
-          {diasSemana.map((dia) => (
-            <span key={dia}>{dia}</span>
-          ))}
-        </div>
-        <div className='calendario-grid'>{obtenerDiasDelMes()}</div>
+    <div className='calendario-spa'>
+      <div className='calendario-header'>
+        <button onClick={retrocederMes} disabled={mesEsMinimo()}>
+          ◀
+        </button>
+        <h3>{nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1)}</h3>
+        <button onClick={avanzarMes} disabled={mesEsMaximo()}>
+          ▶
+        </button>
       </div>
+      <div className='calendario-dias-semana'>
+        {diasSemana.map((dia) => (
+          <span key={dia}>{dia}</span>
+        ))}
+      </div>
+      <div className='calendario-grid'>{obtenerDiasDelMes()}</div>
     </div>
   );
 };

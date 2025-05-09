@@ -1,26 +1,28 @@
+import Button from '@components/Button/Button';
 import './servicio.css';
+import { SpaInfoData } from '@features/types/serviceSpa.types';
 
 interface ServicioProps {
-  servicio: { key: string; title: string };
-  servicioSeleccionado: (_servicio: string) => void;
+  servicio: SpaInfoData;
+  servicioSeleccionado: (servicio: SpaInfoData) => void;
 }
 
 const Servicio = ({ servicio, servicioSeleccionado }: ServicioProps) => {
-  const { key, title } = servicio;
+  const { name } = servicio;
 
   return (
     <div className='servicio-item'>
       <div className='servicio-info'>
-        <h4>{title}</h4>
+        <h4>{name}</h4>
         <a className='mas-info'>Más información</a>
       </div>
       <div className='servicio-accion'>
-        <button
-          className='btn-reservar'
-          onClick={() => servicioSeleccionado(key)}
+        <Button
+          variant='contained'
+          onClick={() => servicioSeleccionado(servicio)}
         >
           Reservar
-        </button>
+        </Button>
       </div>
     </div>
   );

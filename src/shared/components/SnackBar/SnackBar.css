@@ -1,15 +1,16 @@
-/* src/components/ui/Snackbar.css */
 .snackbar {
   position: fixed;
   bottom: 2rem;
   right: -100%;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   padding: 1rem 1.5rem;
-  background-color: #323232;
-  color: white;
+  color: var(--secondary-color);
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
   transition: right 0.8s ease-in-out;
-  z-index: 9999;
+  z-index: 2;
 }
 
 .snackbar.show {
