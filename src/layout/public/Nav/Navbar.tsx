@@ -1,7 +1,7 @@
 import './navbar.css';
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import imagePath from '@/constants/imagePath';
-import { openModal } from '@components/ModalRenderer/modal.slice';
+import { openModal } from '@/shared/slice/modal.slice';
 import { useNavigate } from 'react-router';
 
 const Navbar = () => {

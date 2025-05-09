@@ -1,124 +1,87 @@
 import './Home.css';
-import { useState } from 'react';
-import { useApiGetScheduleFilter } from '@features/schedule/schedule.query';
-import { useApiListSpa } from '@features/spa/spa.query';
-import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
-import { SpaInfoData } from '@features/spa/spa.types';
-import { showSnackbar } from '@components/SnackBar/snackBar.slice';
+import { useMemo, useState } from 'react';
 import Calendario from '@screens/Home/components/Calendario/Calendario';
 import { HorariosDisponibles } from '@screens/Home/components/Horario/Horario';
-import { useApiCreateReserve } from '@features/reserve/reserve.query';
 import imagePath from '@constants/imagePath';
 import Categoria from '@screens/Home/components/Categoria/Categoria';
 import Servicio from '@screens/Home/components/Servicio/Servicio';
-import { openModal } from '@components/ModalRenderer/modal.slice';
 import Button from '@components/Button/Button';
+import { formatearFecha, formatearHora } from '@utils/format';
+import { useApiCreateReserve } from '@features/hooks/useApiCreateReserve';
+import { useApiAvailability } from '@features/hooks/useApiAvailability';
+import { useQueryClient } from '@tanstack/react-query';
+import { useApiListSpa } from '@features/hooks/useApiListSpa';
+import { SpaInfoData } from '@features/types/serviceSpa.types';
 
 const Home = () => {
-  // hooks
-  const dispatch = useAppDispatch();
-  const { token, idUser } = useAppSelector((state) => state.auth);
-
-  // consts
-  const hoy = new Date();
-  const fechaMinima = new Date(hoy);
-  fechaMinima.setDate(hoy.getDate() + 4);
+  const queryClient = useQueryClient();
+  const fechaMinima = useMemo(() => {
+    const hoy = new Date();
+    hoy.setDate(hoy.getDate() + 4);
+    return hoy;
+  }, []);
 
   // states
-  const [categoria, setCategoria] = useState<string | null>(null);
+  const [categoria, setCategoria] = useState<string | undefined>(undefined);
   const [servicio, setServicio] = useState<SpaInfoData | undefined>(undefined);
   const [fechaSeleccionada, setFechaSeleccionada] = useState<string>(
     fechaMinima.toISOString().split('T')[0]
   );
-  const [horaSeleccionada, setHoraSeleccionada] = useState<string | null>(null);
+  const [horaSeleccionada, setHoraSeleccionada] = useState<string | undefined>(
+    undefined
+  );
   const [openCategory, setOpenCategory] = useState(true);
   const [openServices, setOpenServices] = useState(false);
   const [openSchedule, setOpenSchedule] = useState(false);
 
   // apis
-  const { mutate: reserve, isPending } = useApiCreateReserve();
+  const { createReserve, isPending } = useApiCreateReserve();
   const { data: listSpa } = useApiListSpa();
 
   const {
-    mutate: refetchListScheduleFilter,
-    data: listSchedulFilter,
-    isPending: isPendingListScheduleFilter,
-    reset: resetListScheduleFilter,
-  } = useApiGetScheduleFilter();
+    availability,
+    data: listAvailability,
+    isPending: isPendingAvailability,
+  } = useApiAvailability();
 
   const mostrarSpinner =
-    openSchedule && (isPendingListScheduleFilter || !listSchedulFilter?.data);
+    openSchedule && (isPendingAvailability || !listAvailability?.data);
 
   // arrow functions
-  const formatearFecha = (fecha: string) => {
-    const [anio, mes, dia] = fecha.split('-');
-    return `${dia}/${mes}/${anio}`;
-  };
-  const formatearHora = (hora: string) => {
-    return hora.slice(0, 5);
-  };
   const categoriaSeleccionada = (categoria: string) => {
     setCategoria(categoria);
     setOpenCategory(false);
     setOpenServices(true);
   };
-  const servicioSeleccionado = (servicio) => {
+  const servicioSeleccionado = (servicio: SpaInfoData) => {
     setServicio(servicio);
     setOpenServices(false);
     setOpenSchedule(true);
 
-    refetchListScheduleFilter({
-      id: servicio?.id,
+    availability({
+      id: servicio.id,
       date: fechaSeleccionada,
       days: 60,
     });
   };
 
   // handles
-  const handleSubmitReserve = () => {
-    if (!token) return dispatch(openModal({ type: 'AUTH' }));
-
-    const data = {
-      userId: idUser,
-      serviceId: servicio?.id,
-      selectedTime: `${fechaSeleccionada}T${horaSeleccionada}`,
-    };
-
-    reserve(data, {
-      onSuccess: () => {
-        dispatch(
-          showSnackbar({
-            type: 'success',
-            duration: 3000,
-            message: 'Reserva exitosa',
-          })
-        );
-        setFechaSeleccionada(fechaMinima.toISOString().split('T')[0]);
-        setHoraSeleccionada(null);
-        setCategoria(null);
-        setServicio(undefined);
-        setOpenSchedule(false);
-        setOpenCategory(true);
-      },
-      onError: () => {
-        dispatch(
-          showSnackbar({
-            type: 'error',
-            duration: 3000,
-            message: 'Error al reservar',
-          })
-        );
-      },
-    });
+  const handleReserve = () => {
+    setFechaSeleccionada(fechaMinima.toISOString().split('T')[0]);
+    setHoraSeleccionada(undefined);
+    setCategoria(undefined);
+    setServicio(undefined);
+    setOpenSchedule(false);
+    setOpenCategory(true);
   };
 
   const handleCloseReserve = () => {
-    resetListScheduleFilter();
+    queryClient.invalidateQueries({ queryKey: ['availability'] });
     setServicio(undefined);
     setOpenServices(true);
     setOpenSchedule(false);
     setFechaSeleccionada(fechaMinima.toISOString().split('T')[0]);
-    setHoraSeleccionada(null);
+    setHoraSeleccionada(undefined);
   };
 
   return (
@@ -161,10 +124,10 @@ const Home = () => {
             </div>
 
             {listSpa?.data
-              .filter((c) => c.category === categoria)
-              ?.map((s, index: number) => (
+              ?.filter((c) => c.category === categoria)
+              ?.map((s) => (
                 <Servicio
-                  key={index}
+                  key={s.id}
                   servicio={s}
                   servicioSeleccionado={servicioSeleccionado}
                 />
@@ -187,8 +150,8 @@ const Home = () => {
               />
 
               <HorariosDisponibles
-                selectedDate={fechaSeleccionada}
-                schedules={listSchedulFilter?.data}
+                fechaSeleccionada={fechaSeleccionada}
+                schedules={listAvailability?.data}
                 horaSeleccionada={horaSeleccionada}
                 setHoraSeleccionada={setHoraSeleccionada}
               />
@@ -232,7 +195,14 @@ const Home = () => {
                     variant='contained'
                     loading={isPending}
                     disabled={isPending || !horaSeleccionada}
-                    onClick={handleSubmitReserve}
+                    onClick={() =>
+                      createReserve({
+                        fechaSeleccionada,
+                        horaSeleccionada,
+                        serviceId: servicio?.id,
+                        handleCreateReserve: handleReserve,
+                      })
+                    }
                   >
                     Confirmar Reserva
                   </Button>

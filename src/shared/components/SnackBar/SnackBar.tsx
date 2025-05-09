@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
-import { hideSnackbar } from './snackBar.slice';
+import { hideSnackbar } from '../../slice/snackBar.slice';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';

@@ -1,15 +1,10 @@
-import { useParams } from 'react-router';
 import './reservas.css';
-import { useApiListUserReserve } from '@features/user/user.query';
 import Item from '@screens/Reservas/components/Item';
+import { useApiListUserReserve } from '@features/hooks/useApiListUserReserve';
 
 const Reservas = () => {
-  // hooks
-  const params = useParams<{ idUser: string }>();
-  //   apis
-  const { data: response, isLoading } = useApiListUserReserve(
-    Number(params.idUser)
-  );
+  const { data: response, isLoading } = useApiListUserReserve();
+
   return (
     <section className='container-reservas'>
       {isLoading ? (
@@ -23,8 +18,8 @@ const Reservas = () => {
             <h3>Mis reservas</h3>
           </div>
 
-          {response?.data?.reservations?.map((r, index: number) => {
-            return <Item key={index} reserve={r} />;
+          {response?.data?.reservations?.map((r) => {
+            return <Item key={r.reserveId} reserve={r} />;
           })}
         </div>
       )}

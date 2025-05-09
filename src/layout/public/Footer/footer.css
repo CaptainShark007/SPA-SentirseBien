@@ -32,7 +32,10 @@ footer {
         align-items: center;
         gap: 5px;
         cursor: pointer;
-        color: var(--secondary-color);
+      }
+
+      a:-webkit-any-link {
+        color: var(--secondary-color) !important;
       }
 
       a:hover {

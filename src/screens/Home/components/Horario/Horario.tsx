@@ -1,18 +1,21 @@
 import Button from '@components/Button/Button';
 import './horario.css';
-import { ScheduleServiceData } from '@/features/schedule/schedule.types';
+import { Available } from '@features/types/serviceSpa.types';
+import React from 'react';
 interface Props {
-  selectedDate: string;
-  schedules: ScheduleServiceData[];
+  fechaSeleccionada: string;
+  schedules: Available[] | undefined;
+  horaSeleccionada: string | undefined;
+  setHoraSeleccionada: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export const HorariosDisponibles = ({
-  selectedDate,
+  fechaSeleccionada,
   schedules,
   horaSeleccionada,
   setHoraSeleccionada,
 }: Props) => {
-  const horarioDelDia = schedules?.find((s) => s.date === selectedDate);
+  const horarioDelDia = schedules?.find((s) => s.date === fechaSeleccionada);
 
   return (
     <div className='horarios-container'>
