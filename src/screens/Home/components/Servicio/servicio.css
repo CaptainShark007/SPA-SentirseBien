@@ -1,32 +1,86 @@
-.servicio-item {
+.servicio-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  max-width: 100%;
+}
+
+.servicio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.servicio-content {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.servicio-image {
+  min-width: 200px; /* 100px */
+  height: 200px; /* 100px */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.servicio-details {
+  flex: 1;
+}
+
+.servicio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.servicio-header h3 {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 1.5rem; /* 1.2rem */
+  flex: 1;
+}
+
+.servicio-duration {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
+.servicio-description {
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.servicio-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--secondary-color);
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
 }
 
-.servicio-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.servicio-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-color);
 }
 
-.servicio-info {
-  text-align: left;
-}
-
-.servicio-info h4 {
-  margin: 0 0 5px 0;
-  color: var(--text-color);
-  font-size: 1.1rem;
-  text-align: left;
-}
-
-.servicio-accion {
-  display: flex;
-  align-items: center;
-  padding: 0 0.5rem;
+@media (max-width: 768px) { 
+  .servicio-image {
+    min-width: 100px; /* 100px */
+    height: 100px; /* 100px */
+  }
+  .servicio-header h3 {
+    font-size: 1.2rem; /* 1.2rem */
+  }
 }

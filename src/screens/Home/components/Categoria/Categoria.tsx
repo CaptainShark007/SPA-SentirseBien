@@ -1,3 +1,4 @@
+// Categoria.tsx
 import './categoria.css';
 
 interface CategoriaProps {
@@ -15,13 +16,18 @@ const Categoria = ({ categoria, categoriaSeleccionada }: CategoriaProps) => {
 
   return (
     <div
-      className='service'
-      style={{ backgroundImage: `url(${imagePath})` }}
+      className='categoria-card'
       onClick={() => categoriaSeleccionada(key)}
     >
-      <div className='overlay'></div>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <div 
+        className='categoria-image'
+        style={{ backgroundImage: `url(${imagePath})` }}
+      ></div>
+      <div className='categoria-content'>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <button className='explore-button'>Explorar tratamientos</button>
+      </div>
     </div>
   );
 };

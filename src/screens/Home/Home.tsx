@@ -226,7 +226,7 @@ const categorias = [
     key: 'MASAJE',
     title: 'Masajes',
     description:
-      ' Relajá cuerpo y mente con masajes que alivian tensiones y renuevan tu energía.',
+      ' Relajá el cuerpo con masajes que alivian tensiones y renuevan tu energía.',
     imagePath: imagePath.masaje,
     servicios: [
       { key: 'Anti-stress', title: 'Anti-Stress' },
@@ -292,4 +292,16 @@ const categorias = [
       { key: 'Yoga', title: 'Yoga' },
     ],
   },
+  {
+    key: 'GRUPALES',
+    title: 'Servicios Grupales',
+    description:
+      'Compartí momentos únicos de bienestar con quienes más querés.',
+    imagePath: imagePath.grupal,
+    servicios: [
+      { key: 'Hidromasajes', title: 'Hidromasajes' },
+      { key: 'Yoga', title: 'Yoga' },
+    ],
+  },
 ];
+  

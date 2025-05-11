@@ -1,11 +1,18 @@
-:root {
-  --primary-color: #d4b5a1;
-  --secondary-color: #f0ede9;
-  --text-color: #3e3e3e;
-  --accent-color: #a67c6b;
-  --light: #ffffff;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-  font-family: 'Montserrat', sans-serif;
+:root {
+  --primary-color: #12059ee6; /* #1a2f8e #d4b5a1 #31d4be #3c32b4e6 */
+  --secondary-color: #f0ede9; /* f0ede9 */
+  /* --text-color: #3e3e3e; */
+  /* --accent-color: #4361ee; */ /* #a67c6b */ 
+  /* --light: #ffffff; */
+
+  --light: #ffffff;
+  --accent-color: #1500ffe6; /*4361ee*/ /* Azul moderno - puedes cambiarlo */
+  --text-color: #2b2d42;
+  --text-secondary: #6c757d;
+
+  font-family: 'Poppins', sans-serif; /* 'Montserrat', sans-serif; */
   font-size: 0.9rem;
   line-height: 1.5;
   font-weight: 400;

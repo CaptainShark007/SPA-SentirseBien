@@ -1,48 +1,74 @@
-nav {
+ nav {
   width: 100%;
   top: 0;
   position: fixed;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--light);
-  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(248, 249, 250, 0.9), 
+    rgba(255, 255, 255, 0.9) 
+  );
+  z-index: 1001;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px); 
+  -webkit-backdrop-filter: blur(8px);
+  
 
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
 
     .container-links {
       display: flex;
-      text-align: center;
       align-items: center;
-      gap: 1rem;
-    }
+      gap: 1.5rem;
+      z-index: 1000; 
+   }
 
     img {
-      height: 60px;
+      height: 60px; 
       width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05); 
     }
 
     a {
       position: relative;
-      font-size: large;
+      font-size: 0.85rem; 
+      font-weight: 500;
+      color: var(--text-color);
+      font-weight: bold;
+      text-decoration: none;
+      padding: 0.5rem 1rem; 
+      transition: all 0.4s ease; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      border-radius: 4px;
+      cursor: pointer;
     }
 
     a:hover {
-      color: var(--accent-color);
-      cursor: pointer;
+      color: var(--accent-color); /* #13dcc1; */
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
 
     a:after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
-      height: 0.1rem;
-      background-color: var(--accent-color);
-      transition: width 0.2s ease;
+      height: 2px;
+      background-color: var(--accent-color); /* #13dcc1; */
+      transition: width 0.4s ease;
     }
 
     a:hover:after {
@@ -50,8 +76,176 @@ nav {
     }
 
     .bienvenido {
-      font-size: large;
+      font-size: 0.9rem;
       font-weight: 500;
+      color: var(--text-secondary);
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
     }
   }
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-color);
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.hamburger.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .container-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(248, 249, 250, 0.98),
+      rgba(255, 255, 255, 1)
+    );
+    backdrop-filter: blur(15px);
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    /* Transición más lenta para el cierre */
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0s linear 0.5s; /* Retraso en la visibilidad */
+    z-index: 1001;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .container-links.is-active {
+    height: auto;
+    max-height: 70vh;
+    padding: 1rem 0;
+    overflow-y: auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    visibility: visible;
+    /* Anulamos el retraso de visibilidad al abrir */
+    transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0s linear 0s;
+  }
+  
+  /* Estado para la animación de cierre con transición más suave */
+  .container-links.is-closing {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    visibility: visible; /* Mantener visible durante la transición */
+    /* Eliminamos el retraso al cerrar */
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0.5s;
+    max-height: 0; /* Forzar altura cero al cerrar */
+  }
+
+  .container-links a {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: 0.1s;
+  }
+
+  .container-links.is-active a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Efecto de desvanecimiento de los enlaces al cerrar */
+  .container-links.is-closing a {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: 0s; /* Sin retraso al cerrar */
+  }
+
+  .bienvenido {
+    visibility: hidden;
+  }
+}
+
+/* Añade esto al final de tu navbar.css */
+
+/* Estilos para el menú desplegable */
+.MuiPaper-root {
+  border-radius: 8px !important;
+}
+
+.MuiMenuItem-root {
+  font-size: 0.85rem !important;
+  padding: 8px 16px !important;
+}
+
+.MuiMenuItem-root:hover {
+  background-color: rgba(19, 220, 193, 0.1) !important;
+  color: var(--accent-color) !important;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+  .MuiMenu-paper {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+  }
+  
+  .MuiMenu-list {
+    padding: 0 !important;
+  }
+  
+  .MuiMenuItem-root {
+    padding: 1rem !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Ocultar el botón de gestión en el menú móvil si está abierto */
+  /* .container-links.is-active #gestion-button {
+    display: none;
+  } */
 }

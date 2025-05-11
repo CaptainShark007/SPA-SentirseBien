@@ -1,51 +1,95 @@
 import './footer.css';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LocationPinIcon from '@mui/icons-material/LocationPin';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { EmailOutlined } from '@mui/icons-material';
+import imagePath from '@constants/imagePath';
 
 const Footer = () => {
   return (
-    <footer>
-      <p>&copy; 2025 Sentirse Bien Spa. Todos los derechos reservados.</p>
-
-      <section>
-        <div>
-          <h2>Nuestras Redes</h2>
-          <a
-            href='https://facebook.com'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FacebookOutlinedIcon /> Facebook
+    <footer className="footer-container">
+      <div className="footer-top">
+        {/* Contenedor principal que incluye logo y columnas */}
+        <div className="footer-main-content">
+          {/* Sección del logo */}
+          <div className="footer-logo-section">
+            <img src={imagePath.logoFooter} alt="Sentirse Bien Spa Logo" className="footer-logo-img" />
+            <h1 className="footer-logo-text">Sentirse Bien Spa</h1>
+          </div>
+          
+          {/* Columnas */}
+          <div className="footer-columns">
+            <div className="footer-column">
+              <h3>Equipo de Desarrollo</h3>
+              <ul>
+                <li>Hugo Brocal</li>
+                <li>Diego Gomez</li>
+                <li>Joel Trolson</li>
+                <li>Lautaro Rodriguez</li>
+                <li>Matias Geymonat</li>
+              </ul>
+            </div>
+            
+            <div className="footer-column">
+              <h3>Tecnología & Contribuciones</h3>
+              <ul>
+                <li>React/Vite & Spring Boot</li>
+                <li>GitHub del Frontend</li>
+                <li>GitHub del Backend API</li>
+                <li>Documentación API REST</li>
+                <li>Reportar un bug</li>
+              </ul>
+            </div>
+            
+            <div className="footer-column">
+              <h3>Contacto</h3>
+              <address>
+                Calle French 414<br />
+                Ciudad de Resistencia<br />
+                Chaco, Argentina<br /><br />
+                contacto@sentirsebienspa.com<br />
+                +54 9 362-4123456
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="footer-bottom">
+        <div className="social-links">
+          <a href="" target="_blank" rel="noopener noreferrer">
+            <FacebookOutlinedIcon />
           </a>
-          <a
-            href='https://instagram.com'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <InstagramIcon /> Instagram
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <InstagramIcon />
           </a>
-          <a href='https://x.com' target='_blank' rel='noopener noreferrer'>
-            <XIcon /> X
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <XIcon />
+          </a>
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <LinkedInIcon />
+          </a>
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <LocationPinIcon />
+          </a>
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <WhatsAppIcon />
+          </a>
+          <a href="https://github.com/CaptainShark007/SPA-SentirseBien" target="_blank" rel="noopener noreferrer">
+            <EmailOutlined />
           </a>
         </div>
-
-        <div>
-          <h2>Contacto</h2>
-          <p>
-            <LocationOnOutlinedIcon /> Calle French 414, Ciudad de Resistencia
-          </p>
-          <p>
-            <PhoneOutlinedIcon /> +54 9 362-4123456
-          </p>
-          <p>
-            <MailOutlinedIcon /> contacto@sentirsebienspa.com
-          </p>
+        
+        <div className="legal-links">
+          <span>&copy; 2025 Sentirse Bien Spa by Team DHJLM.</span>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos de Uso</a>
+          <a href="#">Ventas y Reembolsos</a>
         </div>
-      </section>
+      </div>
     </footer>
   );
 };
