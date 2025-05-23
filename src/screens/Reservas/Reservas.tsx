@@ -12,6 +12,8 @@ const Reservas = () => {
           <span className='spinner' />
           <p>Cargando información...</p>
         </div>
+      ) : (response?.data?.reservations ?? []).length == 0 ? (
+        <></>
       ) : (
         <div className='reservas'>
           <div className='header'>

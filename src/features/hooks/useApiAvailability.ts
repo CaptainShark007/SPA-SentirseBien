@@ -2,17 +2,13 @@ import {
   apiAvailability,
   ParamsAvailability,
 } from '@features/api/serviceSpa.api';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-export const useApiAvailability = () => {
-  const { mutate, data, isPending } = useMutation({
-    mutationKey: ['availability'],
-    mutationFn: apiAvailability,
+export const useApiAvailability = (params: ParamsAvailability) => {
+  const query = useQuery({
+    queryKey: ['availability'],
+    queryFn: () => apiAvailability(params),
   });
 
-  const availability = (params: ParamsAvailability) => {
-    mutate(params);
-  };
-
-  return { availability, data, isPending };
+  return { ...query };
 };

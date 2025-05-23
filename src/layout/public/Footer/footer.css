@@ -6,41 +6,42 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
 
-  section {
-    display: flex;
-    gap: 2rem;
+.footer-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
 
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      padding: 0;
-      margin: 0;
-      font-size: smaller;
+.section-column {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
+}
 
-      p {
-        display: flex;
-        text-align: start;
-        align-items: center;
-        gap: 5px;
-      }
+.section-text {
+  display: flex;
+  text-align: start;
+  align-items: center;
+  gap: 5px;
+}
 
-      a {
-        display: flex;
-        text-align: start;
-        align-items: center;
-        gap: 5px;
-        cursor: pointer;
-      }
+.section-link {
+  display: flex;
+  text-align: start;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
 
-      a:-webkit-any-link {
-        color: var(--secondary-color) !important;
-      }
+.section-link:-webkit-any-link {
+  color: var(--secondary-color) !important;
+}
 
-      a:hover {
-        color: var(--primary-color);
-      }
-    }
-  }
+.section-link:hover {
+  color: var(--accent-color);
 }

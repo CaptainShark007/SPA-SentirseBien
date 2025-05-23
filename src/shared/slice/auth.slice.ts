@@ -1,12 +1,20 @@
+import { storageKeys } from '@constants/localStorage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { removeLocalStorage } from '@utils/localStorage';
 
-type AuthState = {
+export type AuthState = {
   token: string | null;
   username: string | null;
   idUser: number | null;
 };
 
-const initialState: AuthState = {
+export type JwtPayload = {
+  sub: string;
+  exp: number;
+  iat: number;
+};
+
+export const initialState: AuthState = {
   token: null,
   idUser: null,
   username: null,
@@ -32,6 +40,7 @@ const authSlice = createSlice({
       state.token = null;
       state.idUser = null;
       state.username = null;
+      removeLocalStorage(storageKeys.isSessionExpired);
     },
   },
 });

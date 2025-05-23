@@ -16,6 +16,12 @@ export class ServiceSpaService {
     );
   }
 
+  getService(id: number) {
+    return this.http.get<ApiDataResponse<SpaInfoData>>(
+      `/api/service-spa/${id}`
+    );
+  }
+
   availability(id: number, date: string, days: number) {
     return this.http.get<ApiDataResponse<Available[]>>(
       `/api/availability?serviceId=${id}&date=${date}&days=${days}`

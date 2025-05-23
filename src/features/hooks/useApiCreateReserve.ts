@@ -3,15 +3,17 @@ import { showSnackbar } from '@/shared/slice/snackBar.slice';
 import { apiCreateReserve } from '@features/api/serviceSpa.api';
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 
 interface Params {
   serviceId: number | undefined;
   fechaSeleccionada: string;
   horaSeleccionada: string | undefined;
-  handleCreateReserve: () => void;
 }
 
 export const useApiCreateReserve = () => {
+  const navigate = useNavigate();
+
   const { mutate, isPending } = useMutation({ mutationFn: apiCreateReserve });
   const dispatch = useAppDispatch();
 
@@ -20,12 +22,7 @@ export const useApiCreateReserve = () => {
   const createReserve = (params: Params) => {
     if (!token) return dispatch(openModal({ type: 'AUTH' }));
 
-    const {
-      serviceId,
-      fechaSeleccionada,
-      horaSeleccionada,
-      handleCreateReserve,
-    } = params;
+    const { serviceId, fechaSeleccionada, horaSeleccionada } = params;
 
     const data = {
       userId: idUser,
@@ -42,7 +39,9 @@ export const useApiCreateReserve = () => {
             message: 'Reserva exitosa',
           })
         );
-        handleCreateReserve();
+        setTimeout(() => {
+          navigate(`/mis-reservas/${idUser}`);
+        }, 3000);
       },
       onError: () => {
         dispatch(
