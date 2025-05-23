@@ -9,6 +9,9 @@ export const apiCreateReserve = async (dataSend: Reserve) =>
 
 export const apiListSpa = async () => serviceSpaService.listSpa();
 
+export const apiGetService = async (id: number) =>
+  serviceSpaService.getService(id);
+
 export type ParamsAvailability = { id: number; date: string; days: number };
 export const apiAvailability = async ({ id, date, days }: ParamsAvailability) =>
   serviceSpaService.availability(id, date, days);
