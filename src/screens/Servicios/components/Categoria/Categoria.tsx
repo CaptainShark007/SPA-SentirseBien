@@ -1,27 +1,23 @@
+import { SpaInfoData } from '@features/types/serviceSpa.types';
 import './categoria.css';
 
 interface CategoriaProps {
-  categoria: {
-    key: string;
-    title: string;
-    description: string;
-    imagePath: string;
-  };
+  categoria: SpaInfoData;
   categoriaSeleccionada: (key: string) => void;
 }
 
 const Categoria = ({ categoria, categoriaSeleccionada }: CategoriaProps) => {
-  const { key, title, description, imagePath } = categoria;
+  const { category } = categoria;
 
   return (
     <div
       className='service'
-      style={{ backgroundImage: `url(${imagePath})` }}
-      onClick={() => categoriaSeleccionada(key)}
+      style={{ backgroundImage: `url()` }}
+      onClick={() => categoriaSeleccionada(category)}
     >
       <div className='overlay'></div>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <h3>{category}</h3>
+      <p></p>
     </div>
   );
 };
