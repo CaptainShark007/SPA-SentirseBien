@@ -1,8 +1,8 @@
 .footer-container {
-  background-color: var(--accent-color);
+  background: linear-gradient(180deg, #3f9b0b 0%, #32cd32 100%);
   color: var(--light);
   padding: 40px 20px 20px;
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
   box-shadow: 0 -5px 30px rgba(212, 181, 161, 0.3);
 }
 
