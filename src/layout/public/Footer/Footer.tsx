@@ -14,11 +14,11 @@ const Footer = () => {
           {/* Sección del logo */}
           <div className='footer-logo-section'>
             <img
-              src={imagePath.icon}
+              src={imagePath.icon2white}
               alt='Sentirse Bien Spa Logo'
               className='footer-logo-img'
             />
-            <h1 className='footer-logo-text'>Sentirse Bien Spa</h1>
+            <h1 className='footer-logo-text'>Spa Sentirse Bien</h1>
           </div>
 
           {/* Columnas */}

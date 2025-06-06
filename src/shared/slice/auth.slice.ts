@@ -6,6 +6,7 @@ export type AuthState = {
   token: string | null;
   username: string | null;
   idUser: number | null;
+  rol: 'ADMIN' | 'CUSTOMER' | 'DEVELOPER' | null;
 };
 
 export type JwtPayload = {
@@ -18,6 +19,7 @@ export const initialState: AuthState = {
   token: null,
   idUser: null,
   username: null,
+  rol: null,
 };
 
 const authSlice = createSlice({
