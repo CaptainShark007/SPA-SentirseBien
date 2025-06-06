@@ -5,6 +5,14 @@
   --accent-color: #3f9b0b;
   --light: #ffffff;
 
+  --primary-color: #5348c9e6;
+  --secondary-color: #f0ede9;
+  --light: #ffffff;
+  --accent-color: #5fb2bde6; /*4361ee*/ /* Azul moderno - puedes cambiarlo */ /* #1500ffe6 */
+  --text-color: #2b2d42;
+  --text-secondary: #6c757d;
+  --error-color: #f44336;
+
   /* 
   2E6F40 
   32CD32 

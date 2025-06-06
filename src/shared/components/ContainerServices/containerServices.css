@@ -7,12 +7,12 @@ section.container {
 
   padding: 2rem;
 
-  h2 {
-    font-size: 4rem;
+  h1 {
+    /* font-size: 4rem;
     font-family: 'Cormorant', serif;
     font-optical-sizing: auto;
     font-weight: bold;
-    font-style: normal;
+    font-style: normal; */
     text-align: center;
     color: var(--text-color);
   }

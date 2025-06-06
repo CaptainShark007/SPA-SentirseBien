@@ -32,9 +32,9 @@ const AuthModal = () => {
   return (
     <div className='modal-overlay' onClick={() => dispatch(closeModal())}>
       <div className='modal-container' onClick={(e) => e.stopPropagation()}>
+        <h2>{formLogin ? 'Iniciar Sesión' : 'Registrarse'}</h2>
         {formLogin ? (
           <>
-            <h2>Iniciar Sesión</h2>
             <form className='modal-form' onSubmit={login} ref={loginFormRef}>
               <div className='input-group'>
                 <input type='text' id='user' name='user' required />
@@ -54,6 +54,10 @@ const AuthModal = () => {
               >
                 Ingresar
               </Button>
+
+              <Button variant='outlined' onClick={() => dispatch(closeModal())}>
+                Volver
+              </Button>
               <div className='register-link'>
                 <span>¿No tienes cuenta?</span>
                 <a className='a-auth' onClick={() => handleToggleForm(false)}>
@@ -64,7 +68,6 @@ const AuthModal = () => {
           </>
         ) : (
           <>
-            <h2>Registrarse</h2>
             <form
               className='modal-form'
               onSubmit={register}
@@ -101,6 +104,9 @@ const AuthModal = () => {
                 Registrar
               </Button>
 
+              <Button variant='outlined' onClick={() => dispatch(closeModal())}>
+                Volver
+              </Button>
               <div className='register-link'>
                 <span>¿Ya tienes una cuenta?</span>
                 <a className='a-auth' onClick={() => handleToggleForm(true)}>

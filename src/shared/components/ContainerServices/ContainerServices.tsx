@@ -9,7 +9,7 @@ interface ContainerServicesProps {
 const ContainerServices = ({ title, children }: ContainerServicesProps) => {
   return (
     <section className='container'>
-      <h2>{title}</h2>
+      <h1>{title}</h1>
       {children}
     </section>
   );

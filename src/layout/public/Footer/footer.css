@@ -4,6 +4,7 @@
   padding: 40px 20px 20px;
   /* font-family: 'Poppins', sans-serif; */
   box-shadow: 0 -5px 30px rgba(212, 181, 161, 0.3);
+  background: linear-gradient(180deg, #5348c9e6, var(--accent-color));
 }
 
 .footer-top {
@@ -35,6 +36,7 @@
   height: auto;
   margin-bottom: 10px;
   color: white;
+  border-radius: 1.5rem;
 }
 
 .footer-logo-text {
@@ -108,7 +110,7 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--primary-color);
   padding-top: 20px;
   margin-top: 40px;
   display: flex;

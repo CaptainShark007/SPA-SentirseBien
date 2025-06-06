@@ -18,13 +18,13 @@
 }
 
 .snackbar.success {
-  background-color: #4caf50;
+  background-color: var(--primary-color);
 }
 
 .snackbar.error {
-  background-color: #f44336;
+  background-color: var(--error-color);
 }
 
 .snackbar.info {
-  background-color: #2196f3;
+  background-color: var(--accent-color);
 }

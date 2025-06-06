@@ -1,31 +1,48 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ModalType = 'AUTH' | null;
+export type ModalType = 'AUTH' | 'CREATE-USER' | 'DELETE-USER';
+
+export interface ModalPropsMap {
+  AUTH: undefined;
+  'CREATE-USER': undefined;
+  'DELETE-USER': {
+    id: number;
+    nombre: string;
+    apellido: string;
+    empleado: string;
+    email: string;
+  };
+}
+
+type ModalPayload<K extends ModalType = ModalType> = {
+  type: K;
+  props?: ModalPropsMap[K];
+};
 
 interface ModalState {
-  activeModal: ModalType;
-  modalProps?: Record<string, any>;
+  activeModal: ModalType | null;
+  modalProps: ModalPropsMap[ModalType] | undefined;
 }
 
 const initialState: ModalState = {
   activeModal: null,
-  modalProps: {},
+  modalProps: undefined,
 };
 
 const modalSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    openModal: (
-      state,
-      action: PayloadAction<{ type: ModalType; props?: Record<string, any> }>
+    openModal: <K extends ModalType>(
+      state: ModalState,
+      action: PayloadAction<ModalPayload<K>>
     ) => {
       state.activeModal = action.payload.type;
-      state.modalProps = action.payload.props || {};
+      state.modalProps = action.payload.props || undefined;
     },
     closeModal: (state) => {
       state.activeModal = null;
-      state.modalProps = {};
+      state.modalProps = undefined;
     },
   },
 });

@@ -36,6 +36,10 @@ header {
   }
 }
 
+.not-header {
+  margin-bottom: 3rem;
+}
+
 @media (max-width: 768px) {
   header {
     background-position: right;
