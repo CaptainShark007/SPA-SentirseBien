@@ -2,8 +2,22 @@
   --primary-color: #d4b5a1;
   --secondary-color: #f0ede9;
   --text-color: #111827;
-  --accent-color: #8d9d6e;
+  --accent-color: #3f9b0b;
   --light: #ffffff;
+
+  --primary-color: #5348c9e6;
+  --secondary-color: #f0ede9;
+  --light: #ffffff;
+  --accent-color: #5fb2bde6; /*4361ee*/ /* Azul moderno - puedes cambiarlo */ /* #1500ffe6 */
+  --text-color: #2b2d42;
+  --text-secondary: #6c757d;
+  --error-color: #f44336;
+
+  /* 
+  2E6F40 
+  32CD32 
+  3f9b0b
+  */
 
   font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
@@ -12,6 +26,7 @@
   font-style: normal;
   font-synthesis: none;
 
+  color: var(--text-color);
   background-color: var(--secondary-color);
 
   text-rendering: optimizeLegibility;
@@ -31,30 +46,39 @@ body {
 }
 
 h1 {
+  font-size: 2.5rem;
   margin: 0;
+  font-weight: 600;
 }
 
 h2 {
+  font-size: 2rem;
   margin: 0;
+  font-weight: 600;
 }
 
 h3 {
+  font-size: 1.5rem;
   margin: 0;
 }
 
 h4 {
+  font-size: 1.25rem;
   margin: 0;
 }
 
 h5 {
+  font-size: 1rem;
   margin: 0;
 }
 
 h6 {
+  font-size: 0.75rem;
   margin: 0;
 }
 
 p {
+  font-size: 1.25rem;
   margin: 0;
 }
 

@@ -14,19 +14,11 @@ header {
 
   h2 {
     font-size: 4rem;
-    font-family: 'Cormorant', serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   }
 
   h1 {
     font-size: 6rem;
-    font-family: 'Cormorant', serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   }
 
@@ -42,6 +34,10 @@ header {
       animation: bounce 2s infinite;
     }
   }
+}
+
+.not-header {
+  margin-bottom: 3rem;
 }
 
 @media (max-width: 768px) {

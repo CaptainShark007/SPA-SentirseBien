@@ -1,6 +1,10 @@
+import { useLocation } from 'react-router';
 import './header.css';
 
 const Header = () => {
+  const location = useLocation();
+
+  if (location.pathname !== '/') return <div className='not-header' />;
   return (
     <header>
       <h2>Bienvenidos a</h2>

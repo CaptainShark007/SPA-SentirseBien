@@ -1,6 +1,6 @@
 .reserva-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  grid-template-columns: repeat(3, minmax(300px, 400px));
   gap: 1.5rem;
   justify-content: center;
 }
@@ -34,4 +34,10 @@
 .info-label {
   font-weight: bold;
   color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+  .reserva-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  }
 }

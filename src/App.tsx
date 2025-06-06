@@ -12,6 +12,7 @@ import { storageKeys } from '@constants/localStorage';
 import Servicios from '@screens/Servicios/Servicios';
 import Tratamientos from '@screens/Tratamientos/Tratamientos';
 import Reservar from '@screens/Reservar/Reservar';
+import Admin from '@screens/Admin/Admin';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,8 @@ const App = () => {
         <Route path='servicios' element={<Servicios />} />
         <Route path='servicios/:categoria' element={<Tratamientos />} />
         <Route path='servicios/:categoria/:servicioId' element={<Reservar />} />
+
+        <Route path='admin' element={<Admin />} />
 
         <Route element={<PublicGuard />}>
           <Route path='mis-reservas/:idUser' element={<Reservas />} />
