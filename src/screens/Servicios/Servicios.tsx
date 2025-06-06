@@ -1,4 +1,5 @@
 import './servicios.css';
+import './components/Categoria/categoria.css';
 import ContainerServices from '@components/ContainerServices/ContainerServices';
 import SpinnerLoading from '@components/SpinnerLoading/SpinnerLoading';
 import imagePath from '@constants/imagePath';
