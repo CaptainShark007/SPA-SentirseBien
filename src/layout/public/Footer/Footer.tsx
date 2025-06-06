@@ -26,11 +26,51 @@ const Footer = () => {
             <div className='footer-column'>
               <h3>Equipo de Desarrollo</h3>
               <ul>
-                <li>Hugo Brocal</li>
-                <li>Diego Gomez</li>
-                <li>Joel Trolson</li>
-                <li>Lautaro Rodriguez</li>
-                <li>Matias Geymonat</li>
+                <li>
+                  <a
+                    href='https://github.com/CaptainShark007/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Hugo Brocal
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://github.com/hackcode15/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Diego Gomez
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://github.com/trolsonjoel1992/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Joel Trolson
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://github.com/LautaroRodriguez54/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Lautaro Rodriguez
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://github.com/geymomati/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Matias Geymonat
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -66,25 +106,25 @@ const Footer = () => {
 
       <div className='footer-bottom'>
         <div className='social-links'>
-          <a href='' target='_blank' rel='noopener noreferrer'>
+          <a
+            href='https://facebook.com/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <FacebookOutlinedIcon />
           </a>
           <a
-            href='https://github.com/CaptainShark007/SPA-SentirseBien'
+            href='https://instagram.com/'
             target='_blank'
             rel='noopener noreferrer'
           >
             <InstagramIcon />
           </a>
-          <a
-            href='https://github.com/CaptainShark007/SPA-SentirseBien'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <a href='https://x.com/' target='_blank' rel='noopener noreferrer'>
             <XIcon />
           </a>
           <a
-            href='https://github.com/CaptainShark007/SPA-SentirseBien'
+            href='https://whatsapp.com/'
             target='_blank'
             rel='noopener noreferrer'
           >

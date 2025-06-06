@@ -39,7 +39,7 @@ nav {
 .logo-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 .nav-link {
