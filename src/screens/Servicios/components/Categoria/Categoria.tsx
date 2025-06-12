@@ -1,5 +1,4 @@
 import { SpaInfoData } from '@features/types/serviceSpa.types';
-import './categoria.css';
 
 interface CategoriaProps {
   categoria: SpaInfoData;

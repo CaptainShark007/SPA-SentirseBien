@@ -1,0 +1,139 @@
+.spa-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3rem;
+}
+
+.spa-content {
+  gap: 1rem;
+  max-width: 50%;
+}
+
+.spa-description {
+  margin: 1rem 0;
+}
+
+.spa-image {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.spa-image.uno {
+  background-image: url('../../assets/images/spa-botanico.jpg');
+}
+
+.spa-image.dos {
+  background-image: url('../../assets/images/testimonio.png');
+}
+
+.divider {
+  border: 1px solid var(--color-primary);
+  margin: 0 6rem;
+}
+
+.testimonial-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 1rem;
+  padding: 3rem;
+}
+
+.testimonial-container .spa-title {
+  grid-column: 1/3;
+  text-align: center;
+  align-self: center;
+}
+
+.spa-fixed-background {
+  margin: 3rem;
+  padding: 3rem;
+  background-image: url('../../assets/images/home-zen-spa.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.spa-background-container {
+  max-width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+}
+
+.spa-background-container .spa-title {
+  grid-column: 1/3;
+}
+
+.contacto {
+  background-image: url('../../assets/images/contacto.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.contacto h4 {
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .spa-container {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .spa-content {
+    max-width: 90%;
+  }
+
+  .divider {
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  .testimonial-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .testimonial-container .spa-title {
+    grid-column: auto;
+  }
+
+  .spa-title {
+    font-size: 2rem;
+  }
+
+  .spa-fixed-background {
+    height: 50vh;
+  }
+
+  .spa-fixed-background {
+    padding: 1.5rem;
+    margin: 2rem;
+  }
+
+  .spa-background-container {
+    max-width: 100%;
+  }
+
+  .spa-background-container .spa-title {
+    text-align: start;
+  }
+}

@@ -1,6 +1,6 @@
 import Button from '@components/Button/Button';
-import './horario.css';
 import { Available } from '@features/types/serviceSpa.types';
+import styles from '@screens/Reservar/components/Horario/Horario.module.css';
 import React from 'react';
 interface Props {
   fechaSeleccionada: string;
@@ -18,12 +18,12 @@ export const HorariosDisponibles = ({
   const horarioDelDia = schedules?.find((s) => s.date === fechaSeleccionada);
 
   return (
-    <div className='horarios-container'>
+    <div className={styles['horarios-container']}>
       <h3>Horarios disponibles</h3>
-      <div className='zona-horaria'>
+      <div className={styles['zona-horaria']}>
         <span>Zona horaria: Hora estándar central (GMT-6)</span>
       </div>
-      <div className='horarios-grid'>
+      <div className={styles['horarios-grid']}>
         {horarioDelDia?.availableSlots?.map((slot) => {
           const formattedHour = slot.startTime.slice(0, 5);
           const isSelected = horaSeleccionada === slot.startTime;

@@ -4,7 +4,7 @@ import { hideSnackbar } from '../../slice/snackBar.slice';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import './SnackBar.css';
+import styles from '@components/SnackBar/SnackBar.module.css';
 
 const Snackbar = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,9 @@ const Snackbar = () => {
   }, [open, duration, dispatch]);
 
   return (
-    <div className={`snackbar ${open ? 'show' : ''} ${type}`}>
+    <div
+      className={`${styles.snackbar} ${open ? styles.show : ''} ${styles[type!]}`}
+    >
       {type === 'success' ? (
         <CheckCircleOutlinedIcon />
       ) : type === 'error' ? (

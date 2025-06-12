@@ -1,0 +1,111 @@
+.calendario-spa {
+  max-width: 400px;
+  background-color: var(--color-light);
+  border-radius: 12px;
+  box-shadow: var(--shadow-box-medium);
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.calendario-header {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendario-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendario-header button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  background-color: var(--color-secondary);
+  color: var(--color-background);
+  border: none;
+  padding: 0.55em 1.2em;
+}
+
+.calendario-header button:disabled {
+  cursor: not-allowed;
+  border-color: var(--color-primary);
+  opacity: 0.4;
+  transform: none;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.calendario-vacio {
+  padding: 10px 0;
+  min-height: 40px;
+  visibility: hidden;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.calendario-dia {
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin: 2px;
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendario-dia:hover {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-box-medium);
+}
+
+.calendario-dia.pasado {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendario-dia.pasado:hover {
+  background-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.calendario-dia.seleccionado {
+  background-color: var(--color-primary-dark);
+  color: var(--color-light);
+  font-weight: bold;
+}

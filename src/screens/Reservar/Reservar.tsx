@@ -1,5 +1,4 @@
 import Calendario from '@screens/Reservar/components/Calendario/Calendario';
-import './reservar.css';
 import { HorariosDisponibles } from '@screens/Reservar/components/Horario/Horario';
 import { formatearFecha, formatearHora } from '@utils/format';
 import Button from '@components/Button/Button';
@@ -9,7 +8,8 @@ import { useApiAvailability } from '@features/hooks/useApiAvailability';
 import { useApiGetService } from '@features/hooks/useApiGetService';
 import { useApiCreateReserve } from '@features/hooks/useApiCreateReserve';
 import SpinnerLoading from '@components/SpinnerLoading/SpinnerLoading';
-import ContainerServices from '@components/ContainerServices/ContainerServices';
+import ContainerServices from '@components/Containers/ContainerServices/ContainerServices';
+import styles from '@screens/Reservar/Reservar.module.css';
 
 const Reservar = () => {
   const { servicioId } = useParams();
@@ -44,7 +44,7 @@ const Reservar = () => {
 
   return (
     <ContainerServices title='Reserva tu cita en nuestro SPA'>
-      <div className='reserva-grid'>
+      <div className={styles['reserva-grid']}>
         <Calendario
           fechaSeleccionada={fechaSeleccionada}
           setFechaSeleccionada={setFechaSeleccionada}
@@ -58,31 +58,31 @@ const Reservar = () => {
           setHoraSeleccionada={setHoraSeleccionada}
         />
 
-        <div className='datos-reserva'>
+        <div className={styles['datos-reserva']}>
           <h3>Detalles de la reserva</h3>
-          <div className='reserva-info'>
-            <div className='info-item'>
-              <span className='info-label'>Servicio:</span>
+          <div className={styles['reserva-info']}>
+            <div className={styles['info-item']}>
+              <span className={styles['info-label']}>Servicio:</span>
               <span>{response?.data?.name}</span>
             </div>
 
-            <div className='info-item'>
-              <span className='info-label'>Fecha:</span>
+            <div className={styles['info-item']}>
+              <span className={styles['info-label']}>Fecha:</span>
               <span>{formatearFecha(fechaSeleccionada)}</span>
             </div>
 
             {horaSeleccionada && (
-              <div className='info-item'>
-                <span className='info-label'>Horario:</span>
+              <div className={styles['info-item']}>
+                <span className={styles['info-label']}>Horario:</span>
                 <span>{formatearHora(horaSeleccionada)} hrs</span>
               </div>
             )}
-            <div className='info-item'>
-              <span className='info-label'>Duración:</span>
+            <div className={styles['info-item']}>
+              <span className={styles['info-label']}>Duración:</span>
               <span>1 h 00 min</span>
             </div>
-            <div className='info-item'>
-              <span className='info-label'>Ubicación:</span>
+            <div className={styles['info-item']}>
+              <span className={styles['info-label']}>Ubicación:</span>
               <span>C. French 414</span>
             </div>
           </div>

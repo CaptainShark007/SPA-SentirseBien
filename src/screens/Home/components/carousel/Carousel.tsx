@@ -1,5 +1,5 @@
+import styles from '@screens/Home/components/carousel/Carousel.module.css';
 import { useEffect, useState } from 'react';
-import './carousel.css';
 
 const testimonials = [
   {
@@ -49,18 +49,21 @@ const Carousel = () => {
   });
 
   return (
-    <div className='testimonial-wrapper'>
-      <button className='carousel-button prev' onClick={prev}>
+    <div className={styles['testimonial-wrapper']}>
+      <button
+        className={`${styles['carousel-button']} ${styles['prev']}`}
+        onClick={prev}
+      >
         &lt;
       </button>
 
       {prevIndex !== null && prevIndex !== index && (
         <div
           key={`out-${testimonials[prevIndex].id}${direction}`}
-          className={`testimonial-card out out-${direction}`}
+          className={`${styles['testimonial-card']} out ${styles[`out-${direction}`]}`}
         >
-          <p className='testimonial-text'>{testimonials[prevIndex].text}</p>
-          <p className='testimonial-author'>
+          <p>{testimonials[prevIndex].text}</p>
+          <p className={styles['testimonial-author']}>
             - {testimonials[prevIndex].author}
           </p>
         </div>
@@ -68,23 +71,28 @@ const Carousel = () => {
 
       <div
         key={`in-${testimonials[index].id}${direction}`}
-        className={`testimonial-card in in-${direction}`}
+        className={`${styles['testimonial-card']} ${styles.in} ${styles[`in-${direction}`]}`}
       >
-        <p className='testimonial-text'>{testimonials[index].text}</p>
-        <p className='testimonial-author'>- {testimonials[index].author}</p>
+        <p>{testimonials[index].text}</p>
+        <p className={styles['testimonial-author']}>
+          - {testimonials[index].author}
+        </p>
       </div>
 
-      <div className='dots'>
+      <div className={styles['dots']}>
         {testimonials.map((_, i) => (
           <span
             key={i}
-            className={`dot ${i === index ? 'active' : ''}`}
+            className={`${styles.dot} ${i === index ? styles.active : ''}`}
             onClick={() => goToIndex(i, i > index ? 'next' : 'prev')}
           />
         ))}
       </div>
 
-      <button className='carousel-button next' onClick={next}>
+      <button
+        className={`${styles['carousel-button']} ${styles['next']}`}
+        onClick={next}
+      >
         &gt;
       </button>
     </div>

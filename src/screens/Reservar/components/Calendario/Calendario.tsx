@@ -1,4 +1,4 @@
-import './calendario.css';
+import styles from '@screens/Reservar/components/Calendario/Calendario.module.css';
 import React, { useState } from 'react';
 
 interface ICalendario {
@@ -88,7 +88,9 @@ const Calendario = ({
     const dias = [];
 
     for (let i = 0; i < inicioMes.getDay(); i++) {
-      dias.push(<span key={`empty-${i}`} className='calendario-vacio'></span>);
+      dias.push(
+        <span key={`empty-${i}`} className={styles['calendario-vacio']}></span>
+      );
     }
 
     for (let d = 1; d <= finMes.getDate(); d++) {
@@ -103,7 +105,7 @@ const Calendario = ({
       dias.push(
         <span
           key={d}
-          className={`calendario-dia ${!estaDentroDeRango || esFinDeSemana ? 'pasado' : ''} ${esSeleccionado ? 'seleccionado' : ''}`}
+          className={`${styles['calendario-dia']} ${!estaDentroDeRango || esFinDeSemana ? styles.pasado : ''} ${esSeleccionado ? styles.seleccionado : ''}`}
           onClick={() => {
             if (estaDentroDeRango) {
               setFechaSeleccionada(fechaStr);
@@ -125,8 +127,8 @@ const Calendario = ({
   });
 
   return (
-    <div className='calendario-spa'>
-      <div className='calendario-header'>
+    <div className={styles['calendario-spa']}>
+      <div className={styles['calendario-header']}>
         <button onClick={retrocederMes} disabled={mesEsMinimo()}>
           ◀
         </button>
@@ -135,12 +137,12 @@ const Calendario = ({
           ▶
         </button>
       </div>
-      <div className='calendario-dias-semana'>
+      <div className={styles['calendario-dias-semana']}>
         {diasSemana.map((dia) => (
           <span key={dia}>{dia}</span>
         ))}
       </div>
-      <div className='calendario-grid'>{obtenerDiasDelMes()}</div>
+      <div className={styles['calendario-grid']}>{obtenerDiasDelMes()}</div>
     </div>
   );
 };

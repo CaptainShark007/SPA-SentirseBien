@@ -1,10 +1,10 @@
 import Button from '@components/Button/Button';
-import './admin.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { useAppDispatch } from '@hooks/useRedux';
 import { openModal } from '@/shared/slice/modal.slice';
+import styles from '@screens/Admin/Admin.module.css';
 const usuarios = [
   {
     id: 1,
@@ -81,7 +81,7 @@ const usuarios = [
 const Admin = () => {
   const dispatch = useAppDispatch();
   return (
-    <div className='admin-usuarios'>
+    <div className={styles['admin-usuarios']}>
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <Button
           variant='contained'
@@ -112,7 +112,18 @@ const Admin = () => {
                 <Button variant='contained' scale disabled>
                   <InfoOutlineIcon />
                 </Button>
-                <Button variant='contained' scale disabled>
+                <Button
+                  variant='contained'
+                  scale
+                  onClick={() =>
+                    dispatch(
+                      openModal({
+                        type: 'CREATE-USER',
+                        props: usuario,
+                      })
+                    )
+                  }
+                >
                   <EditIcon />
                 </Button>
                 <Button

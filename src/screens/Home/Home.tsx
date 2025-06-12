@@ -1,17 +1,17 @@
 import Button from '@components/Button/Button';
-import './Home.css';
 import Carousel from '@screens/Home/components/carousel/Carousel';
+import styles from '@screens/Home/Home.module.css';
 import { useNavigate } from 'react-router';
 
 const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-      <section className='spa-container'>
-        <div className='spa-image uno' />
-        <div className='spa-content'>
-          <h2 className='spa-title'>Un Entorno Pacífico</h2>
-          <p className='spa-description'>
+      <section className={styles['spa-container']}>
+        <div className={`${styles['spa-image']} ${styles.uno}`} />
+        <div className={styles['spa-content']}>
+          <h2 className={styles['spa-title']}>Un Entorno Pacífico</h2>
+          <p className={styles['spa-description']}>
             Sumérgete en un refugio de serenidad, donde el sonido suave del agua
             fluyendo y el aroma delicado de esencias naturales envuelven cada
             espacio. En nuestro spa, el tiempo se detiene y la paz se convierte
@@ -25,32 +25,32 @@ const Home = () => {
         </div>
       </section>
 
-      <div className='divider' />
+      <div className={styles['divider']} />
 
-      <section className='testimonial-container'>
-        <h2 className='spa-title'>Testimonios</h2>
+      <section className={styles['testimonial-container']}>
+        <h2 className={styles['spa-title']}>Testimonios</h2>
 
         <Carousel />
 
-        <div className='spa-image dos' />
+        <div className={`${styles['spa-image']} ${styles.dos}`} />
       </section>
 
-      <div className='divider' />
+      <div className={styles['divider']} />
 
-      <section className='spa-fixed-background'>
-        <div className='spa-background-container'>
-          <h2 className='spa-title'>Horarios de Atención</h2>
-          <h3 className='spa-dias'>Lunes a Viernes</h3>
-          <h3 className='spa-dias'>Sábados</h3>
+      <section className={styles['spa-fixed-background']}>
+        <div className={styles['spa-background-container']}>
+          <h2 className={styles['spa-title']}>Horarios de Atención</h2>
+          <h3>Lunes a Viernes</h3>
+          <h3>Sábados</h3>
           <p>08:00 - 20:00</p>
           <p>08:00 - 12:00</p>
         </div>
       </section>
 
-      <div className='divider' />
+      <div className={styles['divider']} />
 
-      <section className='testimonial-container'>
-        <h2 className='spa-title'>Contactanos</h2>
+      <section className={styles['testimonial-container']}>
+        <h2 className={styles['spa-title']}>Contactanos</h2>
 
         <iframe
           src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.57303807423506!2d-58.979142635310595!3d-27.451063034790945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f50.1!3m3!1m2!1s0x94450cf0c80be0d3%3A0xc9f9278c74810912!2sUTN%20-%20Facultad%20Regional%20Resistencia!5e0!3m2!1ses!2sar!4v1748273628460!5m2!1ses!2sar'
@@ -62,7 +62,7 @@ const Home = () => {
           referrerPolicy='no-referrer-when-downgrade'
         />
 
-        <div className='contacto'>
+        <div className={styles['contacto']}>
           <h3>Datos</h3>
           <h4>Dirección</h4>
           <p>Calle French 414</p>

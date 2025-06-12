@@ -1,6 +1,7 @@
 import Button from '@components/Button/Button';
 import { useApiDeleteUserReserve } from '@features/hooks/useApiDeleteUserReserve';
 import { Reservation } from '@features/types/user.types';
+import styles from '@screens/Tratamientos/components/Servicio/Servicio.module.css';
 import { formatearFecha, formatearHora } from '@utils/format';
 interface ItemProps {
   reserve: Reservation;
@@ -11,15 +12,15 @@ const Item = ({ reserve }: ItemProps) => {
   const isCancelled = reserve.reserveStatusName === 'CANCELLED';
 
   return (
-    <div className='servicio-item'>
-      <div className='servicio-info'>
+    <div className={styles['servicio-item']}>
+      <div className={styles['servicio-info']}>
         <h4>{reserve.serviceName}</h4>
 
-        <span className='detail'>
+        <span>
           {`Fecha: ${formatearFecha(reserve.serviceStartDate)} Hora: ${formatearHora(reserve.serviceStartTime)}`}
         </span>
       </div>
-      <div className='servicio-accion'>
+      <div className={styles['servicio-accion']}>
         {isCancelled ? (
           <span className='detail-status'>
             {isCancelled && 'Reserva Cancelada'}

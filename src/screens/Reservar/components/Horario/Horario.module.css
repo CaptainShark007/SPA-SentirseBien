@@ -1,0 +1,25 @@
+.horarios-container {
+  background-color: var(--color-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-box-medium);
+  overflow: hidden;
+}
+
+.horarios-container h3 {
+  color: var(--color-primary);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.zona-horaria {
+  opacity: 0.8;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
