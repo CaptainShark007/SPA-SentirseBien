@@ -1,0 +1,57 @@
+.input-group {
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1rem 0.75rem 0.5rem;
+  background-color: var(--color-light);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  caret-color: var(--color-primary);
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-75%);
+  color: var(--color-primary);
+  background: var(--color-light);
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 0 0.25rem;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:valid + label {
+  top: 0.4rem;
+  left: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-primary);
+}
+
+.input-group input::placeholder {
+  color: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 9999s ease-in-out 0s;
+  -webkit-text-fill-color: #111827 !important;
+  caret-color: #111827;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+.input-error {
+  color: var(--color-error);
+  font-size: 12px;
+  padding-left: 4px;
+}

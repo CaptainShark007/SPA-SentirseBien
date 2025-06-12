@@ -9,11 +9,12 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "css-types": "tcm src --include '**/*.module.css'"
+    "styles": "tcm src --include '**/*.module.css'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@reduxjs/toolkit": "^2.6.1",
@@ -22,9 +23,11 @@
     "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.57.0",
     "react-redux": "^9.2.0",
     "react-router": "^6.30.0",
-    "react-router-dom": "^6.30.0"
+    "react-router-dom": "^6.30.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

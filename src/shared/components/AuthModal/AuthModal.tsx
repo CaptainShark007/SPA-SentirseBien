@@ -1,50 +1,87 @@
 import Button from '@components/Button/Button';
-import './authModal.css';
 import { closeModal } from '@/shared/slice/modal.slice';
 import { useAppDispatch } from '@hooks/useRedux';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useApiRegister } from '@features/hooks/useApiRegister';
 import { useApiLogin } from '@features/hooks/useApiLogin';
+import ContainerModal from '@components/Containers/ContainerModal/ContainerModal';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoginData, LoginSchema } from '@/shared/validations/loginSchema';
+import styles from '@components/AuthModal/AuthModal.module.css';
+import {
+  RegisterData,
+  RegisterSchema,
+} from '@/shared/validations/registerSchema';
+import ControlledInput from '@components/Controlled/ControlledInput/ControlledInput';
 
 const AuthModal = () => {
-  // states
-  const [formLogin, setFormLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
   const dispatch = useAppDispatch();
 
-  // refs
-  const loginFormRef = useRef<HTMLFormElement>(null);
-  const registerFormRef = useRef<HTMLFormElement>(null);
-
-  // apis
   const { login, isPending: loadingLogin } = useApiLogin();
   const { register, isPending: loadingRegister } = useApiRegister();
 
-  // arrow functions
+  const formLogin = useForm<LoginData>({
+    resolver: yupResolver(LoginSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  const formRegister = useForm<RegisterData>({
+    resolver: yupResolver(RegisterSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      password: '',
+    },
+  });
+
+  const { handleSubmit: submitLogin } = formLogin;
+  const { handleSubmit: submitRegister } = formRegister;
+
+  const onSubmitLogin: SubmitHandler<LoginData> = (data) => {
+    login(data);
+  };
+  const onSubmitRegister: SubmitHandler<RegisterData> = (data) => {
+    register(data);
+  };
+
   const handleToggleForm = (isLogin: boolean) => {
     if (isLogin) {
-      registerFormRef.current?.reset();
+      formRegister.reset();
     } else {
-      loginFormRef.current?.reset();
+      formLogin.reset();
     }
-    setFormLogin(isLogin);
+    setIsLogin(isLogin);
   };
 
   return (
-    <div className='modal-overlay' onClick={() => dispatch(closeModal())}>
-      <div className='modal-container' onClick={(e) => e.stopPropagation()}>
-        <h2>{formLogin ? 'Iniciar Sesión' : 'Registrarse'}</h2>
-        {formLogin ? (
-          <>
-            <form className='modal-form' onSubmit={login} ref={loginFormRef}>
-              <div className='input-group'>
-                <input type='text' id='user' name='user' required />
-                <label htmlFor='user'>Usuario</label>
-              </div>
+    <ContainerModal onCloseModal={() => dispatch(closeModal())}>
+      <div className={styles['login-body']}>
+        <h2>{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</h2>
+        {isLogin ? (
+          <FormProvider {...formLogin}>
+            <form
+              key='login'
+              className={styles['login-form']}
+              onSubmit={submitLogin(onSubmitLogin)}
+            >
+              <ControlledInput
+                name='username'
+                label='Usuario'
+                nextInputName='password'
+              />
 
-              <div className='input-group'>
-                <input type='password' id='password' name='password' required />
-                <label htmlFor='password'>Contraseña</label>
-              </div>
+              <ControlledInput
+                name='password'
+                label='Contraseña'
+                type='password'
+              />
 
               <Button
                 variant='contained'
@@ -58,42 +95,51 @@ const AuthModal = () => {
               <Button variant='outlined' onClick={() => dispatch(closeModal())}>
                 Volver
               </Button>
-              <div className='register-link'>
+
+              <div className={styles['register-link']}>
                 <span>¿No tienes cuenta?</span>
-                <a className='a-auth' onClick={() => handleToggleForm(false)}>
+                <a
+                  className={styles['a-auth']}
+                  onClick={() => handleToggleForm(false)}
+                >
                   Regístrate
                 </a>
               </div>
             </form>
-          </>
+          </FormProvider>
         ) : (
-          <>
+          <FormProvider {...formRegister}>
             <form
-              className='modal-form'
-              onSubmit={register}
-              ref={registerFormRef}
+              key='register'
+              className={styles['login-form']}
+              onSubmit={submitRegister(onSubmitRegister)}
             >
-              <div className='input-group'>
-                <input type='text' id='first-name' name='first-name' required />
-                <label htmlFor='first-name'>Nombre/s</label>
-              </div>
-              <div className='input-group'>
-                <input type='text' id='last-name' name='last-name' required />
-                <label htmlFor='last-name'>Apellido/s</label>
-              </div>
-              <div className='input-group'>
-                <input type='email' id='email' name='email' required />
-                <label htmlFor='email'>Email</label>
-              </div>
-              <div className='input-group'>
-                <input type='text' id='user' name='user' required />
-                <label htmlFor='user'>Usuario</label>
-              </div>
+              <ControlledInput
+                name='firstName'
+                label='Nombre/s'
+                nextInputName='lastName'
+              />
+              <ControlledInput
+                name='lastName'
+                label='Apellido/s'
+                nextInputName='email'
+              />
+              <ControlledInput
+                name='email'
+                label='Email'
+                nextInputName='password'
+              />
+              <ControlledInput
+                name='username'
+                label='Usuario'
+                nextInputName='password'
+              />
 
-              <div className='input-group'>
-                <input type='password' id='password' name='password' required />
-                <label htmlFor='password'>Contraseña</label>
-              </div>
+              <ControlledInput
+                name='password'
+                label='Contraseña'
+                type='password'
+              />
 
               <Button
                 variant='contained'
@@ -107,17 +153,20 @@ const AuthModal = () => {
               <Button variant='outlined' onClick={() => dispatch(closeModal())}>
                 Volver
               </Button>
-              <div className='register-link'>
+              <div className={styles['register-link']}>
                 <span>¿Ya tienes una cuenta?</span>
-                <a className='a-auth' onClick={() => handleToggleForm(true)}>
+                <a
+                  className={styles['a-auth']}
+                  onClick={() => handleToggleForm(true)}
+                >
                   Inicia Sesión
                 </a>
               </div>
             </form>
-          </>
+          </FormProvider>
         )}
       </div>
-    </div>
+    </ContainerModal>
   );
 };
 

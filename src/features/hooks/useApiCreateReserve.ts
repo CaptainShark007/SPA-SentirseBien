@@ -28,6 +28,7 @@ export const useApiCreateReserve = () => {
       userId: idUser,
       serviceId: serviceId,
       selectedTime: `${fechaSeleccionada}T${horaSeleccionada}`,
+      professionalId: 6, //hardcode
     };
 
     mutate(data, {

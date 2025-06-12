@@ -14,4 +14,5 @@ export interface ApiAuthResponse extends ApiReponse {
   token: string;
   username: string;
   idUser: number;
+  rol: 'ADMIN' | 'CUSTOMER' | 'DEVELOPER' | null;
 }

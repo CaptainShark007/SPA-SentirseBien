@@ -1,5 +1,4 @@
-import ContainerServices from '@components/ContainerServices/ContainerServices';
-import './tratamientos.css';
+import ContainerServices from '@components/Containers/ContainerServices/ContainerServices';
 import { useNavigate, useParams } from 'react-router';
 import { useApiListSpa } from '@features/hooks/useApiListSpa';
 import SpinnerLoading from '@components/SpinnerLoading/SpinnerLoading';
@@ -7,6 +6,7 @@ import Button from '@components/Button/Button';
 import Servicio from '@screens/Tratamientos/components/Servicio/Servicio';
 import { SpaInfoData } from '@features/types/serviceSpa.types';
 import { useQueryClient } from '@tanstack/react-query';
+import styles from '@screens/Tratamientos/Tratamientos.module.css';
 
 const Tratamientos = () => {
   const { categoria } = useParams();
@@ -25,8 +25,8 @@ const Tratamientos = () => {
 
   return (
     <ContainerServices title='Nuestros Tratamientos'>
-      <div className='servicios'>
-        <div className='header'>
+      <div className={styles['servicios']}>
+        <div className={styles['header']}>
           <div />
           <h3>{categoria}</h3>
           <Button

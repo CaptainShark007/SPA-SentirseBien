@@ -1,0 +1,12 @@
+.container-services {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+  }
+}

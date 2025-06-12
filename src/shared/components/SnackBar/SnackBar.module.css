@@ -1,0 +1,30 @@
+.snackbar {
+  position: fixed;
+  bottom: 2rem;
+  right: -100%;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem 1.5rem;
+  color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: var(--shadow-box-medium);
+  transition: right 0.8s ease-in-out;
+  z-index: 2;
+}
+
+.snackbar.show {
+  right: 2rem;
+}
+
+.snackbar.success {
+  background-color: var(--color-primary);
+}
+
+.snackbar.error {
+  background-color: var(--color-error);
+}
+
+.snackbar.info {
+  background-color: var(--color-secondary);
+}
