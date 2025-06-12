@@ -69,6 +69,15 @@ const Navbar = () => {
                 </a>
               )}
 
+              {rol === 'PROFESSIONAL' && (
+                <a
+                  className={styles['nav-link']}
+                  onClick={() => handleClick('/professional')}
+                >
+                  Profesional
+                </a>
+              )}
+
               {rol === 'CUSTOMER' && (
                 <a
                   className={styles['nav-link']}

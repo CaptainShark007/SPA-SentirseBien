@@ -3,6 +3,7 @@ import RedirectGuard from '@/routing/RedirectGuard';
 import Layout from '@layout/Layout';
 import Admin from '@screens/Admin/Admin';
 import Home from '@screens/Home/Home';
+import Professional from '@screens/Professional/Professional';
 import Reservar from '@screens/Reservar/Reservar';
 import Reservas from '@screens/Reservas/Reservas';
 import Servicios from '@screens/Servicios/Servicios';
@@ -28,6 +29,7 @@ const Routing = () => {
               <Route path='mis-reservas/:idUser' element={<Reservas />} />
 
               <Route path='admin' element={<Admin />} />
+              <Route path='professional' element={<Professional />} />
             </Route>
           </Route>
         </Route>
