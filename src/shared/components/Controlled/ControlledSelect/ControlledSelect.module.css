@@ -1,0 +1,75 @@
+.input-group {
+  position: relative;
+}
+
+.floating-label {
+  position: absolute;
+  top: 0;
+  left: 0.6rem;
+  transform: translateY(-45%);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  background-color: var(--color-light);
+  padding: 0 0.25rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  padding: 1rem 0.75rem 0.5rem;
+
+  background-color: var(--color-light);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 1;
+  position: relative;
+}
+
+.select option {
+  background-color: white;
+  color: #111827;
+  padding: 0.5rem;
+}
+
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-45%);
+  pointer-events: none;
+  color: var(--color-primary);
+  z-index: 1;
+}
+
+.icon-size {
+  font-size: 30px !important;
+}
+
+.input-error {
+  color: var(--color-error);
+  font-size: 12px;
+  padding-left: 4px;
+  margin-top: 0.25rem;
+}
