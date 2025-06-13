@@ -36,6 +36,7 @@ const AuthModal = () => {
       firstName: '',
       lastName: '',
       email: '',
+      phone: '',
       username: '',
       password: '',
     },
@@ -127,6 +128,11 @@ const AuthModal = () => {
               <ControlledInput
                 name='email'
                 label='Email'
+                nextInputName='phone'
+              />
+              <ControlledInput
+                name='phone'
+                label='Teléfono'
                 nextInputName='password'
               />
               <ControlledInput

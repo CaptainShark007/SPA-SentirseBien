@@ -12,7 +12,10 @@ export const RegisterSchema = yup.object().shape({
     .string()
     .min(8, 'Mínimo 8 caracteres')
     .required('La contraseña es obligatoria'),
-  isProfessional: yup.boolean().notRequired() as yup.BooleanSchema<boolean>,
+  phone: yup
+    .string()
+    .min(10, 'Teléfono invalido')
+    .required('El teléfono es obligatorio'),
 });
 
 export type RegisterData = yup.InferType<typeof RegisterSchema>;
