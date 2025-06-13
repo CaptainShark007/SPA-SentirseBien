@@ -1,3 +1,4 @@
+import { MetodoPagoData } from '@/shared/validations/metodoPagoSchema';
 import AxiosClient from '@app/axios';
 import { ServiceSpaService } from '@features/services/serviceSpa.service';
 import { Reserve } from '@features/types/serviceSpa.types';
@@ -15,3 +16,6 @@ export const apiGetService = async (id: number) =>
 export type ParamsAvailability = { id: number; date: string; days: number };
 export const apiAvailability = async ({ id, date, days }: ParamsAvailability) =>
   serviceSpaService.availability(id, date, days);
+
+export const apiMethodPayment = async (dataSend: MetodoPagoData) =>
+  serviceSpaService.methodPayment(dataSend);

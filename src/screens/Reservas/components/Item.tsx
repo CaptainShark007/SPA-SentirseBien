@@ -3,6 +3,8 @@ import ConfirmModal from '@components/ConfirmModal/ConfirmModal';
 import { useConfirmModal } from '@components/ConfirmModal/useConfirmModal';
 import { useApiDeleteUserReserve } from '@features/hooks/useApiDeleteUserReserve';
 import { Reservation } from '@features/types/user.types';
+import MetodoPago from '@screens/Reservas/components/MetodoPago/MetodoPago';
+import { useMetodoPago } from '@screens/Reservas/components/MetodoPago/useMetodoPago';
 import styles from '@screens/Tratamientos/components/Servicio/Servicio.module.css';
 import { formatearFecha, formatearHora } from '@utils/format';
 interface ItemProps {
@@ -18,6 +20,11 @@ const Item = ({ reserve }: ItemProps) => {
       deleteUserReserve(reserve.reserveId);
     },
   });
+  const {
+    isOpen: isOpenMetodoPago,
+    openModal: openModalMetodoPago,
+    closeModal,
+  } = useMetodoPago();
 
   return (
     <>
@@ -32,10 +39,7 @@ const Item = ({ reserve }: ItemProps) => {
 
         <div className={styles['servicio-accion']}>
           {!isCancelled && (
-            <Button
-              variant='contained'
-              onClick={() => console.log('Ir a medios de pago')}
-            >
+            <Button variant='contained' onClick={openModalMetodoPago}>
               Medios de pago
             </Button>
           )}
@@ -57,6 +61,8 @@ const Item = ({ reserve }: ItemProps) => {
         onConfirm={handleConfirm}
         description={`¿Está seguro de que quiere cancelar la reserva de ${reserve.serviceName}?`}
       />
+
+      <MetodoPago open={isOpenMetodoPago} onClose={closeModal} />
     </>
   );
 };

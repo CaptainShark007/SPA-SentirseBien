@@ -6,6 +6,7 @@ import {
   SpaInfoData,
 } from '@features/types/serviceSpa.types';
 import { ApiDataResponse } from '@/shared/types/api';
+import { MetodoPagoData } from '@/shared/validations/metodoPagoSchema';
 
 export class ServiceSpaService {
   constructor(private readonly http: HttpClient) {}
@@ -33,5 +34,9 @@ export class ServiceSpaService {
       `/api/reserve/new`,
       dataSend
     );
+  }
+
+  methodPayment(dataSend: MetodoPagoData) {
+    return this.http.post<ApiDataResponse<string>>(`/api/invoice`, dataSend);
   }
 }
