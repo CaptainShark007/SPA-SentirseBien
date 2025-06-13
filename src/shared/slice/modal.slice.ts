@@ -1,6 +1,11 @@
+import { Reservation } from '@features/types/user.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ModalType = 'AUTH' | 'CREATE-USER' | 'DELETE-USER';
+export type ModalType =
+  | 'AUTH'
+  | 'CREATE-USER'
+  | 'DELETE-USER'
+  | 'CANCEL-RESERVE';
 
 export interface ModalPropsMap {
   AUTH: undefined;
@@ -12,6 +17,7 @@ export interface ModalPropsMap {
     empleado: string;
     email: string;
   };
+  'CANCEL-RESERVE': Reservation;
 }
 
 type ModalPayload<K extends ModalType = ModalType> = {

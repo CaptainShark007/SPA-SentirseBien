@@ -37,7 +37,7 @@ tbody tr:nth-child(odd) td {
   background-color: var(--color-light);
 }
 
-th:last-child,
+/* th:last-child,
 td:last-child {
   width: 160px;
 }
@@ -45,7 +45,7 @@ td:last-child {
 td:last-child {
   display: flex;
   gap: 0.5rem;
-}
+} */
 
 @media (max-width: 768px) {
   .admin-usuarios {
