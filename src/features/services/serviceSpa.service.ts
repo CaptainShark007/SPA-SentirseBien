@@ -2,6 +2,7 @@ import { HttpClient } from '@/shared/types/httpClient';
 import {
   Available,
   MethodPaymentData,
+  ProfessionalData,
   Reserve,
   ReserveStatus,
   SpaInfoData,
@@ -14,6 +15,12 @@ export class ServiceSpaService {
   listSpa() {
     return this.http.get<ApiDataResponse<SpaInfoData[]>>(
       `/api/service-spa/list`
+    );
+  }
+
+  listProfessional() {
+    return this.http.get<ApiDataResponse<ProfessionalData[]>>(
+      `/api/professional/list`
     );
   }
 

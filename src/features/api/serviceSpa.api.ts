@@ -9,6 +9,9 @@ export const apiCreateReserve = async (dataSend: Reserve) =>
 
 export const apiListSpa = async () => serviceSpaService.listSpa();
 
+export const apiListProfessional = async () =>
+  serviceSpaService.listProfessional();
+
 export const apiGetService = async (id: number) =>
   serviceSpaService.getService(id);
 

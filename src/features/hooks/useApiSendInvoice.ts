@@ -17,7 +17,7 @@ export const useApiSendInvoice = () => {
           showSnackbar({
             type: 'success',
             duration: 3000,
-            message: 'La factura fue enviada exitosamente',
+            message: 'La factura fue enviada al correo registrado',
           })
         );
       },
