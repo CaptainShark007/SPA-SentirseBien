@@ -1,12 +1,12 @@
 import { HttpClient } from '@/shared/types/httpClient';
 import {
   Available,
+  MethodPaymentData,
   Reserve,
   ReserveStatus,
   SpaInfoData,
 } from '@features/types/serviceSpa.types';
 import { ApiDataResponse } from '@/shared/types/api';
-import { MetodoPagoData } from '@/shared/validations/metodoPagoSchema';
 
 export class ServiceSpaService {
   constructor(private readonly http: HttpClient) {}
@@ -36,7 +36,13 @@ export class ServiceSpaService {
     );
   }
 
-  methodPayment(dataSend: MetodoPagoData) {
-    return this.http.post<ApiDataResponse<string>>(`/api/invoice`, dataSend);
+  methodPayment(dataSend: MethodPaymentData) {
+    return this.http.get<ApiDataResponse<string>>(
+      `/api/invoice?reserveId=${dataSend.reserveId}&method=${dataSend.method}`
+    );
+  }
+
+  sendInvoice(id: number) {
+    return this.http.get<ApiDataResponse<string>>(`/api/invoice/${id}`);
   }
 }

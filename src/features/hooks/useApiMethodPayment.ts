@@ -1,18 +1,18 @@
 import { showSnackbar } from '@/shared/slice/snackBar.slice';
-import { MetodoPagoData } from '@/shared/validations/metodoPagoSchema';
 import { apiMethodPayment } from '@features/api/serviceSpa.api';
+import { MethodPaymentData } from '@features/types/serviceSpa.types';
 import { useAppDispatch } from '@hooks/useRedux';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useApiMethodPayment = (onClose: () => void) => {
-  const { mutate, isPending, isSuccess } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: apiMethodPayment,
   });
 
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
-  const methodPayment = (dataSend: MetodoPagoData) => {
+  const methodPayment = (dataSend: MethodPaymentData) => {
     mutate(dataSend, {
       onSuccess: () => {
         queryClient.invalidateQueries({
@@ -39,5 +39,5 @@ export const useApiMethodPayment = (onClose: () => void) => {
     });
   };
 
-  return { methodPayment, isPending, isSuccess };
+  return { methodPayment, isPending };
 };

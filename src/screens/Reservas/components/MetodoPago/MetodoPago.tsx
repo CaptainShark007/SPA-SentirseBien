@@ -6,6 +6,7 @@ import Button from '@components/Button/Button';
 import ContainerModal from '@components/Containers/ContainerModal/ContainerModal';
 import ControlledSelect from '@components/Controlled/ControlledSelect/ControlledSelect';
 import { useApiMethodPayment } from '@features/hooks/useApiMethodPayment';
+import { MethodPaymentData } from '@features/types/serviceSpa.types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from '@screens/Reservas/components/MetodoPago/MetodoPago.module.css';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -13,18 +14,29 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 interface MetodoPagoProps {
   open: boolean;
   onClose: () => void;
+  reserveId: number;
 }
 
-const MetodoPago = ({ open, onClose }: MetodoPagoProps) => {
+const MetodoPago = ({ open, onClose, reserveId }: MetodoPagoProps) => {
   const { methodPayment, isPending } = useApiMethodPayment(onClose);
 
   const form = useForm<MetodoPagoData>({
     resolver: yupResolver(MetodoPagoSchema),
+    defaultValues: {
+      method: '',
+    },
   });
 
   const { handleSubmit } = form;
 
-  const onSubmit: SubmitHandler<MetodoPagoData> = (dataSend) => {
+  const onSubmit: SubmitHandler<MetodoPagoData> = (data) => {
+    let dataSend: MethodPaymentData;
+
+    dataSend = {
+      method: data.method,
+      reserveId: reserveId,
+    };
+
     methodPayment(dataSend);
   };
 

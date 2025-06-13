@@ -2,6 +2,7 @@ import Button from '@components/Button/Button';
 import ConfirmModal from '@components/ConfirmModal/ConfirmModal';
 import { useConfirmModal } from '@components/ConfirmModal/useConfirmModal';
 import { useApiDeleteUserReserve } from '@features/hooks/useApiDeleteUserReserve';
+import { useApiSendInvoice } from '@features/hooks/useApiSendInvoice';
 import { Reservation } from '@features/types/user.types';
 import MetodoPago from '@screens/Reservas/components/MetodoPago/MetodoPago';
 import { useMetodoPago } from '@screens/Reservas/components/MetodoPago/useMetodoPago';
@@ -13,13 +14,17 @@ interface ItemProps {
 
 const Item = ({ reserve }: ItemProps) => {
   const { deleteUserReserve, isPending } = useApiDeleteUserReserve();
+  const { sendInvoice, isPending: isPendingSendInvoice } = useApiSendInvoice();
+
   const isCancelled = reserve.reserveStatusName === 'CANCELLED';
+  const isConfirmed = reserve.reserveStatusName === 'CONFIRMED';
 
   const { isOpen, openModal, handleCancel, handleConfirm } = useConfirmModal({
     onConfirm: () => {
       deleteUserReserve(reserve.reserveId);
     },
   });
+
   const {
     isOpen: isOpenMetodoPago,
     openModal: openModalMetodoPago,
@@ -38,9 +43,20 @@ const Item = ({ reserve }: ItemProps) => {
         </div>
 
         <div className={styles['servicio-accion']}>
-          {!isCancelled && (
+          {!isCancelled && !isConfirmed && (
             <Button variant='contained' onClick={openModalMetodoPago}>
               Medios de pago
+            </Button>
+          )}
+
+          {isConfirmed && (
+            <Button
+              variant='contained'
+              loading={isPendingSendInvoice}
+              disabled={isPendingSendInvoice}
+              onClick={() => sendInvoice(reserve.reserveId)}
+            >
+              Enviar comprobante
             </Button>
           )}
 
@@ -62,7 +78,11 @@ const Item = ({ reserve }: ItemProps) => {
         description={`¿Está seguro de que quiere cancelar la reserva de ${reserve.serviceName}?`}
       />
 
-      <MetodoPago open={isOpenMetodoPago} onClose={closeModal} />
+      <MetodoPago
+        open={isOpenMetodoPago}
+        onClose={closeModal}
+        reserveId={reserve.reserveId}
+      />
     </>
   );
 };
