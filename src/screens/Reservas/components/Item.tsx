@@ -6,7 +6,7 @@ import { Reservation } from '@features/types/user.types';
 import MetodoPago from '@screens/Reservas/components/MetodoPago/MetodoPago';
 import { useMetodoPago } from '@screens/Reservas/components/MetodoPago/useMetodoPago';
 import styles from '@screens/Tratamientos/components/Servicio/Servicio.module.css';
-import { formatearFecha, formatearHora } from '@utils/format';
+import { formatearFecha, formatearHora, formatearPrecio } from '@utils/format';
 interface ItemProps {
   reserve: Reservation;
 }
@@ -34,7 +34,7 @@ const Item = ({ reserve }: ItemProps) => {
           <span>{`Fecha: ${formatearFecha(reserve.serviceStartDate)} Hora: ${formatearHora(reserve.serviceStartTime)}`}</span>
           <span
             className={styles['precio']}
-          >{`Precio: $${reserve.servicePrice}`}</span>
+          >{`Precio: ${formatearPrecio(reserve.servicePrice)}`}</span>
         </div>
 
         <div className={styles['servicio-accion']}>

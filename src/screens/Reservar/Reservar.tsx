@@ -1,6 +1,6 @@
 import Calendario from '@screens/Reservar/components/Calendario/Calendario';
 import { HorariosDisponibles } from '@screens/Reservar/components/Horario/Horario';
-import { formatearFecha, formatearHora } from '@utils/format';
+import { formatearFecha, formatearHora, formatearPrecio } from '@utils/format';
 import Button from '@components/Button/Button';
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -64,6 +64,11 @@ const Reservar = () => {
             <div className={styles['info-item']}>
               <span className={styles['info-label']}>Servicio:</span>
               <span>{response?.data?.name}</span>
+            </div>
+
+            <div className={styles['info-item']}>
+              <span className={styles['info-label']}>Precio:</span>
+              <span>{formatearPrecio(response?.data?.price!)}</span>
             </div>
 
             <div className={styles['info-item']}>
