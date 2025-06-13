@@ -5,16 +5,16 @@ section.container-reservas {
   justify-content: start;
 
   padding: 2rem;
+}
 
-  h2 {
-    font-size: 4rem;
-    font-family: 'Cormorant', serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
-    text-align: center;
-    color: var(--color-primary);
-  }
+.container-reservas .h2 {
+  font-size: 4rem;
+  font-family: 'Cormorant', serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+  color: var(--color-primary);
 }
 
 .reservas {

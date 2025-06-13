@@ -61,3 +61,8 @@ export interface SpaData {
   isActive: boolean;
   isGroupService: boolean;
 }
+
+export interface MethodPaymentData {
+  method: string;
+  reserveId: number;
+}
