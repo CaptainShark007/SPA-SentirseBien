@@ -9,7 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import styles from '@screens/Tratamientos/Tratamientos.module.css';
 
 const Tratamientos = () => {
-  const { categoria } = useParams();
+  const { categoria, professionalId } = useParams();
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -20,7 +20,9 @@ const Tratamientos = () => {
   const handleSelect = (categoria: SpaInfoData) => {
     queryClient.removeQueries({ queryKey: ['availability'] });
     queryClient.removeQueries({ queryKey: ['getService'] });
-    navigate(`/servicios/${categoria.category}/${categoria.id}`);
+    navigate(
+      `/servicios/${categoria.category}/${professionalId}/${categoria.id}`
+    );
   };
 
   return (

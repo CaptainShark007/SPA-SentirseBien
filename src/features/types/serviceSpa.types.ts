@@ -66,3 +66,16 @@ export interface MethodPaymentData {
   method: string;
   reserveId: number;
 }
+
+export interface ProfessionalData {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: any;
+  specialty: string;
+  license: string;
+  photoUrl: any;
+  role: string;
+}
